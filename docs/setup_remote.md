@@ -4,7 +4,7 @@ title: Setup VSCode
 sitemapOrder: 20
 ---
 
-Setup up VS Code for Remote Development
+Set up VS Code for Remote Development
 ==========================
 {: .primer-spec-toc-ignore }
 
