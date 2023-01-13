@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup LLDB (MacOS) | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup LLDB (MacOS)" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_lldb.html" />
+<meta property="og:url" content="http://localhost:4000/setup_lldb.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup LLDB (MacOS)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup LLDB (MacOS)","url":"http://localhost:4000/setup_lldb.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="lldb-tutorial">LLDB Tutorial</h1>
+
+<p><a href="https://lldb.llvm.org/">LLDB</a> is a command line debugger.  It is the default debugger on macOS, and is used by Xcode behind the scenes.  The basic commands are almost identical to <a href="https://lldb.llvm.org/use/map.html">GDB</a>, and you might want to check out the <a href="setup_gdb.html">GDB Tutorial</a> too.</p>
+
+<p>Similar to GDB, LLDB is harder to learn than most visual debuggers.  However, you might want to use LLDB instead of GDB or Xcode for several reasons:</p>
+<ul>
+  <li>On macOS, LLDB is more reliable than GDB</li>
+  <li>Zero setup.  Fast and easy debugging once you’ve learned.</li>
+  <li>Integration with Vim and Emacs (used in EECS 280, optional)</li>
+</ul>
+
+<p>LLDB uses text-based commands, as opposed to the clickable user interface of a visual debugger.  Here’s a handy list of LLDB and GDB <a href="https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html">commands</a>.</p>
+
+<h1 id="quick-start">Quick Start</h1>
+<p>If you’re a first time user, skip this section.</p>
+
+<p>Compile your program with the <code class="language-plaintext highlighter-rouge">-g</code> flag and start LLDB.  EECS 281 students: remove optimization flags like <code class="language-plaintext highlighter-rouge">-O3</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make stats_tests.exe
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+</span><span class="gp">$</span><span class="w"> </span>lldb stats_tests.exe
+</code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b main</code></td>
+      <td>breakpoint on main function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b 29</code></td>
+      <td>breakpoint on line 29 of current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b stats.cpp:16</code></td>
+      <td>breakpoint on line 16 of stats.cpp</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>run or rerun</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>step into</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>step over (AKA next)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p myvar</code></td>
+      <td>print variable <code class="language-plaintext highlighter-rouge">myvar</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>quit</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This tutorial uses command line tools.  If you haven’t installed CLI tools on your machine yet, follow one of these tutorials first.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_macos.html">macOS</a></td>
+      <td><a href="setup_wsl.html">Windows</a></td>
+      <td><a href="setup_wsl.html#install-cli-tools">Linux</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We presume you’ve created a folder for your project, downloaded and unpacked the starter files, and created any new files with appropriate function stubs.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile     main_test.in           p1_library.cpp  stats.h
+launch.json  main_test.out.correct  p1_library.h    stats_public_test.cpp
+main.cpp     main_test_data.tsv     stats.cpp       stats_tests.cpp
+</span></code></pre></div></div>
+
+<p>You should have function stubs in <code class="language-plaintext highlighter-rouge">stats.h</code> and <code class="language-plaintext highlighter-rouge">main.cpp</code>.  If you simply want to download a copy with the stubs already in place, use these commands.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget <span class="nt">--no-clobber</span> https://eecs280staff.github.io/tutorials/stats.cpp <span class="nt">-O</span> stats.cpp
+<span class="gp">$</span><span class="w"> </span>wget <span class="nt">--no-clobber</span> https://eecs280staff.github.io/tutorials/main.cpp <span class="nt">-O</span> main.cpp
+</code></pre></div></div>
+
+<p>If you’re not sure how to do this, you might find one of our IDE tutorials helpful. Walk through the tutorial up through the “Create a project” section.</p>
+
+<p>| <a href="setup_vscode.html">VS Code</a> | <a href="setup_visualstudio.html">Visual Studio</a> | <a href="setup_xcode.html">Xcode</a> | <a href="setup_emacs.html">Emacs</a> |</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+# Install
+This tutorial focuses on LLDB for macOS.  Your versions might be different.  You should already have `g++` and `lldb` installed from the main [macOS tutorial](setup_macos.html).
+```console
+$ g++ --version
+Apple clang version 12.0.0 (clang-1200.0.32.28)
+$ lldb --version
+lldb-1200.0.44.2
+</code></pre></div></div>
+
+<h1 id="compile">Compile</h1>
+<p>LLDB debugs a compiled executable.  Compile the executable you plan to debug.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make clean
+<span class="go">rm -rvf *.exe *~ *.out *.dSYM *.stackdump
+</span><span class="gp">$</span><span class="w"> </span>make stats_tests.exe
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p><strong>PITFALL:</strong> LLDB debugging will be very hard to understand if there are no debugging symbols.  Double check the output of <code class="language-plaintext highlighter-rouge">make</code> and verify that you see <code class="language-plaintext highlighter-rouge">-g</code> being used in the commands.  The EECS 280 defaults include <code class="language-plaintext highlighter-rouge">-g</code>.</p>
+</div>
+
+<p>Optionally run your executable at the command line before debugging.  With EECS 280 project 1 starter files and functions stubs in <code class="language-plaintext highlighter-rouge">stats_tests.cpp</code>, we get an assertion failure. This is expected.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./stats_tests.exe
+<span class="go">test_sum_small_data_set
+Assertion failed: (false), function sum, file stats.cpp, line 16.
+Abort trap: 6
+</span></code></pre></div></div>
+
+<h1 id="run">Run</h1>
+<p>LLDB is run like any other command line program, with its name (<code class="language-plaintext highlighter-rouge">lldb</code>). Add the name of your executable as an argument.  You now see the LLDB prompt.  LLDB’s interface is similar to your command line shell, where you enter commands and press Enter (Return).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>lldb stats_tests.exe
+<span class="go">(lldb) target create "stats_tests.exe"
+Current executable set to '/Users/awdeorio/src/eecs280/p1-stats/stats_tests.exe' (x86_64).
+(lldb)
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">r</code> command runs the program.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) r
+Process 24226 launched: '/Users/awdeorio/src/eecs280/p1-stats-awdeorio/stats_tests.exe' (x86_64)
+test_sum_small_data_set
+Assertion failed: (false), function sum, file stats.cpp, line 16.
+Process 24226 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = hit program assert
+    frame #4: 0x000000010000629e stats_tests.exe`sum(v=&lt;unavailable&gt;) at stats.cpp:16:3
+   13    }
+   14    
+   15    double sum(vector&lt;double&gt; v) {
+-&gt; 16      assert(false);
+   17    }
+   18    
+   19    double mean(vector&lt;double&gt; v) {
+Target 0: (stats_tests.exe) stopped.
+</code></pre></div></div>
+
+<p>This output tells us that the program failed, as well as the filename and line number (<code class="language-plaintext highlighter-rouge">stats.cpp</code>, line 16).  Use the back trace command (<code class="language-plaintext highlighter-rouge">bt</code>) to see the call stack at the time of failure.  You can ignore all the standard library functions, just pay attention to functions that you wrote.  This is a great way to get a quick look at the root cause of a segfault.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) bt
+* thread #1, queue = 'com.apple.main-thread', stop reason = hit program assert
+    frame #0: ...
+    frame #1: ...
+    frame #2: ...
+    frame #3: ...
+  * frame #4: 0x000000010000629e stats_tests.exe`sum(v=&lt;unavailable&gt;) at stats.cpp:16:3
+    frame #5: 0x0000000100003a7c stats_tests.exe`test_sum_small_data_set() at stats_tests.cpp:45:3
+    frame #6: 0x00000001000039b4 stats_tests.exe`main at stats_tests.cpp:30:3
+    frame #7: ...
+    frame #8: ...
+</code></pre></div></div>
+
+<p>Quit with <code class="language-plaintext highlighter-rouge">q</code>.  <strong>Pro-tip:</strong> <code class="language-plaintext highlighter-rouge">Control-D</code> will also quit at any time.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) q
+Quitting LLDB will kill one or more processes. Do you really want to proceed: [Y/n] y
+</code></pre></div></div>
+
+<h2 id="input-redirection">Input redirection</h2>
+<p>Skip this subsection on your first time through the tutorial.  Without input redirection, you can type input into LLDB after running your program.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lldb main.exe
+...
+(lldb) r
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/main.exe
+enter a filename
+main_test_data.tsv
+enter a column name
+B
+...
+</code></pre></div></div>
+
+<p>Run with input redirection.  Make sure to add the name of your input file (<code class="language-plaintext highlighter-rouge">main_test.in</code> in this example).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lldb main.exe
+...
+(lldb) process launch -i main_test.in
+...
+</code></pre></div></div>
+
+<h2 id="arguments-and-options">Arguments and options</h2>
+<p>Skip this subsection for EECS 280 project 1.  You’ll need it for project 2 and beyond.</p>
+
+<p><em>Arguments</em> and <em>options</em> are inputs to a program typed at the command line.  Arguments are often required.  Options (AKA <em>flags</em> or <em>switches</em>) start with a hyphen (<code class="language-plaintext highlighter-rouge">-</code>), and are typically optional.</p>
+
+<p><strong>Arguments example</strong> from project 2:  <code class="language-plaintext highlighter-rouge">resize.exe</code> is the name of the program, and the arguments are <code class="language-plaintext highlighter-rouge">horses.ppm</code>,  <code class="language-plaintext highlighter-rouge">horses_400x250.ppm</code>, <code class="language-plaintext highlighter-rouge">400</code>, and <code class="language-plaintext highlighter-rouge">250</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./resize.exe horses.ppm horses_400x250.ppm 400 250
+<span class="gp">$</span><span class="w"> </span>lldb resize.exe
+<span class="go">(lldb) r horses.ppm horses_400x250.ppm 400 250
+</span></code></pre></div></div>
+
+<p><strong>Options example</strong> from project 5:  <code class="language-plaintext highlighter-rouge">main.exe</code> is the name of the program.  <code class="language-plaintext highlighter-rouge">train_small.csv</code> and  <code class="language-plaintext highlighter-rouge">test_small.csv</code> are arguments.  <code class="language-plaintext highlighter-rouge">--debug</code> is an option.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./main.exe train_small.csv test_small.csv <span class="nt">--debug</span>
+<span class="gp">$</span><span class="w"> </span>lldb main.exe
+<span class="go">(lldb) r train_small.csv test_small.csv --debug
+</span></code></pre></div></div>
+
+<h1 id="debug">Debug</h1>
+<p>Start LLDB with your executable.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>lldb stats_tests.exe
+<span class="go">(lldb) target create "stats_tests.exe"
+Current executable set to '/Users/awdeorio/src/eecs280/p1-stats/build/public/stats_tests.exe' (x86_64).
+</span></code></pre></div></div>
+
+<p>Set a breakpoint on the main function (<code class="language-plaintext highlighter-rouge">b main</code>) and run the program (<code class="language-plaintext highlighter-rouge">r</code>). LLDB pauses execution on the line where we set the breakpoint and waits for another command.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) b main
+Breakpoint 1: where = stats_tests.exe`main + 15 at stats_tests.cpp:30:3, address = 0x00000001000039af
+(lldb) r
+Process 24576 launched: '/Users/awdeorio/src/eecs280/p1-stats-awdeorio/stats_tests.exe' (x86_64)
+Process 24576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x00000001000039af stats_tests.exe`main at stats_tests.cpp:30:3
+   27    
+   28    int main()
+   29    {
+-&gt; 30      test_sum_small_data_set();
+   31      // Call your test functions here
+   32    
+   33      return 0;
+Target 0: (stats_tests.exe) stopped.
+</code></pre></div></div>
+
+<p><strong>Pro-tip</strong>: Other ways to set breakpoints:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b main</code></td>
+      <td>breakpoint on main function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b 29</code></td>
+      <td>breakpoint on line 29 of current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b stats.cpp:16</code></td>
+      <td>breakpoint on line 16 of stats.cpp</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Step over to the next line of code with <code class="language-plaintext highlighter-rouge">n</code>.  Our test fails because we haven’t implemented <code class="language-plaintext highlighter-rouge">sum()</code> yet.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) n
+test_sum_small_data_set
+Assertion failed: (false), function sum, file stats.cpp, line 16.
+Process 24576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = hit program assert
+    frame #4: 0x000000010000629e stats_tests.exe`sum(v=&lt;unavailable&gt;) at stats.cpp:16:3
+   13    }
+   14    
+   15    double sum(vector&lt;double&gt; v) {
+-&gt; 16      assert(false);
+   17    }
+   18    
+   19    double mean(vector&lt;double&gt; v) {
+Target 0: (stats_tests.exe) stopped.
+(lldb) 
+</code></pre></div></div>
+
+<p>Rerun the program.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) r
+There is a running process, kill it and restart?: [Y/n] y
+Process 24576 exited with status = 9 (0x00000009)
+Process 24584 launched: '/Users/awdeorio/src/eecs280/p1-stats-awdeorio/stats_tests.exe' (x86_64)
+Process 24584 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x00000001000039af stats_tests.exe`main at stats_tests.cpp:30:3
+   27    
+   28    int main()
+   29    {
+-&gt; 30      test_sum_small_data_set();
+   31      // Call your test functions here
+   32    
+   33      return 0;
+Target 0: (stats_tests.exe) stopped.
+</code></pre></div></div>
+
+<p>Step into the function with <code class="language-plaintext highlighter-rouge">s</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) s
+Process 24584 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step in
+    frame #0: 0x00000001000039cb stats_tests.exe`test_sum_small_data_set() at stats_tests.cpp:38:8
+   35    
+   36    void test_sum_small_data_set()
+   37    {
+-&gt; 38      cout &lt;&lt; "test_sum_small_data_set" &lt;&lt; endl;
+   39    
+   40      vector&lt;double&gt; data;
+   41      data.push_back(1);
+Target 0: (stats_tests.exe) stopped.
+</code></pre></div></div>
+
+<p>Step over to the next line of code (<code class="language-plaintext highlighter-rouge">n</code>) a couple times until you’re on this line of code.  <strong>Pro-tip:</strong> Hit Return to repeat your previous command.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) n
+...
+(lldb) n
+Process 24608 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step over
+    frame #0: 0x0000000100003a69 stats_tests.exe`test_sum_small_data_set() at stats_tests.cpp:45:3
+   42      data.push_back(2);
+   43      data.push_back(3);
+   44    
+-&gt; 45      assert(sum(data) == 6);
+   46    
+   47      cout &lt;&lt; "PASS!" &lt;&lt; endl;
+   48    }
+Target 0: (stats_tests.exe) stopped.
+</code></pre></div></div>
+
+<p>Print the value of a variable with <code class="language-plaintext highlighter-rouge">p</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) p data
+(std::vector&lt;double, std::allocator&lt;double&gt; &gt;) $1 = size=3 {
+  [0] = 1
+  [1] = 2
+  [2] = 3
+</code></pre></div></div>
+
+<p>Quit LLDB.  <strong>Pro-tip:</strong> <code class="language-plaintext highlighter-rouge">Control-D</code> will quit.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) q
+Quitting LLDB will kill one or more processes. Do you really want to proceed: [Y/n] y
+</code></pre></div></div>
+
+<h1 id="pro-tips">Pro-tips</h1>
+<p>Use the up and down arrow keys to cycle through previous commands similar to your command line.</p>
+
+<p>Use TAB completion to automatically complete the name of a command or a variable.</p>
+
+<p>Use <a href="setup_emacs.html">Emacs</a> keyboard shortcuts to enter and edit your current command.</p>
+
+<h1 id="acknowledgments">Acknowledgments</h1>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

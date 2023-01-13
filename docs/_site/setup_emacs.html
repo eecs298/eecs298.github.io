@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup Emacs | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup Emacs" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_emacs.html" />
+<meta property="og:url" content="http://localhost:4000/setup_emacs.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup Emacs" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup Emacs","url":"http://localhost:4000/setup_emacs.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="emacs">Emacs</h1>
+
+<p><a href="https://www.gnu.org/software/emacs/">Emacs</a> is an extensible, customizable, free, text editor.  It has an IDE mode that works with <code class="language-plaintext highlighter-rouge">gdb</code> and <code class="language-plaintext highlighter-rouge">lldb</code>.  It is awdeorio’s favorite way to code.  When you are good at Emacs, you can edit code <em>very</em> quickly.</p>
+
+<p>This tutorial is intended for Emacs beginners who want to learn a powerful editor and some of its features for working with C++ projects.</p>
+
+<p>Reasons to learn Emacs:</p>
+<ul>
+  <li>Endlessly customizable</li>
+  <li>Blazing fast code editing.  Once you learn the key bindings, they become second nature.</li>
+  <li>IDE-like features with zero project setup</li>
+  <li>Optional text-only mode good for remote servers</li>
+  <li>Emacs keyboard shortcuts work in many places: command line, GDB prompt, LLDB prompt, Xcode (optional), Visual Studio (optional)</li>
+</ul>
+
+<h1 id="quick-start">Quick start</h1>
+<p>Install.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>brew <span class="nb">install</span> <span class="nt">--cask</span> emacs   <span class="c"># macOS</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>emacs  <span class="c"># Windows/WSL, Linux</span>
+</code></pre></div></div>
+
+<p>Learn keyboard shortcuts with this <a href="http://sachachua.com/blog/wp-content/uploads/2013/05/How-to-Learn-Emacs-v2-Large.png">Emacs Cheat Sheet for beginners</a>.</p>
+
+<p>Get a copy of our beginner <code class="language-plaintext highlighter-rouge">init.el</code> file and install third party Emacs packages.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> ~/.emacs.d
+<span class="gp">$</span><span class="w"> </span>wget <span class="nt">--no-clobber</span> https://eecs280staff.github.io/tutorials/init.el <span class="nt">-O</span> ~/.emacs.d/init.el
+<span class="gp">$</span><span class="w"> </span>emacs <span class="nt">--batch</span> <span class="nt">-l</span> ~/.emacs.d/init.el
+</code></pre></div></div>
+
+<p>Start editing files.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs main.cpp &amp;
+</code></pre></div></div>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This tutorial uses command line tools.  If you haven’t installed CLI tools on your machine yet, follow one of these tutorials first.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_macos.html">macOS</a></td>
+      <td><a href="setup_wsl.html">Windows</a></td>
+      <td><a href="setup_wsl.html#install-cli-tools">Linux</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="restarting-this-tutorial">Restarting this tutorial</h1>
+<p>If you tried using this tutorial in the past and want to “start clean”, here’s how to delete all Emacs configuration files.  This will not delete your code.  First, quit Emacs.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">rm</span> <span class="nt">-rf</span> ~/.emacs ~/.emacs.d/
+<span class="gp">$</span><span class="w"> </span>make clean
+<span class="go">rm -rvf main stats_tests stats_public_test *~ *.out *.dSYM *.stackdump
+</span></code></pre></div></div>
+
+<h1 id="install">Install</h1>
+<p>Choose your platform below.</p>
+
+<h2 id="macos">macOS</h2>
+<p>Use the <a href="https://brew.sh">Homebrew package manager</a>.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>brew <span class="nb">install</span> <span class="nt">--cask</span> emacs
+</code></pre></div></div>
+
+<h2 id="windowswsl-or-linux">Windows/WSL or Linux</h2>
+<p>Start a Bash shell (not a Windows PowerShell) and then follow the <a href="#ubuntu-linux">Ubuntu Linux instructions</a>.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>emacs
+</code></pre></div></div>
+
+<p>Caveat: getting GUI Emacs windows to work from inside WSL can be tricky.  Search for “WSL emacs X server” to get started.</p>
+
+<h2 id="caen-linux">CAEN Linux</h2>
+<p>Emacs is already installed on CAEN Linux.  See the <a href="#editing-remotely-with-tramp">Editing remotely with TRAMP</a> pro-tip.</p>
+
+<h2 id="all-platforms">All platforms</h2>
+<p>You should have Emacs version 24.4 or higher.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs <span class="nt">--version</span>
+<span class="go">GNU Emacs 27.1
+</span></code></pre></div></div>
+
+<p>Start Emacs, and you should see something like this screenshot.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs
+</code></pre></div></div>
+
+<p><img src="images/emacs010.png" width="512px" /></p>
+
+<p>Quit.  The Emacs notation for this keyboard shortcut is <code class="language-plaintext highlighter-rouge">C-x C-c</code>.</p>
+<ol>
+  <li>Press and hold <code class="language-plaintext highlighter-rouge">Control</code>.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">x</code> and release it.  Continue holding <code class="language-plaintext highlighter-rouge">Control</code>.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">c</code> and release it.</li>
+  <li>Release <code class="language-plaintext highlighter-rouge">Control</code>.</li>
+</ol>
+
+<h3 id="configure">Configure</h3>
+<p>The out-of-the-box Emacs configuration is terrible.  Some users start with <em>Spacemacs</em> or <em>Doom Emacs</em>, which are just Emacs shipped with a bunch of customizations.  Many of these users later graduate to vanilla Emacs with their own customizations.  We have provided a starting point for Emacs customization.  The Emacs configuration file is <code class="language-plaintext highlighter-rouge">~/emacs.d/init.el</code> (formerly <code class="language-plaintext highlighter-rouge">~/.emacs</code>).</p>
+
+<p>Get a copy of our sample <code class="language-plaintext highlighter-rouge">init.el</code> and install third party Emacs packages.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/.emacs.d
+<span class="gp">$</span><span class="w"> </span>wget <span class="nt">--no-clobber</span> https://eecs280staff.github.io/tutorials/init.el <span class="nt">-O</span> ~/.emacs.d/init.el
+<span class="gp">$</span><span class="w"> </span>emacs <span class="nt">--batch</span> <span class="nt">-l</span> ~/.emacs.d/init.el
+</code></pre></div></div>
+
+<p>View <code class="language-plaintext highlighter-rouge">init.el</code> with Emacs.  You should see something like this screenshot.  Notice that the Welcome message is gone.  Quit with <code class="language-plaintext highlighter-rouge">C-x C-c</code>.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs ~/.emacs.d/init.el
+</code></pre></div></div>
+
+<p><img src="images/emacs015.png" width="512px" /></p>
+
+<h1 id="key-bindings">Key bindings</h1>
+<p>Emacs key bindings may seem byzantine at first, but once you learn them you can edit files <em>very</em> quickly.  When Emacs was created, keyboards looked different and today’s conventions like cut-copy-paste hadn’t been invented yet.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Space-cadet.jpg" width="512px" /></p>
+
+<p>Without keyboard shortcuts, you can run commands by name, for example “save and quit” with <code class="language-plaintext highlighter-rouge">M-x save-buffers-kill-terminal</code>.</p>
+<ol>
+  <li>Press and hold <code class="language-plaintext highlighter-rouge">Meta</code> (AKA <code class="language-plaintext highlighter-rouge">Alt</code> on Windows/Linux, AKA <code class="language-plaintext highlighter-rouge">Option</code> on macOS).</li>
+  <li>Continue pressing <code class="language-plaintext highlighter-rouge">Meta</code> and press <code class="language-plaintext highlighter-rouge">x</code>.</li>
+  <li>Release both keys.</li>
+  <li>You’re now in the mini-buffer, where you can type the command <code class="language-plaintext highlighter-rouge">save-buffer</code>. Tab completion works in the mini-buffer.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">Return</code> (<code class="language-plaintext highlighter-rouge">Enter</code>).</li>
+</ol>
+
+<p>In Emacs documentation, <code class="language-plaintext highlighter-rouge">M</code> means <code class="language-plaintext highlighter-rouge">Meta</code> (AKA <code class="language-plaintext highlighter-rouge">Alt</code> on Windows/Linux, AKA <code class="language-plaintext highlighter-rouge">Option</code> on macOS) and <code class="language-plaintext highlighter-rouge">C</code> means <code class="language-plaintext highlighter-rouge">Control</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">C-x C-s</code>: Save</p>
+<ol>
+  <li>Press and hold <code class="language-plaintext highlighter-rouge">Control</code>.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">x</code> and release it.  Continue holding <code class="language-plaintext highlighter-rouge">Control</code>.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">s</code> and release it.</li>
+  <li>Release <code class="language-plaintext highlighter-rouge">Control</code>.</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">C-x C-c</code>: Quit</p>
+
+<p>Learn a few more keyboard shortcuts with this <a href="http://sachachua.com/blog/wp-content/uploads/2013/05/How-to-Learn-Emacs-v2-Large.png">Emacs Cheat Sheet for beginners</a> and keep around an <a href="https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf">Emacs Reference Card</a>.</p>
+
+<p><strong>Pro-tip:</strong> Keep your hands on the keyboard’s home row.  Don’t use the mouse or the arrow keys.</p>
+
+<p><strong>Pro-tip:</strong> Remove the menu bars, tool bars and scroll bars by adding this to your <code class="language-plaintext highlighter-rouge">~/emacs.d/init.el</code>.  You’ll get a nice clean look.  Move to end of buffer with <code class="language-plaintext highlighter-rouge">M-&gt;</code>, then paste with <code class="language-plaintext highlighter-rouge">C-y</code>.  Save and quit (<code class="language-plaintext highlighter-rouge">C-x C-s C-x C-c</code>).  Restart Emacs to see the changes.</p>
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Remove scrollbars, menu bars, and toolbars</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">fboundp</span> <span class="ss">'menu-bar-mode</span><span class="p">)</span> <span class="p">(</span><span class="nv">menu-bar-mode</span> <span class="mi">-1</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">fboundp</span> <span class="ss">'tool-bar-mode</span><span class="p">)</span> <span class="p">(</span><span class="nv">tool-bar-mode</span> <span class="mi">-1</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">fboundp</span> <span class="ss">'scroll-bar-mode</span><span class="p">)</span> <span class="p">(</span><span class="nv">scroll-bar-mode</span> <span class="mi">-1</span><span class="p">))</span>
+
+<span class="c1">;; Dialog settings.  No more typing the whole yes or no. Just y or n</span>
+<span class="c1">;; will do. Disable GUI dialogs and use emacs text interface.</span>
+<span class="p">(</span><span class="nv">fset</span> <span class="ss">'yes-or-no-p</span> <span class="ss">'y-or-n-p</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">use-dialog-box</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="images/emacs020.png" width="512px" /></p>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p><strong>Warning:</strong> You might be tempted to remap Emacs keyboard shortcuts to be more familiar, <code class="language-plaintext highlighter-rouge">M-c</code> for copy, etc.  Don’t do this!  There are thousands of keybindings, and changing them can cause a chain reaction.  For example, <code class="language-plaintext highlighter-rouge">C-c</code> is already used a prefix for many other commands.</p>
+</div>
+
+<h2 id="caps-lock-as-control">Caps lock as control</h2>
+<p>You’ll use the control key a lot in Emacs.  Some users find it more ergonomic to map the Caps Lock key to Control.  Here’s the setting in MacOS.</p>
+
+<p><img src="images/emacs022.png" width="512px" /></p>
+
+<h2 id="macos-1">macOS</h2>
+<p>On Apple laptops, it’s more ergonomic to map Command to Meta and Option to Super.  Add this to your <code class="language-plaintext highlighter-rouge">init.el</code>.</p>
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; macOS modifier keys</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">mac-command-modifier</span> <span class="ss">'meta</span><span class="p">)</span> <span class="c1">; Command == Meta</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">mac-option-modifier</span> <span class="ss">'super</span><span class="p">)</span> <span class="c1">; Option == Super</span>
+</code></pre></div></div>
+
+<h1 id="create-a-project">Create a project</h1>
+<p>Emacs doesn’t require any special setup for a project.</p>
+
+<p>Create a new folder for your project. Your folder location might be different.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>p1-stats
+</code></pre></div></div>
+
+<p>Change into your new project directory. Use the terminal to download, unpack, and move the starter files into your project. Your URL or folder might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>p1-stats
+<span class="gp">$</span><span class="w"> </span>wget https://eecs280staff.github.io/p1-stats/starter-files.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">tar</span> <span class="nt">-xvzf</span> starter-files.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">mv </span>starter-files/<span class="k">*</span> <span class="nb">.</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">rm</span> <span class="nt">-rf</span> starter-files starter-files.tar.gz
+</code></pre></div></div>
+
+<p>You should see your new files in your project directory.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>tree
+<span class="c">.
+</span><span class="go">├── Makefile
+├── main_test.in
+├── main_test.out.correct
+├── main_test_data.tsv
+├── p1_library.cpp
+├── p1_library.h
+├── stats.h
+├── stats_public_test.cpp
+└── stats_tests.cpp.starter
+</span></code></pre></div></div>
+
+<h2 id="add-new-files">Add new files</h2>
+<p>EECS 280 project 1 requires us to create two new files: <code class="language-plaintext highlighter-rouge">stats.cpp</code> and <code class="language-plaintext highlighter-rouge">main.cpp</code>.</p>
+
+<p>Add a new file in the same way you edit an existing file.  The ampersand (<code class="language-plaintext highlighter-rouge">&amp;</code>) at the end of a command means “run this command in the background”.  That way, you can continue using the command prompt.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs stats.cpp &amp;
+</code></pre></div></div>
+
+<h3 id="project-1-statscpp">Project 1 <code class="language-plaintext highlighter-rouge">stats.cpp</code></h3>
+<p>Edit <code class="language-plaintext highlighter-rouge">stats.cpp</code> and add placeholder function stubs.  Each of these stubs corresponds to a function prototype in <code class="language-plaintext highlighter-rouge">stats.h</code>.  Don’t forget to save.  The keyboard shortcut for paste is <code class="language-plaintext highlighter-rouge">C-y</code>, and save is <code class="language-plaintext highlighter-rouge">C-x C-s</code>.</p>
+<div data-title="stats.cpp" class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// stats.cpp</span>
+<span class="c1">// Project UID 5366c7e2b77742d5b2142097e51561a5</span>
+<span class="cp">#include "stats.h"
+#include &lt;cassert&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">summarize</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">count</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">sum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">mean</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">median</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">mode</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">min</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">max</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">stdev</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="nf">percentile</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">,</span> <span class="kt">double</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="project-1-maincpp">Project 1 <code class="language-plaintext highlighter-rouge">main.cpp</code></h3>
+<p>Start your <code class="language-plaintext highlighter-rouge">main.cpp</code> like this.</p>
+
+<p>To open a new file while Emacs is already open, use <code class="language-plaintext highlighter-rouge">C-x C-f</code>, and save with <code class="language-plaintext highlighter-rouge">C-x C-s</code>.</p>
+
+<p>To switch between files, use <code class="language-plaintext highlighter-rouge">C-x C-b</code>.  You can select a file with the up and down arrows, or better yet, use <code class="language-plaintext highlighter-rouge">C-n</code> for next or <code class="language-plaintext highlighter-rouge">C-p</code> for previous.</p>
+
+<div data-title="main.cpp" class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// main.cpp</span>
+<span class="c1">// Project UID 5366c7e2b77742d5b2142097e51561a5</span>
+<span class="cp">#include "stats.h"
+#include "p1_library.h"
+#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"hello from main!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="autocomplete">Autocomplete</h1>
+<p>Use built-in Emacs autocomplete with <code class="language-plaintext highlighter-rouge">M-/</code>.  Cycle through the completion options by holding <code class="language-plaintext highlighter-rouge">M</code> and continuing to hit <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<p>Use <a href="http://company-mode.github.io/">Company Mode</a> to provide more complex C++ code completion by simply typing the first 3 characters of a symbol and waiting for a second.  Hit <code class="language-plaintext highlighter-rouge">TAB</code> to cycle the completion options.  <code class="language-plaintext highlighter-rouge">M-n</code> and <code class="language-plaintext highlighter-rouge">M-p</code> for next or previous completion.  You’ll see the <code class="language-plaintext highlighter-rouge">company-mode</code> configuration in <code class="language-plaintext highlighter-rouge">init.el</code>.</p>
+
+<p><img src="images/emacs025.png" width="512px" /></p>
+
+<h1 id="compile">Compile</h1>
+<p>Compiling inside Emacs is optional.</p>
+
+<h2 id="compile-outside-emacs">Compile outside Emacs</h2>
+<p>Compile using the command line.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make stats_tests.exe
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p><strong>PITFALL:</strong> Debugging will fail if there are no debugging symbols.  Double check the output of <code class="language-plaintext highlighter-rouge">make</code> and verify that you see <code class="language-plaintext highlighter-rouge">-g</code> being used in the commands.  The EECS 280 defaults include <code class="language-plaintext highlighter-rouge">-g</code>.</p>
+</div>
+
+<h2 id="compile-inside-emacs">Compile inside Emacs</h2>
+<p>Optionally, Emacs can run <code class="language-plaintext highlighter-rouge">make stats_tests.exe</code> for you.  <code class="language-plaintext highlighter-rouge">C-c m</code> (or <code class="language-plaintext highlighter-rouge">M-x compile</code>) builds (this keyboard shortcut is set in <code class="language-plaintext highlighter-rouge">init.el</code>).  Edit the target in the mini-buffer (<code class="language-plaintext highlighter-rouge">stats_tests.exe</code>) and hit Return.</p>
+
+<p>Emacs will show the compilation output in a separate window.</p>
+
+<p><img src="images/emacs040.png" width="512px" /></p>
+
+<h3 class="primer-spec-toc-ignore" id="tips">Tips</h3>
+
+<p><code class="language-plaintext highlighter-rouge">C-c c</code> (<code class="language-plaintext highlighter-rouge">M-x recompile</code>) recompile without prompting</p>
+
+<p><code class="language-plaintext highlighter-rouge">C-x 1</code> delete all other windows</p>
+
+<p><code class="language-plaintext highlighter-rouge">C-x 0</code> delete this window</p>
+
+<h3 class="primer-spec-toc-ignore" id="compile-errors">Compile errors</h3>
+
+<p><code class="language-plaintext highlighter-rouge">M-g n</code> (<code class="language-plaintext highlighter-rouge">M-x next-error</code>) navigates to the next error in the source code.</p>
+
+<p><code class="language-plaintext highlighter-rouge">M-g p</code> (<code class="language-plaintext highlighter-rouge">M-x previous-error</code>) navigates to the previous error in the source code.</p>
+
+<p><img src="images/emacs050.png" width="512px" /></p>
+
+<h1 id="run">Run</h1>
+<p>Some Emacs users run programs from the terminal.  Open an Emacs window for editing, and a terminal window for compiling and running the program.  The tests fail because of the <code class="language-plaintext highlighter-rouge">assert()</code> calls in our function stubs.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./stats_tests.exe
+<span class="go">test_sum_small_data_set
+Assertion failed: (false), function sum, file stats.cpp, line 16.
+Abort trap: 6
+</span></code></pre></div></div>
+
+<p>Other Emacs users prefer to run a shell inside Emacs.  Give it a try if you like with <code class="language-plaintext highlighter-rouge">M-x shell</code>.</p>
+
+<h1 id="debug">Debug</h1>
+<p>Emacs provides a user interface for GDB or LLDB.  First, check out the <a href="setup_gdb.html">GDB Tutorial</a> (Linux and Windows/WSL) or <a href="setup_lldb.html">LLDB Tutorial</a> (macOS).</p>
+
+<p>Compile the executable you wish to debug.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make stats_tests.exe 
+<span class="go">g++-10 --std=c++11 -Wall -Werror -pedantic -g stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+</span></code></pre></div></div>
+
+<p>Start Emacs.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs stats_tests.cpp &amp;
+</code></pre></div></div>
+
+<p>Start debug mode.  Emacs runs GDB or LLDB behind the scenes.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>GDB (Linux/WSL)</th>
+      <th>LLDB (macOS)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">M-x gud-gdb</code></td>
+      <td><code class="language-plaintext highlighter-rouge">M-x  realgud--lldb</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Pro-tip:</strong> try <code class="language-plaintext highlighter-rouge">M-x gdb M-x gdb-many-windows</code> on Linux/WSL.</p>
+
+<p><img src="images/emacs060.png" width="512px" /></p>
+
+<p>Set a breakpoint and run.  GDB and LLDB use very similar commands.  The Emacs window should split.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lldb) b main
+(lldb) r
+</code></pre></div></div>
+
+<p><img src="images/emacs070.png" width="512px" /></p>
+
+<p>Step into a function with <code class="language-plaintext highlighter-rouge">s</code>.</p>
+
+<p><img src="images/emacs080.png" width="512px" /></p>
+
+<p>Move to the next line of code with <code class="language-plaintext highlighter-rouge">n</code>.  Do this a few times until you reach this line of code.</p>
+
+<p><img src="images/emacs090.png" width="512px" /></p>
+
+<p>Print a variable with <code class="language-plaintext highlighter-rouge">p</code>.</p>
+
+<p><img src="images/emacs100.png" width="512px" /></p>
+
+<p>Quit the debugger with <code class="language-plaintext highlighter-rouge">q</code>.  Then, close the current window pane (the debugger) with <code class="language-plaintext highlighter-rouge">C-x 0</code>.</p>
+
+<h1 id="pro-tips">Pro-tips</h1>
+<p>Tips and tricks for becoming an Emacs wizard.</p>
+
+<h3 id="emacs-launch-shortcut">Emacs launch shortcut</h3>
+<p>Add this to your <code class="language-plaintext highlighter-rouge">.bash_profile</code> (<code class="language-plaintext highlighter-rouge">.bashrc</code> on some machines) to start Emacs in the background with <code class="language-plaintext highlighter-rouge">e</code>.  Close your terminal and open it again.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e <span class="o">()</span>
+<span class="o">{</span>
+    emacs <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> &amp;
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then you can simply type:</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>e stats.cpp
+</code></pre></div></div>
+
+<h3 id="editing-remotely-with-tramp">Editing remotely with TRAMP</h3>
+<p>Emacs <a href="https://www.emacswiki.org/emacs/TrampMode">TRAMP</a> mode lets you edit a file on a remote server using a local GUI window.</p>
+
+<p>First, make sure you have a copy of your code on CAEN Linux (<a href="setup_caen.html">CAEN Linux Tutorial</a>).  In particular, make sure you set up SSH multiplexing to avoid repeated 2FA (<a href="setup_caen.html#avoiding-repeated-2fa">Avoiding repeated 2FA Tutorial</a>).</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>rsync <span class="nt">-rtv</span> <span class="nt">--exclude</span> <span class="s1">'.git*'</span> ../p1-stats/ awdeorio@login.engin.umich.edu:p1-stats-copy/
+</code></pre></div></div>
+
+<p>Next, configure Emacs TRAMP mode to use SSH multiplexing.  Add this to your <code class="language-plaintext highlighter-rouge">~/.emacs.d/init.el</code>.</p>
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Remote file editing with TRAMP.  Configure TRAMP to use the same SSH</span>
+<span class="c1">;; multiplexing that I configure in ~/.ssh/config.  By default, TRAMP ignore my</span>
+<span class="c1">;; SSH config's multiplexing configuration, so configure the same settings here.</span>
+<span class="c1">;; https://www.emacswiki.org/emacs/TrampMode</span>
+<span class="c1">;; https://www.gnu.org/software/emacs/manual/html_node/tramp/Frequently-Asked-Questions.html</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">tramp</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">tramp-default-method</span> <span class="s">"ssh"</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">tramp-ssh-controlmaster-options</span>
+        <span class="p">(</span><span class="nv">concat</span>
+         <span class="s">"-o ControlPath=~/.ssh/master-%%r@%%h:%%p "</span>
+         <span class="s">"-o ControlMaster=auto -o ControlPersist=yes"</span><span class="p">))</span>
+  <span class="ss">:defer</span> <span class="mi">1</span>  <span class="c1">; lazy loading</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Open an Emacs GUI window on your local machine.  It doesn’t matter what directory you’re in.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs &amp;
+</code></pre></div></div>
+
+<p>SSH into your remote server, CAEN Linux in this example.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh login.engin.umich.edu
+<span class="c">...
+</span><span class="go">awdeorio@caen-vnc-vm05 ~
+</span></code></pre></div></div>
+
+<p>Open the file <code class="language-plaintext highlighter-rouge">/ssh:login.engin.umich.edu:p1-stats-copy/main.cpp</code>.  Recall <code class="language-plaintext highlighter-rouge">C-x C-f</code> is <code class="language-plaintext highlighter-rouge">find-file</code>.  Tab completion works in the minibuffer.</p>
+
+<p><img src="images/emacs105.png" width="512px" /></p>
+
+<p>Edit the file and save.</p>
+
+<p><img src="images/emacs106.png" width="512px" /></p>
+
+<p>On the remote server, change directory into your project.  Compile and run.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/awdeorio/p1-stats-copy
+</span><span class="gp">$</span><span class="w"> </span>make main.exe
+<span class="go">g++ --std=c++11 -Wall -Werror -pedantic -g main.cpp stats.cpp p1_library.cpp -o main.exe
+</span><span class="gp">$</span><span class="w"> </span>./main.exe
+<span class="go">Hello World!
+Added this line from TRAMP mode
+</span></code></pre></div></div>
+
+<p><strong>Pro-tip:</strong> Debug on the remote machine with <code class="language-plaintext highlighter-rouge">gud-gdb</code> (<a href="setup_gdb.html">Tutorial</a>).</p>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p><strong>Warning:</strong> Your changes on the remote server will be clobbered when you run <code class="language-plaintext highlighter-rouge">rsync</code> again.</p>
+</div>
+
+<h3 id="pair-programming-with-tmux">Pair programming with tmux</h3>
+<p>Pair program on a remote machine with two people inside the same Emacs instance.  We’ll use tmux, which is a terminal multiplexer.</p>
+
+<p>Alice connects to a remote server containing her code.  She starts a tmux session named <code class="language-plaintext highlighter-rouge">shared</code>.  Then, she starts Emacs inside that tmux session.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh login.engin.umich.edu
+<span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">caen-vnc-vm05.engin.umich.edu
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>p1-stats
+<span class="gp">$</span><span class="w"> </span>tmux new <span class="nt">-s</span> shared
+<span class="gp">$</span><span class="w"> </span>emacs <span class="nt">-nw</span> main.cpp
+</code></pre></div></div>
+
+<p>Bob connects to the same remote server that Alice did.  He connects to Alice’s tmux session named <code class="language-plaintext highlighter-rouge">shared</code>.  She’s already running Emacs, so he sees her Emacs session.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh caen-vnc-vm05.engin.umich.edu
+<span class="gp">$</span><span class="w"> </span>tmux attach <span class="nt">-t</span> shared
+</code></pre></div></div>
+
+<p><strong>Pro-tip:</strong> Debug inside the tmux session so everyone on the team can see what’s going on.  You can debug with GDB at the command line (<a href="setup_gdb.html">Tutorial</a>) or inside Emacs.</p>
+
+<h3 id="text-only-emacs">Text-only Emacs</h3>
+<p>If you’re on a remote server without a GUI, you can use Emacs in text-only mode.  The <code class="language-plaintext highlighter-rouge">-nw</code> option stands for “no window”.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>emacs <span class="nt">-nw</span>
+</code></pre></div></div>
+
+<p><img src="images/emacs110.png" width="512px" /></p>
+
+<h4 id="fast-text-only-emacs-install">Fast text-only Emacs install</h4>
+<p>For a light weight text-only Emacs install on a Linux server, use the <code class="language-plaintext highlighter-rouge">emacs-nox</code> package.  This is great for small tasks on remote servers.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>emacs-nox
+</code></pre></div></div>
+
+<h4 id="nano-as-a-fallback">Nano as a fallback</h4>
+<p>Many servers have two text editors installed by default: <code class="language-plaintext highlighter-rouge">vi</code> and <code class="language-plaintext highlighter-rouge">nano</code>.  Because Nano navigation keyboard shortcuts are similar to Emacs, it’s a nice alternative for environments where you need to edit some configuration files, but don’t want to install anything.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>nano main.cpp
+</code></pre></div></div>
+
+<h4 id="dark-mode">Dark mode</h4>
+<p>Of course Emacs has a dark mode. Add the following to your <code class="language-plaintext highlighter-rouge">init.el</code>.</p>
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">use-package</span> <span class="nv">spacemacs-common</span>
+    <span class="ss">:ensure</span> <span class="nv">spacemacs-theme</span>
+    <span class="ss">:config</span> <span class="p">(</span><span class="nv">load-theme</span> <span class="ss">'spacemacs-dark</span> <span class="no">t</span><span class="p">)</span>
+    <span class="p">)</span>
+
+</code></pre></div></div>
+
+<h1 id="acknowledgments">Acknowledgments</h1>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

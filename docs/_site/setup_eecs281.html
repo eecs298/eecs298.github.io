@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>EECS 281 Project Setup | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="EECS 281 Project Setup" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_eecs281.html" />
+<meta property="og:url" content="http://localhost:4000/setup_eecs281.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="EECS 281 Project Setup" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"EECS 281 Project Setup","url":"http://localhost:4000/setup_eecs281.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 id="eecs-281-project-setup">EECS 281 Project Setup</h1>
+
+<p>This tutorial walks through EECS 281 project setup using EECS 280 tutorials.</p>
+
+<h2 id="visual-debugger">Visual debugger</h2>
+<p>Set up your project in your visual debugger.  We’ll use the project name <code class="language-plaintext highlighter-rouge">p1-stats</code> in this example, but your project name may be different.  If your project has starter files, you’ll need the link from the project spec.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://eecs280staff.github.io/tutorials/setup_vscode.html">VS Code Tutorial</a></td>
+      <td><a href="https://eecs280staff.github.io/tutorials/setup_visualstudio.html">Visual Studio Tutorial</a></td>
+      <td><a href="https://eecs280staff.github.io/tutorials/setup_xcode.html">Xcode Tutorial</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="primer-spec-callout warning">
+  <p>VS Code works great for EECS 281 projects.  Just ask one of the IAs or GSIs who use VS Code if you need help.</p>
+</div>
+
+<p>After you’re done, you should have a folder with a main file.  Your files may be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>tree p1-stats/
+<span class="go">p1-stats/
+├── main.cpp
+</span><span class="c">    ...
+</span></code></pre></div></div>
+
+<h2 id="makefile">Makefile</h2>
+<p>Next, we’ll add the <a href="https://github.com/eecs281staff/Makefile">EECS 281 Makefile</a>.</p>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> Make sure you’re in the directory containing your source code.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">main.cpp
+</span></code></pre></div>  </div>
+</div>
+
+<p>Download the EECS 281 Makefile.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://raw.githubusercontent.com/eecs281staff/Makefile/main/Makefile
+<span class="gp">$</span><span class="w"> </span>make <span class="nb">help</span>
+<span class="go">EECS281 Advanced Makefile Help
+</span><span class="c">...
+</span></code></pre></div></div>
+
+<p>Edit these lines in the Makefile.  Your values might be different, check the project spec for required file names.</p>
+<div data-title="Makefile" class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">UNIQNAME</span> <span class="o">=</span> not_awdeorio
+<span class="c"># ...
+</span><span class="nv">IDENTIFIER</span>  <span class="o">=</span> copy_me_from_project_spec
+<span class="c"># ...
+</span><span class="nv">PROJECTFILE</span> <span class="o">=</span> main.cpp
+<span class="c"># ...
+</span><span class="nv">EXECUTABLE</span> <span class="o">=</span> main
+</code></pre></div></div>
+
+<p><strong>Shortcut:</strong> You can skip updating <code class="language-plaintext highlighter-rouge">PROJECTFILE</code> if your <code class="language-plaintext highlighter-rouge">main()</code> function is in one of these filenames: <code class="language-plaintext highlighter-rouge">main.cpp</code>, <code class="language-plaintext highlighter-rouge">project0.cpp</code>, <code class="language-plaintext highlighter-rouge">project1.cpp</code>, <code class="language-plaintext highlighter-rouge">project2.cpp</code>, <code class="language-plaintext highlighter-rouge">project3.cpp</code>, <code class="language-plaintext highlighter-rouge">project4.cpp</code>, or <code class="language-plaintext highlighter-rouge">EXECUTABLE.cpp</code>.</p>
+
+<p>If your project has additional dependencies, update the dependencies section at the bottom of the <code class="language-plaintext highlighter-rouge">Makefile</code>.</p>
+
+<p>You should be able to compile and run your main file.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span>./main
+<span class="go">hello world!
+</span></code></pre></div></div>
+
+<h2 id="arguments-and-options">Arguments and options</h2>
+<p>Edit your main program (e.g., <code class="language-plaintext highlighter-rouge">main.cpp</code>) to parse command line options and print them.  Copy this sample code.</p>
+
+<div data-title="main.cpp" class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;getopt.h&gt; // TODO: Visual Studio users change to "xgetopt.h"
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="c1">// TODO: Create a variable to store each option</span>
+  <span class="kt">int</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">string</span> <span class="n">output</span><span class="p">;</span>
+
+  <span class="c1">// TODO: Update these options</span>
+  <span class="n">option</span> <span class="n">long_options</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="s">"verbose"</span><span class="p">,</span> <span class="n">no_argument</span><span class="p">,</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="sc">'v'</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"output"</span><span class="p">,</span> <span class="n">required_argument</span><span class="p">,</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="sc">'o'</span><span class="p">},</span>
+    <span class="p">{</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">nullptr</span><span class="p">,</span> <span class="sc">'\0'</span> <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="c1">// Parse options (starts with '-')</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// getopt_long stores the option index here</span>
+    <span class="kt">int</span> <span class="n">option_index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// TODO: Modify "o:v" to include each of the chars from long_options above.</span>
+    <span class="c1">// An option with a required argument is followed by ":".</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">getopt_long</span> <span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s">"o:v"</span><span class="p">,</span> <span class="n">long_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">option_index</span><span class="p">);</span>
+
+    <span class="c1">// End of options</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// TODO: Add a case for each option</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="sc">'o'</span><span class="p">:</span>
+      <span class="n">output</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="sc">'v'</span><span class="p">:</span>
+      <span class="n">verbose</span><span class="o">++</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default:</span>
+      <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">"Error: TODO: Update this help string"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// TODO: Use the options</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"verbose = "</span> <span class="o">&lt;&lt;</span> <span class="n">verbose</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"output = "</span> <span class="o">&lt;&lt;</span> <span class="n">output</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Compile and run.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make main
+<span class="gp">$</span><span class="w"> </span>./main <span class="nt">--verbose</span> <span class="nt">--output</span> output.txt
+<span class="go">verbose = 1
+output = output.txt
+</span><span class="gp">$</span><span class="w"> </span>./main <span class="nt">-v</span> <span class="nt">-o</span> output.txt
+<span class="go">verbose = 1
+output = output.txt
+</span><span class="gp">$</span><span class="w"> </span>./main
+<span class="go">verbose = 0
+output = 
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Visual Studio</strong> does not ship with a <code class="language-plaintext highlighter-rouge">getopt</code> library, which processes command line arguments.</p>
+
+  <p>Download <a href="/xgetopt.h"><code class="language-plaintext highlighter-rouge">xgetopt.h</code></a> and place it in your project source code directory.  It’s cross-platform and will work on both Windows and Linux.</p>
+
+  <p>Add the <code class="language-plaintext highlighter-rouge">"xgetopt.h"</code> include.  Remove the <code class="language-plaintext highlighter-rouge">&lt;getopt.h&gt;</code> include.</p>
+  <div data-title="main.cpp" class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "xgetopt.h"
+</span><span class="c1">//#include &lt;getopt.h&gt; // REMOVE</span>
+</code></pre></div>  </div>
+
+  <p><strong>Pitfall:</strong> Make sure <code class="language-plaintext highlighter-rouge">xgetopt.h</code> is in the same folder as your source code.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile  main.cpp  xgetopt.h
+</span></code></pre></div>  </div>
+</div>
+
+<h3 id="configure-ide">Configure IDE</h3>
+<p>Configure your IDE to pass arguments and options when you debug.</p>
+
+<p>In this example, you would configure the IDE arguments and options to include <code class="language-plaintext highlighter-rouge">--verbose --output output.txt</code>.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://eecs280staff.github.io/tutorials/setup_vscode.html#arguments-and-options">VS Code</a></td>
+      <td><a href="https://eecs280staff.github.io/tutorials/setup_visualstudio.html#arguments-and-options">Visual Studio</a></td>
+      <td><a href="https://eecs280staff.github.io/tutorials/setup_xcode.html#arguments-and-options">Xcode</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="version-control">Version control</h2>
+<p>When you’re working alone version control is optional, but it provides benefits:</p>
+<ul>
+  <li>Code backup</li>
+  <li>Easy to try and revert ideas</li>
+</ul>
+
+<p>Set up version control using the <a href="https://eecs280staff.github.io/p1-stats/setup_git.html">Version control tutorial</a>.  If you’ve used version control before on your computer, you’ll probably want to start with the <a href="https://eecs280staff.github.io/p1-stats/setup_git.html#create-a-local-repository">Create a local repository</a> section.</p>
+
+<p>After you’re done, you should have a local repository with a “clean” status and your local repository should be connected to a remote GitLab repository.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span><span class="gp">$</span><span class="w"> </span>git remote <span class="nt">-v</span>
+<span class="go">origin	https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git (fetch)
+origin	https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git (push)
+</span></code></pre></div></div>
+
+<p>You should have a <code class="language-plaintext highlighter-rouge">.gitignore</code> file (<a href="https://eecs280staff.github.io/p1-stats/setup_git.html#create-a-local-repository">instructions</a>).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">head</span> .gitignore
+<span class="gp">#</span><span class="w"> </span>This is a sample .gitignore file that<span class="s1">'s useful for C++ projects.
+</span><span class="c">...
+</span></code></pre></div></div>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

@@ -3,7 +3,7 @@ Tutorials
 
 This README for contributors.  The tutorials are publicly available at [https://eecs280staff.github.io/tutorials/](https://eecs280staff.github.io/tutorials/).
 
-EECS 280 C/C++ tools and tutorials.
+EECS 298 Python tools and tutorials.
 
 
 ## Markup source
@@ -18,21 +18,21 @@ $ ruby --version  # Need version 2.4.0 or later
 ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
 $ gem install bundler
 $ pwd
-/Users/awdeorio/src/eecs280/tutorials
+/Users/creiglas/src/eecs298/tutorials
 $ bundle install
 ```
 
 Every day usage:
 ```console
 $ pwd
-/Users/awdeorio/src/eecs280/tutorials/docs
+/Users/creiglas/src/eecs298/tutorials/docs
 $ bundle exec jekyll serve
 ```
 
 If you run into Jekyll errors, run `bundle update`:
 ```console
 $ pwd
-/Users/awdeorio/src/eecs280/tutorials
+/Users/creiglas/src/eecs298/tutorials
 $ bundle update --all
 ```
 

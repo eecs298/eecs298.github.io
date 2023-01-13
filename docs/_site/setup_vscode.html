@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup VSCode | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup VSCode" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_vscode.html" />
+<meta property="og:url" content="http://localhost:4000/setup_vscode.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup VSCode" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup VSCode","url":"http://localhost:4000/setup_vscode.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="setup-up-vs-code-for-python">Setup up VS Code for Python</h1>
+
+<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> is a lightweight, easy-to-use, source code editor with debugging support.  It runs on macOS, Windows, and Linux (including CAEN Linux).  Visual Studio Code is not the same program as Visual Studio.</p>
+
+<div class="primer-spec-callout info">
+  <p>If you already have VS Code installed with the Python extension, skip to the <a href="#create-a-project">Create a project</a> section.</p>
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<p>VS Code relies on external command line tools.  If you haven’t installed CLI tools on your machine yet, follow one of these tutorials first.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_macos.html">macOS</a></td>
+      <td><a href="setup_wsl.html">Windows</a></td>
+      <td><a href="setup_wsl.html#install-cli-tools">Linux</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Next, follow our <a href="cli.html">Command line interface (CLI)</a> tutorial.</p>
+
+<h2 id="install">Install</h2>
+<p>Choose your platform below. Be sure to install the relevant extensions.</p>
+
+<h3 id="linux">Linux</h3>
+<p>Install the .deb package at <a href="https://code.visualstudio.com/docs/setup/linux">https://code.visualstudio.com/docs/setup/linux</a>.</p>
+
+<h3 id="caen-linux">CAEN Linux</h3>
+<p>VS Code is already installed on CAEN Linux desktop environment.  You can use it while sitting at a CAEN Linux computer, or through a <a href="https://teamdynamix.umich.edu/TDClient/76/Portal/KB/ArticleDet?ID=4999">VNC connection to CAEN Linux</a>.</p>
+
+<h3 id="macos">macOS</h3>
+<p>Make sure you have macOS 11.1 or later.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>sw_vers
+<span class="go">ProductName:	macOS
+ProductVersion:	11.7
+</span></code></pre></div></div>
+
+<p>Use the homebrew package manager to install VS Code. You can run this command from any directory.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>brew <span class="nb">install</span> <span class="nt">--cask</span> visual-studio-code
+</code></pre></div></div>
+
+<h3 id="windows">Windows</h3>
+<p>Make sure you have updated Windows and WSL installations according to the <a href="setup_wsl.html">WSL tutorial</a>.</p>
+
+<p>Then, Install VS Code from the web <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a>.</p>
+
+<p>Select “Add to PATH”.</p>
+
+<p><img src="images/vscode005.png" width="480px" /></p>
+
+<p>Reboot.  Open a terminal again (WSL/Ubuntu) and verify your installation.  Your version might be different.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>code <span class="nt">--version</span>
+<span class="go">1.74.1
+1ad8d514439d5077d2b0b7ee64d2ce82a9308e5a
+x64
+</span></code></pre></div></div>
+
+<h3 id="extensions">Extensions</h3>
+<p>Make sure VS Code is installed correctly by checking the version.  You need version 1.52.1 or higher.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>code <span class="nt">--version</span>
+<span class="go">1.52.1
+</span></code></pre></div></div>
+
+<p>Install the VS Code <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python extension</a>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>code <span class="nt">--install-extension</span> ms-vscode.cpptools
+</code></pre></div></div>
+
+<p>Verify that the extension is installed.  It’s OK if you have other extensions installed.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>code <span class="nt">--list-extensions</span>
+<span class="go">ms-python.python
+</span></code></pre></div></div>
+
+<h2 id="create-a-project">Create a project</h2>
+<div class="primer-spec-callout info">
+  <p>If you plan to access course resources from multiple machines this semester, you may wish to do your development work on a remote server rather than a local machine. Learn about how to access U-M servers remotely via VS Code in the <a href="setup_remote.html">Remote Development</a> tutorial.</p>
+</div>
+
+<p>To create a VS Code project, create a folder (directory).  There are many ways to create folders: Finder/File Explorer, the VS Code interface, VS Code integrated terminal, and the system terminal.  We’ll use the system terminal and call our example project <code class="language-plaintext highlighter-rouge">p1-stats</code>.</p>
+
+<p><strong>macOS:</strong> Open the Terminal application.</p>
+
+<p><strong>Windows/WSL:</strong> Open the Ubuntu application.</p>
+
+<p>Navigate to the directory where you store your projects, create a new directory, then move into the new directory. Your folder location might be different.  Here’s some help with <a href="cli.html#cd"><code class="language-plaintext highlighter-rouge">cd</code></a>, the <a href="cli.html#home-directory-">tilde <code class="language-plaintext highlighter-rouge">~</code></a>, and <a href="cli.html#mkdir"><code class="language-plaintext highlighter-rouge">mkdir</code></a>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> ~/eecs298
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/eecs298
+<span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>lab1
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>lab1
+</code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> Avoid paths that contain spaces.  Spaces causes problems with some command line tools.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Bad Example</th>
+        <th>Good Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code class="language-plaintext highlighter-rouge">EECS 298/</code></td>
+        <td><code class="language-plaintext highlighter-rouge">eecs298/</code></td>
+      </tr>
+      <tr>
+        <td><code class="language-plaintext highlighter-rouge">Lab 1/</code></td>
+        <td><code class="language-plaintext highlighter-rouge">lab1/</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<p>Start VS Code and open your project folder by selecting <code class="language-plaintext highlighter-rouge">File</code> &gt; <code class="language-plaintext highlighter-rouge">Open Folder...</code> &gt; navigate to your home folder.</p>
+
+<div class="primer-spec-callout info">
+  <p><strong>Pro-tip:</strong> Here’s a quick way to open VS Code to a specific project folder from the command line.  First make sure you’re in the directory that contains your source code.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">main.py ...
+</span><span class="gp">$</span><span class="w"> </span>code <span class="nb">.</span>
+</code></pre></div>  </div>
+</div>
+
+<h3 id="add-new-files">Add new files</h3>
+<p>Select the add file icon and give it a name, e.g., <code class="language-plaintext highlighter-rouge">lab1.py</code>.</p>
+
+<p>Alternatively, create your <code class="language-plaintext highlighter-rouge">lab1.py</code> file from the command line using <a href="cli.html#touch"><code class="language-plaintext highlighter-rouge">touch</code></a>.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">touch </span>main.cpp
+</code></pre></div></div>
+<p>You can find the built-in VS Code terminal at the bottom of the window. If there if no terminal open, start one by selecting <code class="language-plaintext highlighter-rouge">Terminal</code> &gt; <code class="language-plaintext highlighter-rouge">New Terminal</code> and navigating to the correct location via the command line.</p>
+
+<h2 id="run">Run</h2>
+<p>Use the terminal to navigate to the folder containing the Python file you wish to run. Run the file by using <code class="language-plaintext highlighter-rouge">python3</code>.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 main.py
+</code></pre></div></div>
+
+<p>You can also interface with the Python interpreter interactively within</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3
+</code></pre></div></div>
+
+<p>This will launch the Python interpreter within your terminal, which you can use to test lines of Python code. To exit the Python interpreter, use</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">exit</span><span class="o">()</span>
+</code></pre></div></div>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

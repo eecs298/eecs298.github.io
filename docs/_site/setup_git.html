@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup Git | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup Git" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_git.html" />
+<meta property="og:url" content="http://localhost:4000/setup_git.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup Git" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup Git","url":"http://localhost:4000/setup_git.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="setting-up-version-control">Setting Up Version Control</h1>
+
+<p>This how-to will walk you through setting up a Git repository and using it to collaborate with a partner.</p>
+
+<div class="primer-spec-callout info">
+  <p>If you’ve used version control before on your computer, skip to the <a href="#create-a-local-repository">Create a local repository</a> section.</p>
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<p>We’re assuming that you already have a folder with starter source code in it, e.g., <code class="language-plaintext highlighter-rouge">p1-stats/</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-A</span>
+<span class="go">Makefile      main_test.out.correct  p1_library.h  stats_public_test.cpp
+main.cpp      main_test_data.tsv     stats.cpp     stats_tests.cpp
+main_test.in  p1_library.cpp         stats.h
+</span></code></pre></div></div>
+
+<p>You have installed <code class="language-plaintext highlighter-rouge">git</code>.  Your version might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git <span class="nt">--version</span>
+<span class="go">git version 2.15.1
+</span></code></pre></div></div>
+
+<h2 id="restarting-this-tutorial">Restarting this tutorial</h2>
+<p>If you tried using this tutorial in the past and want to start over, here’s how to delete the files created by <code class="language-plaintext highlighter-rouge">git</code> and how to remove your repository from GitLab.</p>
+
+<p>First, remove your GitLab repository.  Browse to your repository’s project page from <a href="https://gitlab.eecs.umich.edu/">https://gitlab.eecs.umich.edu/</a>.  Select “Settings” -&gt; “Advanced Settings” -&gt; “Delete Project”.</p>
+
+<p><img src="images/gitlab005.png" width="768px" /></p>
+
+<p>…</p>
+
+<p><img src="images/gitlab006.png" width="768px" /></p>
+
+<p>Next, remove the hidden files created by <code class="language-plaintext highlighter-rouge">git</code>.  Remember, hidden files start with a dot (<code class="language-plaintext highlighter-rouge">.</code>).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">rm</span> <span class="nt">-rf</span> .git/ .gitignore
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-A</span>
+<span class="go">Makefile      main_test.out.correct  p1_library.h  stats_public_test.cpp
+main.cpp      main_test_data.tsv     stats.cpp     stats_tests.cpp
+main_test.in  p1_library.cpp         stats.h
+</span></code></pre></div></div>
+
+<p>Confirm that this is no longer a git repository.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">fatal: Not a git repository (or any of the parent directories): .git
+</span></code></pre></div></div>
+
+<h2 id="prerequisites-1">Prerequisites</h2>
+<p>This tutorial uses command line tools.  If you haven’t installed CLI tools on your machine yet, follow one of these tutorials first.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_macos.html">macOS</a></td>
+      <td><a href="setup_wsl.html">Windows</a></td>
+      <td><a href="setup_wsl.html#install-cli-tools">Linux</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Verify that <code class="language-plaintext highlighter-rouge">git</code> is installed.  Your version might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git <span class="nt">--version</span>
+<span class="go">git version 2.15.1
+</span></code></pre></div></div>
+
+<h4 class="primer-spec-toc-ignore" id="configure-your-name-and-email">Configure your name and email</h4>
+<p>This sets the <code class="language-plaintext highlighter-rouge">git</code> preferences for your local machine.  These settings apply to all repos on your computer.  You only have to do this once, but repeating these commands won’t hurt anything.  Be sure to use your own uniqname and email address</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git config <span class="nt">--global</span> user.name <span class="s2">"Andrew DeOrio"</span>         <span class="c"># Your name</span>
+<span class="gp">$</span><span class="w"> </span>git config <span class="nt">--global</span> user.email <span class="s2">"awdeorio@umich.edu"</span>   <span class="c"># Your email</span>
+</code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p>Confirm that your settings are correct.  You may see other settings.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git config <span class="nt">--global</span> <span class="nt">--list</span>
+<span class="gp">user.name=Andrew DeOrio        #</span><span class="w"> </span>Your name
+<span class="gp">user.email=awdeorio@umich.edu  #</span><span class="w"> </span>Your uniqname
+</code></pre></div>  </div>
+</div>
+
+<h2 id="create-a-local-repository">Create a local repository</h2>
+<p>Navigate to your project directory and clean up any binary files using <code class="language-plaintext highlighter-rouge">make clean</code>.  You should see your starter files.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make clean
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile      main_test.out.correct  p1_library.h  stats_public_test.cpp
+main.cpp      main_test_data.tsv     stats.cpp     stats_tests.cpp
+main_test.in  p1_library.cpp         stats.h
+</span></code></pre></div></div>
+
+<p>Next, add a <code class="language-plaintext highlighter-rouge">.gitignore</code> file.  This will prevent Git from controlling files like compiled binaries.  We have a sample for you to download.  It’s a hidden file (starts with a dot <code class="language-plaintext highlighter-rouge">.</code>), so you’ll need to use <code class="language-plaintext highlighter-rouge">ls -A</code> to see it.  This sample is pre-configured to work with most C++ projects, so use the same sample file for all EECS 280 projects.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://eecs280staff.github.io/tutorials/dot_gitignore_sample <span class="nt">-O</span> .gitignore
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-A</span>
+<span class="go">.gitignore     ...
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p>Double-check that you have a <code class="language-plaintext highlighter-rouge">.gitignore</code> file.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">head</span> .gitignore
+<span class="gp">#</span><span class="w"> </span>This is a sample .gitignore file that<span class="s1">'s useful for C++ projects.
+</span><span class="c">...
+</span></code></pre></div>  </div>
+</div>
+
+<p>Initialize the repo and make sure that the main branch is named <code class="language-plaintext highlighter-rouge">main</code>.  You’ll see that all the files in our directory are currently untracked.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git init
+<span class="go">Initialized empty Git repository in /Users/awdeorio/src/eecs280/p1-stats/.git/
+</span><span class="gp">$</span><span class="w"> </span>git checkout <span class="nt">-b</span> main
+<span class="go">Switched to a new branch 'main'
+</span><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+
+No commits yet
+
+Untracked files:
+</span><span class="gp">  (use "git add &lt;file&gt;</span>...<span class="s2">" to include in what will be committed)
+</span><span class="go">
+	.gitignore
+	Makefile
+	main.cpp
+	main_test.in
+	main_test.out.correct
+	main_test_data.tsv
+	p1_library.cpp
+	p1_library.h
+	stats.cpp
+	stats.h
+	stats_public_test.cpp
+	stats_tests.cpp
+
+nothing added to commit but untracked files present (use "git add" to track)
+</span></code></pre></div></div>
+
+<h4 class="primer-spec-toc-ignore" id="add-existing-files-to-version-control">Add existing files to version control</h4>
+<p>Add all the files in this directory.  See that they are ready to be committed.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git add <span class="nb">.</span>
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+
+No commits yet
+
+Changes to be committed:
+</span><span class="gp">  (use "git rm --cached &lt;file&gt;</span>...<span class="s2">" to unstage)
+</span><span class="go">
+	new file:   .gitignore
+	new file:   Makefile
+	new file:   main.cpp
+	new file:   main_test.in
+	new file:   main_test.out.correct
+	new file:   main_test_data.tsv
+	new file:   p1_library.cpp
+	new file:   p1_library.h
+	new file:   stats.cpp
+	new file:   stats.h
+	new file:   stats_public_test.cpp
+	new file:   stats_tests.cpp
+</span></code></pre></div></div>
+
+<p>Commit the added files to the local repo with the commit message “Initial commit.  Starter files with function stubs.”.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git commit <span class="nt">-m</span> <span class="s2">"Initial commit.  Starter files with function stubs."</span>
+<span class="go">[main (root-commit) c19cc98] Initial commit.  Starter files with function stubs.
+ 12 files changed, 776 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 Makefile
+ create mode 100644 main.cpp
+ create mode 100644 main_test.in
+ create mode 100644 main_test.out.correct
+ create mode 100644 main_test_data.tsv
+ create mode 100644 p1_library.cpp
+ create mode 100644 p1_library.h
+ create mode 100644 stats.cpp
+ create mode 100644 stats.h
+ create mode 100644 stats_public_test.cpp
+ create mode 100644 stats_tests.cpp
+</span><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<p>View the commit log and see our first commit.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git log
+<span class="gp">commit a13e2521fab6488458c912f598d6d5f89d429484 (HEAD -&gt;</span><span class="w"> </span>main<span class="o">)</span>
+<span class="gp">Author: Andrew DeOrio &lt;awdeorio@umich.edu&gt;</span><span class="w">
+</span><span class="go">Date:   Fri Jan 12 15:59:25 2018 -0500
+
+    Initial commit.  Starter files with function stubs.
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p>Verify you didn’t accidentally commit automatically generated or binary files.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git ls-files
+<span class="c">...
+</span><span class="go">main.exe
+main.exe.dSYM/Contents/Info.plist
+main.exe.dSYM/Contents/Resources/DWARF/main.exe
+</span><span class="c">...
+</span></code></pre></div>  </div>
+
+  <p>First, double-check your <code class="language-plaintext highlighter-rouge">.gitignore</code>.  Go <a href="http://localhost:4000/setup_git.html#create-a-local-repository">back</a> if necessary and re-download it.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">head</span> .gitignore
+<span class="gp">#</span><span class="w"> </span>This is a sample .gitignore file that<span class="s1">'s useful for C++ projects.
+</span><span class="c">...
+</span></code></pre></div>  </div>
+
+  <p>Then, remove the offending binary files and folders and commit.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git <span class="nb">rm</span> <span class="nt">-f</span> main.exe
+<span class="gp">$</span><span class="w"> </span>git <span class="nb">rm</span> <span class="nt">-rf</span> main.exe.dSYM
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Changes to be committed:
+</span><span class="gp">  (use "git restore --staged &lt;file&gt;</span>...<span class="s2">" to unstage)
+</span><span class="go">	deleted:    main.exe
+	deleted:    main.exe.dSYM/Contents/Info.plist
+	deleted:    main.exe.dSYM/Contents/Resources/DWARF/main.exe
+</span><span class="gp">$</span><span class="w"> </span>git commit <span class="nt">-m</span> <span class="s2">"remove binary files"</span>
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+nothing to commit, working tree clean
+</span></code></pre></div>  </div>
+</div>
+
+<h2 id="create-a-remote-repository">Create a remote repository</h2>
+<p>First, log in to <a href="https://gitlab.eecs.umich.edu/users/sign_in">https://gitlab.eecs.umich.edu/</a>.  It’s a Git server run by the EECS department and all UM students should have a login.</p>
+
+<p>Create a new project</p>
+
+<p><img src="images/gitlab010.png" width="768px" /></p>
+
+<p>Select “Create blank project”.</p>
+
+<p><img src="images/gitlab015.png" width="768px" /></p>
+
+<p>Call the new project <code class="language-plaintext highlighter-rouge">p1-stats</code>, mark it as “private”. Then uncheck the “Initialize repository with a README” box. Click “Create”.</p>
+
+<p><strong>Double check that you have selected “private”.</strong> Making your project code or test cases publicly available online is a violation of the honor code.</p>
+
+<p><img src="images/gitlab020.png" width="768px" /></p>
+
+<p>You now have a project page for your remote repo.  In this example, awdeorio’s project page is <a href="https://gitlab.eecs.umich.edu/awdeorio/p1-stats">https://gitlab.eecs.umich.edu/awdeorio/p1-stats</a>.  You won’t have access to it because it’s private, but your page should look similar.</p>
+
+<p><img src="images/gitlab025.png" width="768px" /></p>
+
+<h4 class="primer-spec-toc-ignore" id="connect-local-repo-to-remote-repo">Connect local repo to remote repo</h4>
+<p>Browse to your repository’s project page from <a href="https://gitlab.eecs.umich.edu/">https://gitlab.eecs.umich.edu/</a>.  Click on “Clone”. Under the “Clone with HTTPS” heading, select “Copy URL to clip board”.</p>
+
+<p><img src="images/gitlab030.png" width="768px" /></p>
+
+<div class="primer-spec-callout info icon-info">
+  <p><strong>Pro-tip:</strong> If you want avoid typing a username and password all the time, you can use SSH keys and an SSH URL (instead of HTTPS).  Check out the <a href="https://help.github.com/articles/connecting-to-github-with-ssh/">GitHub tutorial on SSH keys</a>.  Don’t forget to <a href="https://gitlab.eecs.umich.edu/profile/keys">add your key to GitLab</a> (not GitHub).</p>
+</div>
+
+<p>Connect your local repo to your remote repo.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>git remote add origin https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git  <span class="c"># use your URL</span>
+</code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p>Double-check that your local repo is connected to your remote repo.  You’ll see the URL you copied from your remote repo appear.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git remote <span class="nt">-v</span>
+<span class="go">origin	https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git (fetch)
+origin	https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git (push)
+</span></code></pre></div>  </div>
+
+  <p>Make sure that your <code class="language-plaintext highlighter-rouge">main</code> branch is connected to GitLab’s <code class="language-plaintext highlighter-rouge">main</code> branch.  From the local perspective, GitLab is <code class="language-plaintext highlighter-rouge">origin</code>.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git branch <span class="nt">-vv</span>
+<span class="go">* main e016bfa [origin/main] Add instructor
+</span></code></pre></div>  </div>
+</div>
+
+<p>Push commits already committed on the local repo to the remote repo.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git push <span class="nt">-u</span> origin main
+<span class="go">Username for 'https://gitlab.eecs.umich.edu': awdeorio
+Password for 'https://awdeorio@gitlab.eecs.umich.edu': 
+Counting objects: 14, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (14/14), 6.97 KiB | 3.48 MiB/s, done.
+Total 14 (delta 0), reused 0 (delta 0)
+To https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git
+</span><span class="gp"> * [new branch]      main -&gt;</span><span class="w"> </span>main
+<span class="go">Branch 'main' set up to track remote branch 'main' from 'origin'.
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p>Verify that your local repo is up-to-date with the remote the repo (AKA <code class="language-plaintext highlighter-rouge">origin/main</code>).</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git fetch <span class="nt">-vv</span>
+<span class="go">From gitlab.eecs.umich.edu:awdeorio/p1-stats
+</span><span class="gp"> = [up to date]      main     -&gt;</span><span class="w"> </span>origin/main
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span></code></pre></div>  </div>
+</div>
+
+<p>Verify the commit log.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git log
+<span class="gp">commit a13e2521fab6488458c912f598d6d5f89d429484 (HEAD -&gt;</span><span class="w"> </span>main, origin/main<span class="o">)</span>
+<span class="gp">Author: Andrew DeOrio &lt;awdeorio@umich.edu&gt;</span><span class="w">
+</span><span class="go">Date:   Fri Jan 12 15:59:25 2018 -0500
+
+    Initial commit.  Starter files with function stubs.
+</span></code></pre></div></div>
+
+<p>See the commit log on your GitLab project page.  Click “History”.  (You may need to refresh the page to see this.)</p>
+
+<p><img src="images/gitlab035.png" width="768px" /></p>
+
+<p>You should see your first commit show up.</p>
+
+<p><img src="images/gitlab036.png" width="768px" /></p>
+
+<h2 id="add-a-new-file-to-version-control">Add a new file to version control</h2>
+<p>Next we’ll add a README, which will show up on the front page of our GitLab repository web page.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile      main_test.out.correct  p1_library.h  stats_public_test.cpp
+main.cpp      main_test_data.tsv     stats.cpp     stats_tests.cpp
+main_test.in  p1_library.cpp         stats.h
+</span></code></pre></div></div>
+
+<p>We have no modified files and our code is in sync with the code stored on GitLab.  In other words, we haven’t changed anything since the last <code class="language-plaintext highlighter-rouge">git commit</code>, and no changes have happened on the GitLab server.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git fetch
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<p>Add an empty file called <code class="language-plaintext highlighter-rouge">README.md</code> using the command line.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">touch </span>README.md
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile   main_test.in           p1_library.cpp  stats.h
+README.md  main_test.out.correct  p1_library.h    stats_public_test.cpp
+main.cpp   main_test_data.tsv     stats.cpp       stats_tests.cpp
+</span></code></pre></div></div>
+
+<p>Add the existing file using your visual debugger.</p>
+<ul>
+  <li><a href="setup_xcode.html#add-existing-files">Add existing files with Xcode</a></li>
+  <li><a href="setup_visualstudio.html#add-existing-files">Add existing files with Visual Studio</a></li>
+  <li>Visual Studio Code adds new files automatically</li>
+</ul>
+
+<p>Now, edit <code class="language-plaintext highlighter-rouge">README.md</code> to look like the following example.  Be sure to change the name :)</p>
+<div data-title="README.md" class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">EECS 280 Project 1 Solution
+===========================
+</span>Statistics
+
+By Andrew DeOrio <span class="nv">&lt;awdeorio@umich.edu&gt;</span>
+</code></pre></div></div>
+
+<p>You can see that the new file shows up as untracked.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+Untracked files:
+</span><span class="gp">  (use "git add &lt;file&gt;</span>...<span class="s2">" to include in what will be committed)
+</span><span class="go">
+	README.md
+</span></code></pre></div></div>
+
+<p>We want to track <code class="language-plaintext highlighter-rouge">README.md</code>, so <code class="language-plaintext highlighter-rouge">git add</code> it.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git add README.md
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+Changes to be committed:
+</span><span class="gp">  (use "git reset HEAD &lt;file&gt;</span>...<span class="s2">" to unstage)
+</span><span class="go">
+	new file:   README.md
+</span></code></pre></div></div>
+
+<p>Commit, and you’ll see that the repo has a clean status again.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git commit <span class="nt">-m</span> <span class="s2">"Added README"</span>
+<span class="go">[main e016bfa] Added README
+ 1 file changed, 5 insertions(+)
+ create mode 100644 README.md
+</span><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+</span></code></pre></div></div>
+
+<p>From the previous <code class="language-plaintext highlighter-rouge">git status</code> command, we see that we have added code on our local computer that hasn’t yet been pushed to the remote GitLab server (<code class="language-plaintext highlighter-rouge">Your branch is ahead of 'origin/main' by 1 commit.</code>).  Let’s push it now.</p>
+
+<div class="primer-spec-callout info icon-info">
+  <p><strong>NOTE:</strong> if you get a <code class="language-plaintext highlighter-rouge">rejected</code> error, see <a href="#fixing-rejected-pushes">Fixing rejected pushes</a>, below.</p>
+</div>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git push 
+<span class="go">Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 361 bytes | 361.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To gitlab.eecs.umich.edu:awdeorio/p1-stats.git
+</span><span class="gp">   350f38e..7fa8093  main -&gt;</span><span class="w"> </span>main
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<p>Browse to your repo’s project page on GitLab and you’ll see a fancy formatted version of your README.</p>
+
+<p><img src="images/gitlab040.png" width="768px" /></p>
+
+<h2 id="modify-a-version-controlled-file">Modify a version controlled file</h2>
+<p>Let’s practice modifying an existing file.  We’ll add to the README.  Check that our version controlled files are clean and up to date with the remote repo.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>git fetch
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<p>Edit <code class="language-plaintext highlighter-rouge">README.md</code> to add quick start instructions.  We’re using <a href="https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/">Markdown</a> formatting.  It should look this when you’re done:</p>
+<div data-title="README.md" class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">EECS 280 Project 1 Solution
+===========================
+</span>Statistics
+
+By Andrew DeOrio <span class="nv">&lt;awdeorio@umich.edu&gt;</span>
+
+<span class="c">&lt;!-- primer-spec-highlight-start --&gt;</span>
+<span class="gu">## Quick start</span>
+<span class="p">```</span><span class="nl">console
+</span><span class="gp">$</span><span class="w"> </span>make main.exe
+<span class="gp">$</span><span class="w"> </span>./main.exe
+<span class="p">```</span>
+<span class="c">&lt;!-- primer-spec-highlight-end --&gt;</span>
+</code></pre></div></div>
+
+<p>We can see that our files are no longer clean.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+Changes not staged for commit:
+</span><span class="gp">  (use "git add &lt;file&gt;</span>...<span class="s2">" to update what will be committed)
+</span><span class="gp">  (use "git checkout -- &lt;file&gt;</span><span class="s2">..."</span> to discard changes <span class="k">in </span>working directory<span class="o">)</span>
+<span class="go">
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</span></code></pre></div></div>
+
+<p>See what’s different.  You can see lines added (<code class="language-plaintext highlighter-rouge">+</code>) compared to the last clean committed version of the file.</p>
+<div data-highlight="10-15" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git diff README.md
+<span class="go">diff --git a/README.md b/README.md
+index 4641b12..b1dde51 100644
+--- a/README.md
++++ b/README.md
+@@ -3,3 +3,9 @@ EECS 280 Project 1 Solution
+ Statistics
+ 
+</span><span class="gp"> By Andrew DeOrio &lt;awdeorio@umich.edu&gt;</span><span class="w">
+</span><span class="go">+
+</span><span class="gp">+#</span><span class="c"># Quick start</span>
+<span class="go">+```console
+</span><span class="gp">+$</span><span class="w"> </span>make main.exe
+<span class="gp">+$</span><span class="w"> </span>./main.exe
+<span class="go">+```
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout info icon-info">
+  <p><strong>NOTE:</strong> On Windows, you may see lines that end with the <code class="language-plaintext highlighter-rouge">^M</code> character. This is normal; Windows uses a different convention for line endings than other operating systems.</p>
+</div>
+
+<p>Add, commit, and push.</p>
+
+<div class="primer-spec-callout info icon-info">
+  <p><strong>NOTE:</strong> if get a <code class="language-plaintext highlighter-rouge">rejected</code> error, see <a href="#fixing-rejected-pushes">Fixing rejected pushes</a>, below.</p>
+</div>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git add README.md
+<span class="gp">$</span><span class="w"> </span>git commit <span class="nt">-m</span> <span class="s2">"Added quick start to README"</span>
+<span class="go">[main 2fac8d1] Added quick start to README
+ 1 file changed, 6 insertions(+)
+</span><span class="gp">$</span><span class="w"> </span>git push
+<span class="go">Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 348 bytes | 348.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+To https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git
+</span><span class="gp">   a80db0b..2fac8d1  main -&gt;</span><span class="w"> </span>main
+</code></pre></div></div>
+
+<p>View the commit history from the command line.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git log
+<span class="gp">commit 4d375b45357b4b39822ad48c62c6988910258370 (HEAD -&gt;</span><span class="w"> </span>main, origin/main<span class="o">)</span>
+<span class="gp">Author: Andrew DeOrio &lt;awdeorio@umich.edu&gt;</span><span class="w">
+</span><span class="go">Date:   Fri Jan 12 16:14:02 2018 -0500
+
+    Added quick start to README
+
+commit e016bfad5a6371097ea00380aedd3e22ee63f754
+</span><span class="gp">Author: Andrew DeOrio &lt;awdeorio@umich.edu&gt;</span><span class="w">
+</span><span class="go">Date:   Fri Jan 12 16:07:36 2018 -0500
+
+    Added README
+
+commit a13e2521fab6488458c912f598d6d5f89d429484
+</span><span class="gp">Author: Andrew DeOrio &lt;awdeorio@umich.edu&gt;</span><span class="w">
+</span><span class="go">Date:   Fri Jan 12 15:59:25 2018 -0500
+
+    Initial commit.  Starter files with function stubs.
+</span></code></pre></div></div>
+
+<p>View the commit history on GitLab.  Click a commit message to see a graphical diff.</p>
+
+<p><img src="images/gitlab070.png" width="768px" /></p>
+
+<p>View the diff on GitLab.</p>
+
+<p><img src="images/gitlab080.png" width="768px" /></p>
+
+<h2 id="daily-work-flow">Daily work flow</h2>
+<p>This section describes the work flow for a coding session with <code class="language-plaintext highlighter-rouge">git</code>.</p>
+
+<p>Start with clean files.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up-to-date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<p>Retrieve any changes from the server.  For example, you might have pushed changes while working on another computer, like CAEN Linux.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git fetch
+<span class="gp">$</span><span class="w"> </span>git rebase
+</code></pre></div></div>
+
+<p>Make changes to files.  Add and commit when you’re ready.  You can do this several times.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git add SOME_FILE
+<span class="gp">$</span><span class="w"> </span>git commit <span class="nt">-m</span> <span class="s2">"Short description goes here"</span>
+</code></pre></div></div>
+
+<p>Push changes to GitLab server.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git push
+</code></pre></div></div>
+
+<p>If you get a <code class="language-plaintext highlighter-rouge">rejected</code> error, see <a href="#fixing-rejected-pushes">Fixing rejected pushes</a>, below.</p>
+
+<h2 id="add-team-members">Add team members</h2>
+<p>Add your partner as a “Maintainer” on the remote repo by inviting them in the “Members” tab.</p>
+
+<p><img src="images/gitlab090.png" width="768px" /></p>
+
+<p><img src="images/gitlab100.png" width="768px" /></p>
+
+<p>GitLab sends a confirmation email to your partner.  Your partner clicks accept.</p>
+
+<p>Your partner <code class="language-plaintext highlighter-rouge">clone</code>s the remote repo on their own local machine.</p>
+
+<p>Your partner uses the same remote URL that you do.  Notice that <code class="language-plaintext highlighter-rouge">akamil</code> uses a link that has <code class="language-plaintext highlighter-rouge">awdeorio</code> in it, that’s because <code class="language-plaintext highlighter-rouge">akamil</code> is a member of the repo that <code class="language-plaintext highlighter-rouge">awdeorio</code> created.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">whoami</span>
+<span class="go">akamil
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/akamil/Documents/eecs280/
+</span><span class="gp">$</span><span class="w"> </span>git clone https://gitlab.eecs.umich.edu/awdeorio/p2-cv.git
+<span class="go">Cloning into 'p2-cv'...
+</span></code></pre></div></div>
+
+<p>Remember, other team members don’t need to download the starter files again because those files were already added by the first team member.</p>
+
+<h2 id="resolving-conflicts">Resolving conflicts</h2>
+<p>The following text is copied from a <a href="https://help.github.com/articles/resolving-merge-conflicts-after-a-git-rebase/">helpful GitHub article</a>.</p>
+
+<p>When you perform a <code class="language-plaintext highlighter-rouge">git rebase</code> operation, you’re typically moving commits around. Because of this, you might get into a situation where a merge conflict is introduced. That means that two of your commits modified the same line in the same file, and Git doesn’t know which change to apply.</p>
+
+<p>After you reorder and manipulate commits using <code class="language-plaintext highlighter-rouge">git rebase</code>, should a merge conflict occur, Git will tell you so with the following message printed to the terminal:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">error: could not apply fa39187... something to add to patch A
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+Could not apply fa39187f3c3dfd2ab5faa38ac01cf3de7ce2e841... Change fake file
+</span></code></pre></div></div>
+
+<p>Here, Git is telling you which commit is causing the conflict (<code class="language-plaintext highlighter-rouge">fa39187</code>).</p>
+
+<p>If you did this by mistake, you can undo the <code class="language-plaintext highlighter-rouge">git rebase</code> with <code class="language-plaintext highlighter-rouge">git rebase --abort</code>.</p>
+
+<p>To fix the conflict, follow <a href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/">this how-to</a>.</p>
+
+<h2 id="fixing-rejected-pushes">Fixing <code class="language-plaintext highlighter-rouge">rejected</code> pushes</h2>
+<p>If you get a <code class="language-plaintext highlighter-rouge">rejected</code> error when using <code class="language-plaintext highlighter-rouge">git push</code>, this probably means you (or your partner) changed your repo using another computer (or the GitLab web interface).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git push
+<span class="go">To https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git
+</span><span class="gp"> ! [rejected]        main -&gt;</span><span class="w"> </span>main <span class="o">(</span>fetch first<span class="o">)</span>
+<span class="go">error: failed to push some refs to 'https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git'
+</span></code></pre></div></div>
+
+<p>Fetch changes from the remote repo.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git fetch
+<span class="go">remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From https://gitlab.eecs.umich.edu/awdeorio/p1-stats
+</span><span class="gp">   4d375b4..2b9bea7  main     -&gt;</span><span class="w"> </span>origin/main
+</code></pre></div></div>
+
+<p>See that the local and remote repos have diverged.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<p>Reapply your local commits on top of your remote commits, combining them into one sequence of commits.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git rebase
+<span class="go">First, rewinding head to replay your work on top of it...
+Applying: Local update to README.
+</span></code></pre></div></div>
+
+<p>Divergence between local and remote is fixed.  You’re good to push.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+</span><span class="gp">$</span><span class="w"> </span>git push
+<span class="go">Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 318 bytes | 318.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+To https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git
+</span><span class="gp">   2b9bea7..63a5d0b  main -&gt;</span><span class="w"> </span>main
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+</span></code></pre></div></div>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

@@ -3,9 +3,9 @@
 # This theme is built on the default GitHub Markdown theme "Primer", and
 # optionally renders a sidebar to easily navigate project specs.
 
-title: "EECS 280 Tutorials"
+title: "EECS 298: Social Consequences of Computing"
 
-favicon: https://eecs280staff.github.io/eecs280.org/assets/images/eecs280favicon.ico
+favicon: https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png
 
 remote_theme: eecs485staff/primer-spec
 plugins:

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Debugging Guide | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Debugging Guide" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/debugging_guide.html" />
+<meta property="og:url" content="http://localhost:4000/debugging_guide.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Debugging Guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Debugging Guide","url":"http://localhost:4000/debugging_guide.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="debugging-guide">Debugging Guide</h1>
+
+<p>There are two fundamental components to debugging:</p>
+<ol>
+  <li>Form hypotheses about the specific cause of a bug</li>
+  <li>Use debugging tools and strategies to investigate those hypotheses</li>
+</ol>
+
+<p>This guide focuses on effective strategies for point 2 above, in particular through the use of a <strong>debugger</strong>, which allows you to pause your program’s execution at key points and inspect the state of objects in memory.</p>
+
+<p>We also show several real examples drawn from course projects in EECS 280. In some of the cases, we’ve blurred out parts of screenshots where we ran the debugger on our instructor solution. We’ll also note that the screenshots are of the VS Code visual debugger, but debuggers in other IDEs are quite similar.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>If you need to get your debugger set up for the first time and configured to run your code, check out one of our IDE tutorials for instructions.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_vscode.html">VS Code</a></td>
+      <td><a href="setup_visualstudio.html">Visual Studio</a></td>
+      <td><a href="setup_xcode.html">Xcode</a></td>
+      <td><a href="setup_emacs.html">Emacs</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="inspect-program-state">Inspect Program State</h2>
+
+<p>A fundamental part of debugging is simply getting more information about what exactly your program is doing.</p>
+
+<h3 id="local-variables">Local Variables</h3>
+
+<div class="primer-spec-callout info icon-info">
+  <p>Use the <strong>variables panel</strong> to inspect the values of variables while your debugger is paused. In many debuggers, you can also <strong>hover your mouse over a variable</strong> in the source code to see its current value.</p>
+</div>
+
+<p>Let’s say I’m working on the Euchre project - there’s a lot of information to keep track of during the card game. I’d like to check that everything seems in order after the cards are dealt and the players have finished making.</p>
+
+<p>When the debugger pauses at my <a href="#breakpoints">breakpoint</a>, we can see the value of local variables:</p>
+
+<p><img src="images/debug_feature_variables_0.png" width="700px" /></p>
+
+<p>You can see some variables directly. For example, <code class="language-plaintext highlighter-rouge">trump</code> is currently <code class="language-plaintext highlighter-rouge">"Hearts"</code>.</p>
+
+<p>Variables may contain <strong>“memory junk”</strong>. <code class="language-plaintext highlighter-rouge">i</code> is currently <code class="language-plaintext highlighter-rouge">-11632</code>. That’s expected in this case, because we just haven’t run the line <code class="language-plaintext highlighter-rouge">int i=0;</code> quite yet. In other cases, bogus values might indicate a bug!</p>
+
+<h4 class="primer-spec-toc-ignore" id="expand-complex-variables">Expand Complex Variables</h4>
+
+<p>You can <strong>click to expand</strong> more complex variables like pointers, arrays, or classes to inspect their contents. Below, I’ve expanded the <code class="language-plaintext highlighter-rouge">leader</code> variable to see the <code class="language-plaintext highlighter-rouge">Player</code> it is pointing to, then also expanded the <code class="language-plaintext highlighter-rouge">cards</code> array to take a look at their current hand.</p>
+
+<p><img src="images/debug_feature_variables_1.png" width="700px" /></p>
+
+<div class="primer-spec-callout warning">
+
+  <p><strong>Heads up!</strong> You may need to configure your debugger to ensure full information is shown for polymorphic objects through pointers. In the example above, the <code class="language-plaintext highlighter-rouge">leader</code> variable is a <code class="language-plaintext highlighter-rouge">Player*</code> pointing to a <code class="language-plaintext highlighter-rouge">SimplePlayer</code> object. By default, the debugger may only show the base class <code class="language-plaintext highlighter-rouge">Player</code> data.</p>
+
+  <p>To fix this in VS Code, run <code class="language-plaintext highlighter-rouge">-exec set print object on</code> from the debug console, or add the following to the <code class="language-plaintext highlighter-rouge">setupCommands</code> in your <code class="language-plaintext highlighter-rouge">launch.json</code> configuration:</p>
+
+  <div data-variant="legacy" class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="nl">"setupCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print polymorphic objects according to dynamic type"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"set print object on"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></code></pre></div>  </div>
+</div>
+
+<h4 class="primer-spec-toc-ignore" id="member-functions-and-this">Member Functions and <code class="language-plaintext highlighter-rouge">this</code></h4>
+
+<p>In <strong>member functions</strong>, you can also open up the <code class="language-plaintext highlighter-rouge">this</code> pointer. In our Euchre example, we’d see member variables from the current <code class="language-plaintext highlighter-rouge">Game</code> class instance:</p>
+
+<p><img src="images/debug_feature_variables_2.png" width="700px" /></p>
+
+<h3 id="the-call-stack">The Call Stack</h3>
+
+<div class="primer-spec-callout info icon-info">
+  <p>The debugger allows you to inspect any function currently on the call stack, starting from your current function all the way back to <code class="language-plaintext highlighter-rouge">main()</code>.</p>
+</div>
+
+<p>When the debugger is paused, it shows stack frames for all functions currently executing on the call stack. You can click on each to inspect its local variables just as you can with the current function.</p>
+
+<p>It’s often necessary to take a look at the <em>calling context</em> for your current function, for example to understand why a function was originally called in the first place, or why the inputs passed in to it may be invalid.</p>
+
+<p>For example, consider this crash within the <code class="language-plaintext highlighter-rouge">Card::is_right_bower()</code> function from our Euchre project.</p>
+
+<p><img src="images/debug_call_stack_2.png" width="700px" /></p>
+
+<p>Evidently, something is very wrong with the current <code class="language-plaintext highlighter-rouge">Card</code> object. The debugger is not even able to access its <code class="language-plaintext highlighter-rouge">rank</code> or <code class="language-plaintext highlighter-rouge">suit</code> member variables to show us their values.</p>
+
+<p><img src="images/debug_call_stack_3.png" width="400px" /></p>
+
+<p>We don’t have enough information here to determine the problem, so let’s click on the stack frame for <code class="language-plaintext highlighter-rouge">Card_less()</code>, which is the function that called <code class="language-plaintext highlighter-rouge">Card::is_right_bower()</code>. Now we can see the code and local variables for <code class="language-plaintext highlighter-rouge">Card_less()</code>, including the fact that the specific call that crashed was <code class="language-plaintext highlighter-rouge">b.is_right_bower(trump)</code>:</p>
+
+<p><img src="images/debug_call_stack_4.png" width="700px" /></p>
+
+<p>That’s not quite enough information, though. Evidently the card <code class="language-plaintext highlighter-rouge">b</code> is invalid, but that was a parameter to <code class="language-plaintext highlighter-rouge">Card_less()</code>. Let’s keep looking for more context by again clicking the stack frame for <code class="language-plaintext highlighter-rouge">Simple::play_card()</code>.</p>
+
+<p><img src="images/debug_call_stack_5.png" width="700px" /></p>
+
+<p>Here we finally have the information we need. We see that the parameter for <code class="language-plaintext highlighter-rouge">b</code> in this call to <code class="language-plaintext highlighter-rouge">Card_less()</code> was <code class="language-plaintext highlighter-rouge">hand[lowest_card_index]</code>, and we can also take a look at the variables window to see that <code class="language-plaintext highlighter-rouge">lowest_card_index</code> has a value of <code class="language-plaintext highlighter-rouge">1431823952</code>. This is where the bad card came from originally, which ultimately resulted in the crash deeper in <code class="language-plaintext highlighter-rouge">Card::is_right_bower()</code>.</p>
+
+<h3 id="evaluate-expressions">Evaluate Expressions</h3>
+
+<div class="primer-spec-callout info icon-info">
+  <p>Use the <strong>debug console</strong> to evaluate expressions while your debugger is paused.</p>
+</div>
+
+<p>Let’s say I’m working on a project involving matrices and I get a segfault from dereferencing <code class="language-plaintext highlighter-rouge">ptr</code> in my <code class="language-plaintext highlighter-rouge">Matrix_max()</code> function below. My debugger pauses when the segfault occurs.</p>
+
+<p>I can see <code class="language-plaintext highlighter-rouge">ptr</code> holds the address <code class="language-plaintext highlighter-rouge">0x55555586e000</code> and <code class="language-plaintext highlighter-rouge">size</code> is <code class="language-plaintext highlighter-rouge">25</code> in the variables window.</p>
+
+<p>But, I don’t know how far <code class="language-plaintext highlighter-rouge">ptr</code> is from the beginning of the array. For this, I enter <code class="language-plaintext highlighter-rouge">ptr - mat-&gt;data</code> at the debug console.</p>
+
+<p><img src="images/debug_feature_console_0.png" width="700px" /></p>
+
+<p>The debugger evaluates that pointer subtraction for me, which confirms that the pointer is far out of bounds.</p>
+
+<p><img src="images/debug_feature_console_1.png" width="400px" /></p>
+
+<p>That suggests the loop is effectively infinite, and only stops when the pointer travels far enough to segfault. Looking back at my code (see above), I find that the loop condition <code class="language-plaintext highlighter-rouge">ptr &lt; ptr + size</code> is incorrect.</p>
+
+<p>You can enter almost any valid C++ expression at the debug console - even function calls! Take a look below - we’ve called <code class="language-plaintext highlighter-rouge">Matrix_print()</code> from the debug console and the result shows at the terminal.</p>
+
+<p><img src="images/debug_feature_console_2.png" width="800px" /></p>
+
+<h3 id="debug-logging">Debug Logging</h3>
+
+<div class="primer-spec-callout info icon-info">
+  <p>In <em>some</em> situations, <strong>logging additional output via print statements</strong> may be more efficient than manually stepping line-by-line with a debugger. For example, debugging a loop across many iterations or generating verbose output for quick inspection.</p>
+</div>
+
+<div class="primer-spec-callout info icon-info">
+
+  <p><strong>Tip:</strong> When adding print statements to log debug info:</p>
+  <ul>
+    <li>Use a prefix like <code class="language-plaintext highlighter-rouge">"DEBUG: "</code> to clearly distinguish from other output.</li>
+    <li>Take some time to format them nicely so it’s easier to see what’s going on.</li>
+    <li>Use <code class="language-plaintext highlighter-rouge">endl</code> for newlines (don’t use <code class="language-plaintext highlighter-rouge">\n</code>). This guarantees you see the output, even if your code crashes.</li>
+    <li>Comment out your debug outputs once you’re done (rather than deleting them). You might use them again later!</li>
+  </ul>
+</div>
+
+<p>Let’s say I’m getting the wrong output in my Euchre program, evidenced by the diff check below. The players are playing the right cards, but the wrong person takes the trick.</p>
+
+<p><img src="images/debug_print_0.png" width="800px" /></p>
+
+<p>I’ve also identified the relevant portion of my code:</p>
+
+<p><img src="images/debug_print_1.png" width="500px" /></p>
+
+<p>I might be tempted to dive in with my debugger, but it will take a while to step to the right place (especially if the first mismatch was even farther into the game). I could also get a bit lost trying to manually walk through the card comparisons one-at-a-time.</p>
+
+<p>We could get the same information quickly with some debug printouts:</p>
+
+<p><img src="images/debug_print_2.png" width="800px" /></p>
+
+<p>Then, scan the output for the relevant portion:</p>
+
+<p><img src="images/debug_print_3.png" width="600px" /></p>
+
+<p>The <em>Queen of Clubs</em> is chosen to beat out the <em>Ten of Diamonds</em>, which is wrong. The <em>Ten of Diamonds</em> is better because <em>diamonds</em> is the led suit. Ah ha - we may notice that the wrong version of <code class="language-plaintext highlighter-rouge">Card_less()</code> is used in the code above, which doesn’t consider the led suit.</p>
+
+<h2 id="diagnose-crashes">Diagnose Crashes</h2>
+
+<p>You can use a debugger to assess the cause of a crash or runtime error, including:</p>
+
+<ul>
+  <li>Failed debugging assertions</li>
+  <li>Undefined behavior detected by sanitizer tools</li>
+  <li>Segmentation faults</li>
+  <li>Unhandled exceptions</li>
+  <li>And more!</li>
+</ul>
+
+<p>Basically, if your code is doing something bad:</p>
+<ol>
+  <li>Run through the debugger. No breakpoints needed.</li>
+  <li>The debugger pauses when the error occurs.</li>
+  <li>You look at local variables, the call stack, etc. to diagnose the issue</li>
+</ol>
+
+<p>Here’s several examples:</p>
+
+<h3 id="crash-in-my-code">Crash in <em>My</em> Code</h3>
+
+<p>I’ve just finished part of the Euchre project and want to run my own <code class="language-plaintext highlighter-rouge">Player_tests.exe</code> via the terminal:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./Player_tests.exe
+<span class="go">Running test: test_get_name
+Segmentation fault
+</span></code></pre></div></div>
+
+<p>My code crashed with a segmentation fault, but I don’t know much else.</p>
+
+<p>Let’s run in a debugger and let it crash there. No need to set any breakpoints.</p>
+
+<p><img src="images/debug_crash_0.png" width="800px" /></p>
+
+<p>From the above, we can quickly see the line where the segfault occurs. We also observe that <code class="language-plaintext highlighter-rouge">p1-&gt;get_name()</code> crashes because <code class="language-plaintext highlighter-rouge">p1</code> is <code class="language-plaintext highlighter-rouge">0x0</code> (a null pointer), as seen in the variables panel. Ah ha - we just mistyped <code class="language-plaintext highlighter-rouge">p1</code> on this line instead of <code class="language-plaintext highlighter-rouge">p2</code>.</p>
+
+<p>Sometimes you might also need to explore <a href="#the-call-stack">the call stack</a> to determine the cause of the crash.</p>
+
+<h3 id="crash-in-librarysystem-code">Crash in <em>Library/System</em> Code</h3>
+
+<p>Sometimes a crash occurs in library code that your program uses, but that you didn’t write.</p>
+
+<p>For example, the debugger might show you a crash in code from the standard library, which is often very difficult to read:</p>
+
+<p><img src="images/debug_crash_stl.png" width="600px" /></p>
+
+<p>Or, the debugger might choose to show you the compiled assembly code where the crash occurred:</p>
+
+<p><img src="images/debug_crash_asm.png" width="600px" /></p>
+
+<p>There are also some implicitly defined functions that don’t literally appear in your source code (e.g. a built-in copy constructor or assignment operator). For a crash in any of these functions, the debugger may just show you the first line of the class:</p>
+
+<p><img src="images/debug_crash_implicit.png" width="600px" /></p>
+
+<p><strong>Tracing Back to <em>Your</em> Code</strong><br />
+To diagnose crashes where the debugger initially shows you library code, you need to find the nearest part of <em>your</em> code that ultimately called the library functions.</p>
+
+<p>Let’s consider again the case of a crash in an implicitly-defined function. The debugger first just shows us the top line of the class definition, since there’s no code to show for implicitly-defined functions.</p>
+
+<p><img src="images/debug_crash_implicit_full.png" width="800px" /></p>
+
+<p>In this case, check <a href="#the-call-stack">the call stack</a>. First, observe that the segfault did occur in an implicitly-defined function, the built-in <code class="language-plaintext highlighter-rouge">Card::operator=</code> assignment operator for copying a <code class="language-plaintext highlighter-rouge">Card</code>.</p>
+
+<p><img src="images/debug_crash_4.png" width="400px" /></p>
+
+<p>Now, click the next stack frame below to see the where that operator was used. It was in our <code class="language-plaintext highlighter-rouge">Pack</code> constructor. Taking a look at the <em>calling</em> stack frame(s) allows me to see where the problem originated and is generally sufficient to figure out what part of <em>my code</em> was responsible for causing the implicitly-defined function to crash. In the picture below, we can see that an (obviously) incorrect loop is attempting to copy <code class="language-plaintext highlighter-rouge">Card</code>s to out-of-bounds array elements.</p>
+
+<p><img src="images/debug_crash_5.png" width="800px" /></p>
+
+<h2 id="breakpoints">Breakpoints</h2>
+
+<h3 id="basic-usage">Basic Usage</h3>
+
+<div class="primer-spec-callout info icon-info">
+  <p>A <strong>breakpoint</strong> pauses the program whenever it reaches a certain line.</p>
+</div>
+
+<p>For example, if you’re running the main driver for a statistics project and your dataset summary doesn’t print out correctly, you might want to pause the program after the summary has been calculated but before printing it out.</p>
+
+<p>To set a breakpoint, click to the left of a line as shown. A red dot appears to indicate the breakpoint on that line. (You can click again to unset it.)</p>
+
+<p><img src="images/debug_breakpoint_0.png" width="700px" /></p>
+
+<p>Now, when I run the program via my debugger, it pauses just <strong>before</strong> running that line. That is, the highlighted line is up next, but has not run yet.</p>
+
+<p><img src="images/debug_breakpoint_1.png" width="700px" /></p>
+
+<p>Now, I can inspect the <code class="language-plaintext highlighter-rouge">summary</code> variable and see if my <code class="language-plaintext highlighter-rouge">summarize()</code> function was returning the right result.</p>
+
+<div class="primer-spec-callout warning">
+  <p>If your debugger isn’t respecting your breakpoints or the lines where it pauses don’t seem to match your source code:</p>
+  <ul>
+    <li>Double check that you’ve <strong>saved</strong> and <strong>re-compiled</strong> any source files you were editing. (Some IDEs may auto-save or auto-build when you launch the debugger, but not all.) If you’re using a <code class="language-plaintext highlighter-rouge">Makefile</code>, you might need to <code class="language-plaintext highlighter-rouge">make clean</code> and then remake.</li>
+    <li>Verify compilation was successful. (Otherwise, your debugger may launch on the last succesfully compiled program.)</li>
+    <li>Make sure you’re compiling with appropriate flags for debugging (e.g. <code class="language-plaintext highlighter-rouge">-g</code> and no <code class="language-plaintext highlighter-rouge">-OX</code> optimization flags). If you’re using a <code class="language-plaintext highlighter-rouge">Makefile</code>, check the configuration there.</li>
+  </ul>
+</div>
+
+<h3 id="conditional-breakpoints">Conditional Breakpoints</h3>
+
+<div class="primer-spec-callout info icon-info">
+  <p>Use a <strong>conditional breakpoint</strong> to pause the program <em>only</em> if a given condition is true.</p>
+</div>
+
+<p>Consider a case where I’m debugging my Euchre program, but I find that the first mismatch in output (see the diff below) occurs pretty far into the game - in the making trump phase of hand 3, Edsger passes but should have ordered up Spades.</p>
+
+<p><img src="images/debug_conditional_breakpoint_3.png" width="700px" /></p>
+
+<p>It would be quite tedious to use the debugger navigation controls to step to this point manually. Instead, let’s modify our code for making trump so that it will trigger a breakpoint only when it’s Edsger’s turn to order up in hand 3:</p>
+
+<p><img src="images/debug_conditional_breakpoint_modify_source.png" width="700px" /></p>
+
+<p>In the code above, we’ve done three things:</p>
+<ol>
+  <li>Add an <code class="language-plaintext highlighter-rouge">if</code> branch to our code that checks for the condition where we’d like to pause.</li>
+  <li>Put an <code class="language-plaintext highlighter-rouge">asm("nop");</code> line inside the <code class="language-plaintext highlighter-rouge">if</code>. This is an assembly code instruction for “no operation”, which does nothing at runtime. It’s just a placeholder so that we can…</li>
+  <li>Set a breakpoint on the line inside the <code class="language-plaintext highlighter-rouge">if</code>. Now the debugger will pause exactly when we want it to!</li>
+</ol>
+
+<p>Of course, make sure to eventually remove or comment out the extra code once you’re finished debugging.</p>
+
+<div class="primer-spec-callout warning">
+
+  <p>Your debugger may also support “conditional breakpoints” by allowing you to attach a condition when you create a breakpoint (i.e. without changing the code itself). However, the conditions you may specify this way are generally quite limited and will not always work as you expect. For this reason, we recommend the approach above.</p>
+</div>
+
+<h2 id="navigating-code">Navigating Code</h2>
+
+<h3 id="basic-controls">Basic Controls</h3>
+
+<p>While the debugger is paused, it highlights the line of code that is up next, but has not run yet. At this point, you have a number of options to continue the execution of your program.</p>
+
+<p>Most debuggers support the following navigation controls:</p>
+
+<p><img src="images/vscode_icon_step_over.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Step Over</strong><br />
+Run one line of code, stepping <em>over</em> any function calls by running the whole function in one step.</p>
+
+<p><img src="images/vscode_icon_step_in.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Step Into</strong><br />
+Run one line of code, stepping <em>into</em> any function calls to execute them line-by-line.</p>
+
+<p><img src="images/vscode_icon_step_out.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Step Out</strong><br />
+Run the program until it returns from the current function (or until the next breakpoint).</p>
+
+<p><img src="images/vscode_icon_continue.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Continue</strong><br />
+Run the program until the next breakpoint.</p>
+
+<p><img src="images/vscode_icon_restart.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Restart</strong><br />
+Restart the currently running program in the debugger.</p>
+
+<p><img src="images/vscode_icon_stop.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Stop</strong><br />
+Exit the debugger.</p>
+
+<h3 id="strategies">Strategies</h3>
+
+<p>Here’s a few high-level strategies for navigating effectively when debugging your code.</p>
+
+<h4 id="step-over-and-check">Step Over and Check</h4>
+
+<div class="primer-spec-callout info icon-info">
+  <p>If you’re not sure whether a function is correct, use <strong>step over</strong> to run it and then inspect its results in the debugger to see if it worked. (You can restart and come back to <em>step into</em> the function if it wasn’t correct.)</p>
+</div>
+
+<p>When the next line of code contains a function call, you need to decide whether to <em>step into</em> the function or go ahead and <em>step over</em> the whole thing. It’s tempting to <em>step in</em> so you can see all the details, but that may be a waste of time if the function isn’t actually broken!</p>
+
+<p>For example, consider the Euchre program. Assume we’ve discovered that players are not making the right decision during the making phase. The players choose whether to order up based on the cards they have, which also depends on how the pack of cards was shuffled and how cards were dealt to each player.</p>
+
+<p>Let’s say you’ve got your debugger paused before the relevant helper functions for each of those steps:</p>
+
+<p><img src="images/debug_step_in_vs_step_over.png" width="400px" /></p>
+
+<p>Should we step into <code class="language-plaintext highlighter-rouge">shuffle_pack()</code>? Or should we step over that and then step into <code class="language-plaintext highlighter-rouge">deal()</code>? Probably not… yet. Instead, it would be better to step over both of these and use the debugger to check what cards the players now have in their hands. If those cards are correct, the bug must be in <code class="language-plaintext highlighter-rouge">make_trump()</code> and we’ve saved ourselves a lot of time that would have been wasted stepping through the first two functions. Or, if the cards are incorrect, we can restart the debugger and investigate more closely.</p>
+
+<h4 id="continue-to-breakpoint">Continue-To-Breakpoint</h4>
+
+<div class="primer-spec-callout info icon-info">
+  <p>To move quickly through a large portion of code, set a <strong>breakpoint</strong> at your next destination and then use the <strong>continue</strong> command.</p>
+</div>
+
+<p>Breakpoints are not only used to tell the debugger where to stop initially. You can add/remove them while the debugger is running. This is particularly useful for quick navigation over several lines or looping constructs that would otherwise take a long time to step through line-by-line.</p>
+
+<p>Here’s an example. In the code below, let’s say my debugger is paused on line 302. Looking ahead, I’d like to investigate what happens when my Euchre players either lead or play cards. Instead of stepping through the intervening lines one-at-a-time with <em>step into</em> or <em>step over</em>, I’ll set breakpoints on the lines that interest me (310 and 319) and use <em>continue</em> to hop from one breakpoint to another.</p>
+
+<p><img src="images/debug_continue_to_breakpoint.png" width="400px" /></p>
+
+<h4 id="step-in--step-out">Step In + Step Out</h4>
+
+<div class="primer-spec-callout info icon-info">
+  <p>If <em>step into</em> takes you into a function you didn’t intend to explore, you can immediately <em>step out</em> and move on.</p>
+</div>
+
+<p>When you have multiple function calls on one line, <em>step into</em> will take you to the first one that is executed. Sometimes that’s not what you want. For example, consider this line of code:</p>
+
+<div data-variant="legacy" class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">player</span><span class="o">-&gt;</span><span class="n">add_card</span><span class="p">(</span><span class="n">pack</span><span class="p">.</span><span class="n">deal_one</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p><em>Step into</em> will take us into the <code class="language-plaintext highlighter-rouge">deal_one()</code> implementation. If we instead wanted to investigate <code class="language-plaintext highlighter-rouge">add_card()</code>, we can just <em>step out</em> of <code class="language-plaintext highlighter-rouge">deal_one()</code> and then run <em>step into</em> again.</p>
+
+<p>Sometimes <em>step into</em> may also take you into a function that you didn’t necessarily expect but that is technically present. For example, a copy constructor used implicitly to pass a parameter. In these cases, again, you can just <em>step out</em> and then try <em>step in</em> again.</p>
+
+<h4 id="just-my-code-visual-studio">Just My Code (Visual Studio)</h4>
+
+<div class="primer-spec-callout info icon-info">
+  <p>Enable <a href="https://learn.microsoft.com/en-us/visualstudio/debugger/just-my-code?view=vs-2022#BKMK_Enable_or_disable_Just_My_Code"><em>Just My Code</em></a> in Visual Studio so that the debugger will skip over standard library code.</p>
+</div>
+
+<p>In general, it’s not very useful for the debugger to step line-by-line through functions from the standard library. You can presume these functions are correct, so there’s no need to go bug hunting in there. The code is also terribly hard to read.</p>
+
+<p>Unfortunately, this feature is not supported in XCode or <a href="https://github.com/microsoft/vscode-cpptools/issues/5763">VS Code</a>.</p>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by James Juett jjuett@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

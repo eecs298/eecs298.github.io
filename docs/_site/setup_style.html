@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup Style Checking | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup Style Checking" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_style.html" />
+<meta property="og:url" content="http://localhost:4000/setup_style.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup Style Checking" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup Style Checking","url":"http://localhost:4000/setup_style.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="style-checking">Style Checking</h1>
+
+<p>This tutorial will show you how to run style checking tools on your source code.</p>
+
+<h2 id="style-criteria">Style criteria</h2>
+<p>First, take a look at the <a href="style_guide.html">EECS 280 C++ style guide</a>.</p>
+
+<p>We will use several tools to check the style of your code.</p>
+
+<p><code class="language-plaintext highlighter-rouge">oclint</code> checks</p>
+<ul>
+  <li>Lines are no longer than 90 characters.</li>
+  <li>Functions are short.</li>
+  <li>Code is not too deeply nested.</li>
+  <li>Functions do not have too many parameters. (Structs or classes should be used for functions that require more inputs).</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">cpd</code> checks for significant code duplication.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<p>You can connect to CAEN Linux, where the tools are installed.  See the <a href="setup_caen.html">CAEN Linux tutorial</a> for help.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu
+<span class="c">...
+</span><span class="go">Success. Logging you in...
+</span></code></pre></div></div>
+
+<p>You have some source code you want to check.  Our example contains a long line.</p>
+<div data-title="test.cpp" class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="cp">#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// primer-spec-highlight-start</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"hello world this is a veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long line"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="c1">// primer-spec-highlight-end</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Make sure the code compiles before running style checks.  If you have a Makefile, you could just type <code class="language-plaintext highlighter-rouge">make</code>.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>g++ test.cpp <span class="nt">-o</span> <span class="nb">test</span>
+</code></pre></div></div>
+
+<div class="primer-spec-callout danger icon-danger">
+  <p>We prohibit the phrase <code class="language-plaintext highlighter-rouge">oclint</code>, regardless of capitalization, from appearing in your source files, as it can be used to turn off <code class="language-plaintext highlighter-rouge">oclint</code> checks.</p>
+</div>
+
+<h2 id="check-style-manually">Check style manually</h2>
+<p>Run <code class="language-plaintext highlighter-rouge">oclint</code> on <code class="language-plaintext highlighter-rouge">test.cpp</code>.  You’ll need to load a module on CAEN, which adds a tool that isn’t available in the standard environment.  There’s a long line in our example, which results in error output.</p>
+<div data-highlight="24" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">caen-vnc-vm16.engin.umich.edu
+</span><span class="gp">$</span><span class="w"> </span>module load oclint
+<span class="gp">$</span><span class="w"> </span>oclint <span class="se">\</span>
+    <span class="nt">-no-analytics</span> <span class="se">\</span>
+    <span class="nt">-rule</span><span class="o">=</span>LongLine <span class="se">\</span>
+    <span class="nt">-rule</span><span class="o">=</span>HighNcssMethod <span class="se">\</span>
+    <span class="nt">-rule</span><span class="o">=</span>DeepNestedBlock <span class="se">\</span>
+    <span class="nt">-rule</span><span class="o">=</span>TooManyParameters <span class="se">\</span>
+    <span class="nt">-rc</span><span class="o">=</span><span class="nv">LONG_LINE</span><span class="o">=</span>90 <span class="se">\</span>
+    <span class="nt">-rc</span><span class="o">=</span><span class="nv">NCSS_METHOD</span><span class="o">=</span>40 <span class="se">\</span>
+    <span class="nt">-rc</span><span class="o">=</span><span class="nv">NESTED_BLOCK_DEPTH</span><span class="o">=</span>4 <span class="se">\</span>
+    <span class="nt">-rc</span><span class="o">=</span><span class="nv">TOO_MANY_PARAMETERS</span><span class="o">=</span>4 <span class="se">\</span>
+    <span class="nt">-max-priority-1</span> 0 <span class="se">\</span>
+    <span class="nt">-max-priority-2</span> 0 <span class="se">\</span>
+    <span class="nt">-max-priority-3</span> 0 <span class="se">\</span>
+    test.cpp <span class="se">\</span>
+    <span class="nt">--</span> <span class="nt">-xc</span>++ <span class="nt">--std</span><span class="o">=</span>c++11
+<span class="go">
+OCLint Report
+
+Summary: TotalFiles=1 FilesWithViolations=1 P1=0 P2=0 P3=1
+
+/home/awdeorio/test.cpp:6:1: long line [size|P3] Line with 104 characters exceeds limit of 90
+
+[OCLint (http://oclint.org) v0.13]
+
+oclint: error: violations exceed threshold
+P1=0[0] P2=0[0] P3=1[0]
+</span></code></pre></div></div>
+
+<p>Run <code class="language-plaintext highlighter-rouge">cpd</code> on <code class="language-plaintext highlighter-rouge">test.cpp</code>.  You’ll need to load the <code class="language-plaintext highlighter-rouge">pmd</code> module, which contains <code class="language-plaintext highlighter-rouge">cpd</code>.  There isn’t any duplicate code in our example, so there is no error output.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">caen-vnc-vm16.engin.umich.edu
+</span><span class="gp">$</span><span class="w"> </span>module load pmd
+<span class="gp">$</span><span class="w"> </span>cpd <span class="se">\</span>
+    <span class="nt">--minimum-tokens</span> 100 <span class="se">\</span>
+    <span class="nt">--language</span> cpp <span class="se">\</span>
+    <span class="nt">--failOnViolation</span> <span class="nb">true</span> <span class="se">\</span>
+    <span class="nt">--files</span> test.cpp
+<span class="go">Added /afs/umich.edu/user/a/w/awdeorio/test.cpp
+</span></code></pre></div></div>
+
+<h2 id="check-style-automatically">Check style automatically</h2>
+<p>You can run the style checks using the Makefile on an EECS 280 project.</p>
+
+<h3 id="copy-code-to-caen-linux">Copy code to CAEN Linux</h3>
+<p>We’re going to synchronize our code to CAEN Linux many times.  These shortcuts will let you synchronize quickly and easily.</p>
+
+<p>Be sure that you can <a href="setup_caen.html#avoiding-repeated-2fa">avoid repeated two-factor authentication (2FA)</a>.  In a separate terminal, connect to CAEN Linux with SSH so you won’t have to enter your password again.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu
+<span class="go">Password:
+Duo two-factor login for awdeorio
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-3142
+ 2. Phone call to XXX-XXX-3142
+ 3. SMS passcodes to XXX-XXX-3142
+
+Passcode or option (1-3): 1
+Success. Logging you in...
+
+</span><span class="gp">$</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If you didn’t already, <a href="setup_caen.html#make-sync-shortcut">add a <code class="language-plaintext highlighter-rouge">make sync</code> shortcut</a> to your <code class="language-plaintext highlighter-rouge">Makefile</code>.</p>
+
+<p>Clean up (from your laptop).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">manzana.local
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make clean
+</code></pre></div></div>
+
+<p>Copy (from your laptop).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">manzana.local
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make <span class="nb">sync</span>
+<span class="go">rsync -rtv --delete --exclude '.git*' --filter=':- .gitignore' ./  awdeorio@login.engin.umich.edu:p1-stats-copy/
+</span></code></pre></div></div>
+
+<h3 id="connect-to-caen-linux">Connect to CAEN Linux</h3>
+<p>Connect to CAEN Linux via <code class="language-plaintext highlighter-rouge">ssh</code>.  If you’re already connected, you don’t need to connect again.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">manzana.local
+</span><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu
+<span class="go">Success. Logging you in...
+</span><span class="c">...
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">caen-vnc-vm16.engin.umich.edu
+</span></code></pre></div></div>
+
+<p>Change directory to the folder containing your source code.  In this tutorial, we’re going to use the copy created by <code class="language-plaintext highlighter-rouge">rsync</code> via <code class="language-plaintext highlighter-rouge">make sync</code>.  Note that you might also have a <code class="language-plaintext highlighter-rouge">p1-stats</code> directory created during the <a href="setup_caen.html#version-control-on-caen-linux">Version control on CAEN Linux</a> tutorial.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/awdeorio
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">p1-stats p1-stats-copy
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>p1-stats-copy
+<span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/awdeorio/p1-stats-copy
+</span></code></pre></div></div>
+
+<h3 id="run-style-checks">Run style checks</h3>
+<p>We’ve provided a <code class="language-plaintext highlighter-rouge">make style</code> Makefile target to run all the style checks for you.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">caen-vnc-vm16.engin.umich.edu
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/awdeorio/p1-stats-copy
+</span><span class="gp">$</span><span class="w"> </span>make style
+<span class="c">...
+</span><span class="go">EECS 280 style checks PASS
+</span></code></pre></div></div>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

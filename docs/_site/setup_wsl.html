@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Windows command line tools (WSL) | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Windows command line tools (WSL)" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_wsl.html" />
+<meta property="og:url" content="http://localhost:4000/setup_wsl.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Windows command line tools (WSL)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Windows command line tools (WSL)","url":"http://localhost:4000/setup_wsl.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="windows-command-line-tools-wsl">Windows Command line tools (WSL)</h1>
+
+<p>The Windows Subsystem for Linux (WSL) runs an Ubuntu Linux guest virtual machine on your Windows host machine.</p>
+
+<p>When you see <code class="language-plaintext highlighter-rouge">$</code> in this tutorial, you should type into your shell the command that comes after the <code class="language-plaintext highlighter-rouge">$</code>.</p>
+
+<h2 id="upgrade-windows">Upgrade Windows</h2>
+<p>We recommend Windows 11.  Windows 10 version 2004 build 19041 and higher will also work.  Here’s how to <a href="https://support.microsoft.com/en-us/help/4027391/windows-10-see-which-version-you-have">check your Windows version</a>.</p>
+
+<p>Free Windows upgrades are available for UM students via <a href="https://its.umich.edu/computing/computers-software/software-services/onthehub">OnTheHub</a>. If you have an older Windows machine and are not able to upgrade, please reach out to course instructors for assistance.</p>
+
+<h2 id="install-windows-subsystem-for-linux-wsl">Install Windows Subsystem for Linux (WSL)</h2>
+<p>Start PowerShell and run it as administrator.  Search for PowerShell in the start menu, then right-click and select “Run as administrator”.  (Note: these instructions are based on the <a href="https://docs.microsoft.com/en-us/windows/wsl/install">instructions from Microsoft</a>.)</p>
+
+<p><img src="images/wsl010.png" width="240px" /></p>
+
+<p>Check if WSL was already installed.  If you see this, WSL is already installed.</p>
+<div data-highlight="3" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">C:\WINDOWS\system32&gt;</span><span class="w"> </span>wsl <span class="nt">-l</span> <span class="nt">-v</span>
+<span class="go">  NAME      STATE       VERSION
+* Ubuntu    Stopped     2
+</span></code></pre></div></div>
+
+<p>If you see the WSL help text, WSL is not installed.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">C:\WINDOWS\system32&gt;</span><span class="w"> </span>wsl <span class="nt">-l</span> <span class="nt">-v</span>
+<span class="go">Copyright (c) Microsoft Corporation. All rights reserved.
+Usage: wsl.exe [Argument]
+</span><span class="c">...
+</span></code></pre></div></div>
+
+<p>Install WSL.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">C:\WINDOWS\system32&gt;</span><span class="w"> </span>wsl <span class="nt">--install</span>
+</code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> Make sure Windows Update is enabled and your machine is up-to-date.  Settings &gt; Update and Security &gt; Windows Update.</p>
+</div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> If you still get an error from <code class="language-plaintext highlighter-rouge">wsl --install</code>, try the <a href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">Manual installation steps</a>.</p>
+
+  <p>For the Linux distribution, choose the latest version of Ubuntu LTS.  At the time of this writing, that’s Ubuntu 22.04 LTS.</p>
+</div>
+
+<p>Restart your computer.</p>
+
+<h2 id="open-terminal">Open terminal</h2>
+<p>Start an Ubuntu Bash shell.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="images/wsl020.png" width="240px" /></td>
+      <td><img src="images/wsl030.png" width="480px" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="install-cli-tools">Install CLI tools</h2>
+<p>Use the <code class="language-plaintext highlighter-rouge">apt</code> package manager to install a few command line programs.  Linux users will run this same command.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt update
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>wget git ssh gdb python3 tree
+</code></pre></div></div>
+
+<h2 id="use-cli-tools">Use CLI tools</h2>
+<p>Now would be a great time to take a look at our <a href="cli.html">CLI Tutorial</a>.</p>
+
+<h2 id="pro-tips">Pro-tips</h2>
+
+<h3 id="copy-paste">Copy paste</h3>
+<p>Copy: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>c</kbd></p>
+
+<p>Paste: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>v</kbd></p>
+
+<p>If Copy/Paste doesn’t work, read on to enable it.</p>
+
+<h4 class="primer-spec-toc-ignore" id="enable-copy-paste">Enable copy paste</h4>
+
+<p>These instructions show how to enable WSL Copy/Paste on Windows 11 H2 or newer.</p>
+
+<p>Right click on the window pane header of your Ubuntu WSL terminal. Click on the Settings option in the drop down menu.</p>
+
+<p><img src="/images/wsl050.png" width="480px" /></p>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> If your dropdown contains the option “Properties” follow the instructions for <a href="#enable-copy-paste-on-older-windows">Older versions of windows</a>.
+<img src="/images/wsl040.png" width="480px" /></p>
+
+</div>
+
+<p>Click on the Actions tab on the left side of the settings window.</p>
+
+<p><img src="/images/wsl060.png" width="512px" /></p>
+
+<p>Confirm that the “Copy text” and “Paste text” bindings exist.  You may need to scroll down.  Add them if needed using the “Add new” button.</p>
+<ul>
+  <li>Copy text: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>c</kbd></li>
+  <li>Paste text: <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>v</kbd></li>
+</ul>
+
+<p><img src="/images/wsl070.png" width="512px" /></p>
+
+<h4 class="primer-spec-toc-ignore" id="enable-copy-paste-on-older-windows">Enable copy paste on older Windows</h4>
+
+<p>These instructions show how to enable WSL Copy/Paste on version of Windows older than 11 H2.</p>
+
+<p>Click on the properties option in the dropdown.</p>
+
+<p><img src="https://defragged.org/wp-content/uploads/2020/10/Defragged-LinuxSubsytem-Properties.png" width="480px" /></p>
+
+<p>Enable “Use Ctrl+Shift+C/V Copy/Paste” option in the Console “Options” properties page</p>
+
+<p><img src="https://devblogs.microsoft.com/wp-content/uploads/sites/33/2019/04/copy-paste.png" width="480px" /></p>
+
+<h3 id="accessing-windows-files">Accessing Windows files</h3>
+<p>Windows files are accessible from Linux at <code class="language-plaintext highlighter-rouge">/mnt/c/</code>.  You have a separate Ubuntu home directory, e.g., <code class="language-plaintext highlighter-rouge">/home/awdeorio/</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /mnt/c/Users/awdeorio/Desktop    <span class="c"># Windows Desktop</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /mnt/c/Users/awdeorio/Documents  <span class="c"># Windows Documents</span>
+</code></pre></div></div>
+
+<h3 id="cli-open-file">CLI open file</h3>
+<p>Opens a file or directory with the default application, like a double click.  See the <a href="cli.html#open--wslview"><code class="language-plaintext highlighter-rouge">wslview</code> command</a> in the CLI tutorial.</p>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

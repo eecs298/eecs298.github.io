@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Style Guide | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Style Guide" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/style_guide.html" />
+<meta property="og:url" content="http://localhost:4000/style_guide.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Style Guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Style Guide","url":"http://localhost:4000/style_guide.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: true,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="eecs-280-c-style-guide">EECS 280 C++ Style Guide</h1>
+
+<p>The goal of coding standards is to make code easier to understand and maintain. Refer to these guidelines as you are writing code, not just at the end, to develop good coding habits.</p>
+
+<h2 id="names">Names</h2>
+<ol>
+  <li>Use meaningful variable names. If a variable name is not descriptive and its purpose is not clear by convention, choose a different name.</li>
+  <li>Avoid single-letter variable names unless their meaning is very clear by convention, mathematical definition, or documentation.
+    <ol>
+      <li><code class="language-plaintext highlighter-rouge">i</code> as a counter variable name is OK.</li>
+      <li>Avoid letters that can be confused for numbers or other letters, such as <code class="language-plaintext highlighter-rouge">l</code> (that’s lowercase <code class="language-plaintext highlighter-rouge">L</code>).</li>
+    </ol>
+  </li>
+  <li>Longer names are usually better, i.e. <code class="language-plaintext highlighter-rouge">spammify</code> instead of <code class="language-plaintext highlighter-rouge">sfy</code>.
+    <ol>
+      <li>Avoid abbreviations unless there is context that makes the abbreviation easy to decipher. For example, <code class="language-plaintext highlighter-rouge">img</code> is a reasonable abbreviation in an image processing program.</li>
+    </ol>
+  </li>
+  <li>Avoid acronyms unless there is very strong context or documentation as to their meaning.
+    <ol>
+      <li>Use <code class="language-plaintext highlighter-rouge">left_bower</code> instead of <code class="language-plaintext highlighter-rouge">lb</code>, <code class="language-plaintext highlighter-rouge">rodent_of _unusual_size</code> instead of <code class="language-plaintext highlighter-rouge">rous</code>.</li>
+    </ol>
+  </li>
+  <li>Global constant names should use a consistent naming convention to make it clear that you are dealing with a global constant. Some possible naming conventions are:
+    <ol>
+      <li>All caps: <code class="language-plaintext highlighter-rouge">const int MY_CONSTANT = 42;</code></li>
+      <li>A leading <code class="language-plaintext highlighter-rouge">c_</code>: <code class="language-plaintext highlighter-rouge">const int c_my_constant = 42;</code></li>
+    </ol>
+  </li>
+  <li>It’s common to use <code class="language-plaintext highlighter-rouge">snake_case</code>  or <code class="language-plaintext highlighter-rouge">camelCase</code>  for variable and function names, but be consistent.</li>
+  <li>Start custom type names (classes, structs, and type aliases) with a capital letter.</li>
+</ol>
+
+<h2 id="comments">Comments</h2>
+<ol>
+  <li>Comments help people understand your code. They are for humans, not for computers.</li>
+  <li>Comments go on their own line(s) unless they are <em>extremely</em> short.</li>
+  <li>Don’t comment basic stuff such as <code class="language-plaintext highlighter-rouge">// looping from 0 to size - 1</code>.</li>
+  <li>If you find yourself wanting to comment a complex or long piece of code, consider putting the code into a function.</li>
+  <li>Use comments to help your future self and other programmers. If you looked at your code a month from now, would you remember what it did?</li>
+  <li>You may use <code class="language-plaintext highlighter-rouge">/* ... */</code> or <code class="language-plaintext highlighter-rouge">//</code> for comments spanning multiple lines, just be consistent.</li>
+</ol>
+
+<h2 id="functions">Functions</h2>
+<ol>
+  <li>Use functions to improve code readability and avoid duplication.</li>
+  <li>Document functions with an “RME” (requires, modifies, effects) to indicate what they do.</li>
+  <li>Make functions short and targeted.
+    <ol>
+      <li>A function has a specific purpose and shouldn’t try to be a “god” function doing it all. This also applies to the <code class="language-plaintext highlighter-rouge">main()</code> function.</li>
+      <li>It is perfectly valid and encouraged for functions to call other functions!</li>
+      <li>These are a few clues that a function is too complex.  We check for function complexity in EECS 280 automated <a href="setup_style.html">style checking</a>.
+        <ol>
+          <li>Many lines of code (not counting comments or braces) in one function (e.g., &gt;40)</li>
+          <li>Deeply nested code (e.g., &gt;4 blocks deep)</li>
+          <li>Too many function parameters (e.g., &gt;4)</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>If a function is complicated, try to make it less complicated by splitting it up.</li>
+  <li>Avoid “single point of return.” Prefer multiple return statements.
+    <ol>
+      <li>If you ever reach a point in a function where you know what the return value will be, just return it.
+        <table>
+  <tr>
+      <th>Change:</th>
+      <th>To:</th>
+  </tr>
+  <tr>
+  <td>
+
+              <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">spammify</span><span class="p">(</span><span class="kt">int</span> <span class="n">egg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">egg</span> <span class="o">&lt;</span> <span class="mi">42</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">egg</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">egg</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>              </div>
+
+            </td>
+  <td>
+
+              <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">spammify</span><span class="p">(</span><span class="kt">int</span> <span class="n">egg</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">egg</span> <span class="o">&lt;</span> <span class="mi">42</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">egg</span> <span class="o">*</span> <span class="mi">2</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">egg</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+</code></pre></div>              </div>
+
+            </td>
+  </tr>
+</table>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="formatting">Formatting</h2>
+<ol>
+  <li>Curly braces can be on the same line or their own line, just be consistent.
+    <table>
+<tr>
+  <th>This is fine:</th>
+  <th>This is also fine:</th>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+</tr>
+</table>
+  </li>
+  <li>Don’t mix tabs and spaces. Most editors and IDEs allow you to set this ahead of time, so do that and be consistent. You can also configure them to insert the right number of spaces when you press the tab key.</li>
+  <li>Avoid excessively long lines of code. 80 characters is a traditional limit, but some teams will choose to increase this slightly.
+    <ol>
+      <li>The important thing is to avoid cramming a ton of expressions into one line.</li>
+    </ol>
+  </li>
+  <li>Include spaces between operators (<code class="language-plaintext highlighter-rouge">&lt;&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;=</code>, <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">%</code>, <code class="language-plaintext highlighter-rouge">||</code>, <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, etc).
+    <table>
+<tr>
+  <th>This is easier to read:</th>
+  <th>Bad:</th>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">bar</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">baz</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">%</span> <span class="n">c</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">foo</span><span class="o">&gt;=</span><span class="p">(</span><span class="n">bar</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">baz</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="n">b</span><span class="o">%</span><span class="n">c</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+</tr>
+</table>
+
+    <p>Note: Some operators (<code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">-&gt;</code>, <code class="language-plaintext highlighter-rouge">++</code>, <code class="language-plaintext highlighter-rouge">--</code>) are traditionally used without spaces:</p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">spam.egg</code></li>
+      <li><code class="language-plaintext highlighter-rouge">spam_ptr-&gt;egg</code></li>
+      <li><code class="language-plaintext highlighter-rouge">cheese++</code></li>
+      <li><code class="language-plaintext highlighter-rouge">++cheese</code></li>
+      <li><code class="language-plaintext highlighter-rouge">cheese--</code></li>
+      <li><code class="language-plaintext highlighter-rouge">--cheese</code></li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="other-ways-to-make-your-code-better">Other ways to make your code better</h2>
+<ol>
+  <li>Avoid using “magic” numbers, strings, etc. Prefer to use a constant instead.
+    <ol>
+      <li>Do NOT use <code class="language-plaintext highlighter-rouge">#define</code> to define constants. Declare them as <code class="language-plaintext highlighter-rouge">const</code> variables instead.</li>
+      <li>Avoid constants where the name is the same as the value:
+        <table>
+<tr>
+  <th>Change:</th>
+  <th>To:</th>
+</tr>
+<tr>
+  <td>
+
+              <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">TWO</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre></div>              </div>
+
+            </td>
+  <td>
+
+              <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">NUM_PLAYERS</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre></div>              </div>
+
+            </td>
+</tr>
+</table>
+      </li>
+    </ol>
+  </li>
+  <li>Avoid using the <code class="language-plaintext highlighter-rouge">this</code> pointer for member access.
+    <ol>
+      <li>Only use the <code class="language-plaintext highlighter-rouge">this</code> pointer when you need a pointer or reference to the object a member function is operating on.</li>
+    </ol>
+  </li>
+  <li>If you have an <code class="language-plaintext highlighter-rouge">if</code> statement whose body ends with a return statement, you can omit the <code class="language-plaintext highlighter-rouge">else</code> block.
+    <table>
+<tr>
+  <th>Change:</th>
+  <th>To:</th>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">43</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="mi">43</span><span class="p">;</span>
+
+
+</code></pre></div>          </div>
+
+        </td>
+</tr>
+</table>
+  </li>
+  <li>When checking bools, pointers, and streams in conditionals, prefer checking the “truthiness” of the value.
+    <table>
+<tr>
+  <th>Change:</th>
+  <th>To:</th>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">my_bool</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">my_bool</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">my_ptr</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">not</span> <span class="n">my_ptr</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">my_stream</span><span class="p">.</span><span class="n">good</span><span class="p">())</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">my_stream</span><span class="p">.</span><span class="n">bad</span><span class="p">())</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">my_stream</span><span class="p">.</span><span class="n">fail</span><span class="p">())</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">my_stream</span><span class="p">.</span><span class="n">eof</span><span class="p">())</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">my_stream</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">not</span> <span class="n">my_stream</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">not</span> <span class="n">my_stream</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">not</span> <span class="n">my_stream</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+</tr>
+</table>
+    <p>Note: The keywords <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, and <code class="language-plaintext highlighter-rouge">not</code> can be used instead of <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, <code class="language-plaintext highlighter-rouge">||</code>, and <code class="language-plaintext highlighter-rouge">!</code> in C++.  Which ones you use is up to you as long as you do so consistently.</p>
+  </li>
+  <li>If you need to return true or false based on the result of a conditional, just return the result of the conditional instead of explicit true/false
+    <table>
+<tr>
+  <th>Change:</th>
+  <th>To:</th>
+</tr>
+<tr>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">spam</span> <span class="o">==</span> <span class="mi">42</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>          </div>
+
+        </td>
+  <td>
+
+          <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="n">spam</span> <span class="o">==</span> <span class="mi">42</span><span class="p">;</span>
+
+
+
+
+
+</code></pre></div>          </div>
+        </td>
+</tr>
+</table>
+  </li>
+  <li>Avoid passing large objects/containers by value.
+    <ol>
+      <li>Copying large objects is expensive.</li>
+      <li>If a function is not supposed to modify the object, pass by <code class="language-plaintext highlighter-rouge">const</code> reference!</li>
+      <li>This includes when using a range-based for loop:
+        <ol>
+          <li><code class="language-plaintext highlighter-rouge">for (const auto&amp; thing : things) { ... }</code></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>Avoid using public member variables.
+    <ol>
+      <li>Breaks abstraction and encapsulation.</li>
+      <li>If you have plain old data (POD), consider using a <code class="language-plaintext highlighter-rouge">struct</code>.</li>
+    </ol>
+  </li>
+  <li>Don’t explicitly implement the Big 3 if the compiler-supplied versions will work.</li>
+</ol>
+
+<h2 id="dangerous-things-that-you-should-never-do">Dangerous things that you should never do</h2>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">goto</code> - just don’t use it. Use functions, loops, conditionals, and exceptions instead.</li>
+  <li>Global variables (global constants are different, see bullet 5 under <a href="#names">Names section</a>).
+    <ol>
+      <li>Dangerous because they can be changed at any point in your program. Use function parameters instead.</li>
+    </ol>
+  </li>
+  <li>Including <code class="language-plaintext highlighter-rouge">.cpp</code> files - e.g. <code class="language-plaintext highlighter-rouge">#include "file.cpp"</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">using namespace std</code> inside of a header file.
+    <ol>
+      <li>If someone else includes your header and if you have namespace using
+statements in it, then these statements become part of their code, appearing at
+the point your header file was included. They are stuck with whatever namespace
+using decision you made, and can’t override it with their own.</li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="project-specific-ways-to-make-your-code-better">Project-specific ways to make your code better</h2>
+<ol>
+  <li>P2 Image: Respect the interfaces. That includes in your unit tests!</li>
+  <li>P3 Euchre:
+    <ol>
+      <li>Don’t copy paste calls to <code class="language-plaintext highlighter-rouge">deal_one()</code>. Write a function.</li>
+      <li>Write moar functions.</li>
+    </ol>
+  </li>
+  <li>P5 Machine Learning: Write moar functions.</li>
+</ol>
+
+<h2 id="further-reading">Further reading</h2>
+<ul>
+  <li><a href="http://umich.edu/~eecs381/handouts/C++_Coding_Standards.pdf">EECS 381</a></li>
+  <li><a href="https://google.github.io/styleguide/cppguide.html">Google</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style">Mozilla</a></li>
+  <li><a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a>, a widely used standard for Python</li>
+</ul>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

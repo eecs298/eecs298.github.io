@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup Visual Studio (Windows) | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup Visual Studio (Windows)" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_visualstudio.html" />
+<meta property="og:url" content="http://localhost:4000/setup_visualstudio.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup Visual Studio (Windows)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup Visual Studio (Windows)","url":"http://localhost:4000/setup_visualstudio.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="setting-up-visual-studio">Setting up Visual Studio</h1>
+
+<p><a href="https://www.visualstudio.com/">Visual Studio</a> is a feature-rich integrated debugging environment (IDE) that runs on Windows.</p>
+
+<div class="primer-spec-callout info">
+  <p>If you already have Visual Studio installed, skip to the <a href="#create-a-project">Create a project</a> section.</p>
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Visual Studio runs on Windows only.  There are no other prerequisites for Visual Studio.</p>
+
+<p>This tutorial recommends command line tools.  To install CLI tools, follow the <a href="setup_wsl.html">Windows command line tools tutorial</a>.</p>
+
+<p>Next, we recommend our <a href="cli.html">Command line interface (CLI)</a> tutorial.</p>
+
+<h2 id="restart">Restart</h2>
+<p>To start clean, first quit Visual Studio.  Back up your files, and then delete your project directory.  Your project directory might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">/Users/awdeorio/src/eecs280
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-a</span> p1-stats p1-stats.bak  <span class="c"># Backup</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">rm</span> <span class="nt">-rf</span> p1-stats              <span class="c"># Delete</span>
+</code></pre></div></div>
+
+<p>Visual Studio has a <em>lot</em> of settings.  You can reset the entire user interface to the default settings by selecting “Tools” -&gt; “Import” and Export Settings” -&gt; “Reset all settings”.  This is optional.</p>
+
+<h2 id="install">Install</h2>
+<p>Install Visual Studio Community edition from <a href="https://www.visualstudio.com/vs/community/">Microsoft’s website</a>.</p>
+
+<p>Select “Desktop Development with C++” and make sure that the “Windows 10 SDK”, “Windows 11 SDK”, and “C++ AddressSanitizer” are selected.  Click “Continue”.  Reboot your computer when the installer prompts you.</p>
+
+<p><img src="images/visualstudio010.png" width="768px" /></p>
+
+<p>Start Visual Studio.  The first time, you’ll be asked about a few preferences.</p>
+
+<p>The screenshots in the tutorial were created with Visual Studio Community 2022.  Your version might be different.</p>
+
+<h2 id="create-a-project">Create a project</h2>
+<p>A Visual Studio project contains the files and information to build your software.  In EECS 280, you’ll eventually create one Visual Studio project for each EECS 280 project.</p>
+
+<p>Start Visual Studio.  Create a new project.  You can also use “File” &gt; “New” &gt; “Project”.</p>
+
+<p><img src="images/visualstudio040.png" width="512px" /></p>
+
+<p>Select “Console App”.  Click “Next”.</p>
+
+<p><img src="images/visualstudio050.png" width="512x" /></p>
+
+<p>Set a project name, we’ll call our example project <code class="language-plaintext highlighter-rouge">p1-stats</code>.  Pick a location where you’ll store your projects.  Check “Place solution and project in the same directory.  We recommend this in EECS 280 so that everyone has a one-level structure (<code class="language-plaintext highlighter-rouge">p1-stats/main.cpp</code>) instead of a two-level structure (<code class="language-plaintext highlighter-rouge">p1-stats/p1-stats/main.cpp</code>).  Click “Next”.</p>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> Avoid paths that contain spaces.  Spaces cause problems with some command line tools.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Bad Example</th>
+        <th>Good Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code class="language-plaintext highlighter-rouge">EECS 280/</code></td>
+        <td><code class="language-plaintext highlighter-rouge">eecs280/</code></td>
+      </tr>
+      <tr>
+        <td><code class="language-plaintext highlighter-rouge">Project 1 Stats/</code></td>
+        <td><code class="language-plaintext highlighter-rouge">p1-stats/</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<p><img src="images/visualstudio060.png" width="512px" /></p>
+
+<p>You can see the files created by Visual Studio in the File Explorer.  Right-click <code class="language-plaintext highlighter-rouge">p1-stats</code>, select “Show in Finder”.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="images/visualstudio070.png" height="512px" /></td>
+      <td><img src="images/visualstudio071.png" height="512px" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="images/visualstudio072.png" width="768px" /></p>
+
+<p>You can also see the files created by Visual Studio from the WSL command line.  Notice that Visual Studio created <code class="language-plaintext highlighter-rouge">.sln</code>, and <code class="language-plaintext highlighter-rouge">vcxproj</code> files.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>tree
+<span class="c">.
+</span><span class="go">├── p1-stats.cpp
+├── p1-stats.sln
+├── p1-stats.vcxproj
+├── p1-stats.vcxproj.filters
+└── p1-stats.vcxproj.user
+</span></code></pre></div></div>
+
+<h3 class="primer-spec-toc-ignore" id="rename-main-file">Rename main file</h3>
+<p>Rename the default <code class="language-plaintext highlighter-rouge">p1-stats.cpp</code> to <code class="language-plaintext highlighter-rouge">main.cpp</code>.  Your main filename may be different.  Use Visual Studio to rename a file, not the command line or File Explorer.</p>
+
+<p>Right-click <code class="language-plaintext highlighter-rouge">p1-stats.cpp</code> and select “Rename”.  Change the file name.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="images/visualstudio075.png" width="256px" /></td>
+      <td><img src="images/visualstudio076.png" width="256px" /></td>
+      <td><img src="images/visualstudio077.png" width="256px" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="add-new-files">Add new files</h3>
+<div class="primer-spec-callout info">
+  <p>Visual Studio created <code class="language-plaintext highlighter-rouge">main.cpp</code> by default.  Skip this subsection your first time through the tutorial.  You can come back to it.</p>
+</div>
+
+<p>Open your project folder by selecting <code class="language-plaintext highlighter-rouge">File</code> &gt; <code class="language-plaintext highlighter-rouge">Open</code> &gt; <code class="language-plaintext highlighter-rouge">Project/Solution</code>, navigate to your project directory (<code class="language-plaintext highlighter-rouge">p1-stats</code> in this example) and open <code class="language-plaintext highlighter-rouge">p1-stats.sln</code>.  An alternative is to double-click <code class="language-plaintext highlighter-rouge">p1-stats.sln</code> in the File Explorer.</p>
+
+<p>Right-click “Source Files”, then select “Add” &gt; “New Item”.</p>
+
+<p><img src="images/visualstudio080.png" width="768px" /></p>
+
+<p>Select “Visual C++” and “C++ File”.  Name your file, we’ll use <code class="language-plaintext highlighter-rouge">stats.cpp</code> for this example.  Click “Add”.</p>
+
+<p><img src="images/visualstudio090.png" width="600px" /></p>
+
+<p>You should see your new file under “Source Files”.</p>
+
+<p><img src="images/visualstudio100.png" width="768px" /></p>
+
+<h3 id="add-existing-files">Add existing files</h3>
+<p>If you have starter files, add them to your project directory.  This example is from <a href="https://eecs280staff.github.io/p1-stats/">EECS 280 Project 1</a>, but this tutorial doesn’t require understanding the files.  Your URL or files might be different.</p>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> Make sure you’re in the directory containing your source code.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">main.cpp
+p1-stats.sln
+</span><span class="c">...
+</span></code></pre></div>  </div>
+</div>
+
+<div class="primer-spec-callout info">
+  <p><strong>Pro-tip:</strong> <a href="setup_wsl.html#copy-paste">Copy/paste instructions</a> for WSL.</p>
+</div>
+
+<p>We’ll use the WSL (Ubuntu) terminal to download, unpack, and move starter files into the directory that already contains <code class="language-plaintext highlighter-rouge">main.cpp</code>.  Your URL or folder might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://eecs280staff.github.io/p1-stats/starter-files.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">tar</span> <span class="nt">-xvzf</span> starter-files.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">mv </span>starter-files/<span class="k">*</span> <span class="nb">.</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">rm</span> <span class="nt">-rf</span> starter-files starter-files.tar.gz
+</code></pre></div></div>
+
+<p>You should see your new files in the <code class="language-plaintext highlighter-rouge">src</code> subdirectory.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>tree
+<span class="c">.
+</span><span class="go">├── Makefile
+├── main.cpp
+├── main_test.in
+├── main_test.out.correct
+├── main_test_data.tsv
+├── p1-stats.sln
+├── p1-stats.vcxproj
+├── p1-stats.vcxproj.filters
+├── p1-stats.vcxproj.user
+├── p1_library.cpp
+├── p1_library.h
+├── stats.h
+├── stats_public_test.cpp
+└── stats_tests.cpp.starter
+</span></code></pre></div></div>
+
+<p>Right-click “Source Files”, then select “Add” &gt; “Existing Item”.</p>
+
+<p><img src="images/visualstudio105.png" width="768px" /></p>
+
+<p>Navigate to your project directory.  Select your files by holding <kbd>Control</kbd> and clicking each one.  Do <em>not</em> select any <code class="language-plaintext highlighter-rouge">.sln</code> or <code class="language-plaintext highlighter-rouge">.vcxproj</code> files.  Click “Add”.</p>
+
+<p><img src="images/visualstudio106.png" width="512px" /></p>
+
+<p>You will now see your files in the sidebar in the sidebar.</p>
+
+<p><img src="images/visualstudio107.png" width="768px" /></p>
+
+<h4 id="rename-files">Rename files</h4>
+<p>If you need to rename any files, use Visual Studio, not the command line or File Explorer.  In EECS 280, you’ll need to rename any files that end in <code class="language-plaintext highlighter-rouge">.starter</code>.</p>
+
+<p>Right-click a file and select “Rename”.  Change the file name.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="images/visualstudio108.png" width="256px" /></td>
+      <td><img src="images/visualstudio076.png" width="256px" /></td>
+      <td><img src="images/visualstudio109.png" width="256px" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="compile-and-run">Compile and Run</h2>
+<p>A Visual Studio Build compiles one executable.</p>
+
+<h3 class="primer-spec-toc-ignore" id="exclude-files-from-build">Exclude files from build</h3>
+
+<p>We need to avoid multiple <code class="language-plaintext highlighter-rouge">main()</code> functions in the same build.  Exclude files not needed to compile the  main program.  This often means excluding unit tests from the build.</p>
+
+<p>In this example from EECS 280 Project 1, we need to exclude our unit tests from the build because they each contain a <code class="language-plaintext highlighter-rouge">main()</code> function.</p>
+
+<p>Right-click a file in the solution explorer (sidebar) and select “Properties”.  Set “Excluded From Build” to “Yes”.</p>
+
+<p><img src="images/visualstudio110.png" width="512px" /></p>
+
+<p>You can see a red symbol next to each excluded file.</p>
+
+<p><img src="images/visualstudio120.png" width="768px" /></p>
+
+<p>“Build” -&gt; “Build Solution”.  See that the build output was successful.</p>
+
+<p><img src="images/visualstudio130.png" width="768px" /></p>
+
+<h3 class="primer-spec-toc-ignore" id="run">Run</h3>
+
+<p>Click the “Local Windows Debugger” button.  You should see your program run.</p>
+
+<p><img src="images/visualstudio140.png" width="768px" /></p>
+
+<h3 id="sanitizers">Sanitizers</h3>
+<p>Visual Studio provides an address sanitizer with bounds checking automatically with every debug build. You don’t need to do anything different!</p>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> When Visual Studio says “Press any key to continue”, press a key, do <em>not</em> close the window by clicking the X.  Some memory checks run after you press any key.</p>
+
+  <p><img src="images/visualstudio055.png" width="512px" /></p>
+
+</div>
+
+<h3 id="input-redirection">Input redirection</h3>
+<div class="primer-spec-callout info">
+  <p>Skip this subsection your first time through the tutorial.  You can come back to it.</p>
+</div>
+
+<p>If you’re unfamiliar with input redirection, first read the CLI tutorial section on <a href="cli.html#input-redirection-">input redirection</a>.</p>
+
+<p>Without input redirection, here’s how to type input in the Visual Studio command line.  Notice that when we run, a window pops up that accepts user input.</p>
+
+<p><img src="images/visualstudio145.png" width="768px" /></p>
+
+<p>To configure input redirection, right-click the project in the Solution Explorer (<code class="language-plaintext highlighter-rouge">p1-stats</code> in this example).  Select “Properties”.</p>
+
+<p><img src="images/visualstudio148.png" width="320px" /></p>
+
+<p>Edit “Command Arguments” and click “OK”.</p>
+
+<p><img src="images/visualstudio146.png" width="768px" /></p>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> With input redirection configured, Visual Studio will automatically close the terminal window, and you’ll miss seeing the output.</p>
+
+  <p>Set a breakpoint on the last line of <code class="language-plaintext highlighter-rouge">main</code> to keep the output window open.</p>
+</div>
+
+<h3 id="arguments-and-options">Arguments and options</h3>
+<div class="primer-spec-callout info">
+  <p>Skip this subsection for EECS 280 project 1.</p>
+</div>
+
+<p>Arguments and options are inputs to a program typed at the command line.  Here’s an example from EECS 280 Project 5:</p>
+<div data-variant="no-line-numbers" data-highlight="1" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./main.exe train_small.csv test_small.csv <span class="nt">--debug</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">main.exe</code> is the name of the program</li>
+  <li><code class="language-plaintext highlighter-rouge">train_small.csv</code> and <code class="language-plaintext highlighter-rouge">test_small.csv</code> are arguments</li>
+  <li><code class="language-plaintext highlighter-rouge">--debug</code> is an option</li>
+</ul>
+
+<p>Right-click the project in the Solution Explorer (<code class="language-plaintext highlighter-rouge">p1-stats</code> in this example).  Select “Properties”.</p>
+
+<p><img src="images/visualstudio148.png" width="320px" /></p>
+
+<p>Edit “Command Arguments” and click “OK”.</p>
+
+<p><img src="images/visualstudio149.png" width="768px" /></p>
+
+<h2 id="debug">Debug</h2>
+<p>In this section, we’ll set a breakpoint, which pauses the debugger.  Then, we’ll cover some of the options to continue execution.</p>
+
+<p><img src="images/visualstudio_icon_step_over.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Step Over</strong>
+Run one line of code, stepping <em>over</em> any function calls by running the whole function in one step.</p>
+
+<p><img src="images/visualstudio_icon_step_in.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Step Into</strong>
+Run one line of code, stepping <em>into</em> any function calls to execute them line-by-line.</p>
+
+<p><img src="images/visualstudio_icon_step_out.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Step Out</strong>
+Run the program until it returns from the current function (or until the next breakpoint).</p>
+
+<p><img src="images/visualstudio_icon_continue.png" style="vertical-align: text-top; height: 1.25em;" /> <strong>Continue</strong>
+Run the program until the next breakpoint.</p>
+
+<h3 class="primer-spec-toc-ignore" id="example-code">Example code</h3>
+
+<p>To get started, copy this example <code class="language-plaintext highlighter-rouge">main.cpp</code> into your editor.</p>
+<div data-title="main.cpp" class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">double</span> <span class="nf">sum</span> <span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">double</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">total</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+  <span class="n">data</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">data</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">data</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"sum(data) = "</span> <span class="o">&lt;&lt;</span> <span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="breakpoint">Breakpoint</h3>
+<p>Select the file you want to debug.  Set a breakpoint by clicking to the left of a line number.  A breakpoint tells the program to pause.</p>
+
+<p><img src="images/visualstudio150.png" width="768px" /></p>
+
+<h3 id="run-1">Run</h3>
+<p>Run the debugger.  The program pauses at the breakpoint.  The indicator highlights the next line of code to be run.</p>
+
+<p><img src="images/visualstudio155.png" width="768px" /></p>
+
+<p><img src="images/visualstudio160.png" width="768px" /></p>
+
+<h3 id="step-over">Step over</h3>
+<p>Click “Step Over” a few times until you reach the highlighted line of code</p>
+
+<p><img src="images/visualstudio170.png" width="768px" /></p>
+
+<h3 id="inspect">Inspect</h3>
+<p>Hover over a variable to inspect its value.  You can also see values in the Autos pane.</p>
+
+<p><img src="images/visualstudio180.png" width="768px" /></p>
+
+<h3 id="step-into">Step into</h3>
+<p>Click “Step Into”.  The cursor enters the <code class="language-plaintext highlighter-rouge">sum()</code> function.</p>
+
+<p><img src="images/visualstudio190.png" width="768px" /></p>
+
+<p><img src="images/visualstudio195.png" width="768px" /></p>
+
+<h3 id="step-out">Step out</h3>
+<p>Click “Step Out”.  The <code class="language-plaintext highlighter-rouge">sum()</code> function completes, and the program pauses again.</p>
+
+<p><img src="images/visualstudio200.png" width="768px" /></p>
+
+<p><img src="images/visualstudio205.png" width="768px" /></p>
+
+<h3 id="continue">Continue</h3>
+<p>Press “Continue” to run the program to the next breakpoint, or the end, whichever comes first.</p>
+
+<p><img src="images/visualstudio210.png" width="768px" /></p>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

@@ -17,55 +17,39 @@ The *CLI* (Command Line Interface) is a text-based way to interact with a comput
 <img src="images/cli001.png" class="invert-colors-in-dark-mode" width=600px alt="gui vs cli"/>
 
 ## Prerequisites
-If you haven't installed CLI tools on your machine yet, follow one of these tutorials first.  Linux users have CLI tools installed by default.
+If you're on Windows or macOS and haven't installed CLI tools on your machine yet, follow one of these tutorials first.  Linux users have CLI tools installed by default.
 
 | [macOS](setup_macos.html)| [Windows](setup_wsl.html) |
 
-### Open Terminal (Windows)
-Start an Ubuntu Bash shell.
-
-| <img src="images/wsl020.png" class="invert-colors-in-dark-mode" width="240px" alt="start menu select Ubuntu" /> | <img src="images/wsl030.png" class="invert-colors-in-dark-mode" width="400px" alt="WSL Ubuntu terminal"/> |
-
-### Open Terminal (macOS)
-Start the Terminal application that comes with macOS.
-
-<img src="images/macos010.png" width="480px" />
-
 ## Keywords
 
-A *file* stores data like C++ source code (`main.cpp`) or plain text (`example.txt`).
+A *file* stores data like C++ source code (`main.py`) or plain text (`example.txt`).
 
 A *directory* contains files and other directories.  It's also called a folder.
 
 A *path* is the location of a file or directory.  Sometimes we end a directory path with `/`.  For example:
 ```
-/Users/ohjun/Desktop/project/main.cpp
+/Users/ohjun/Desktop/project/main.py
 /Users/ohjun/Desktop/project/stuff/
 ```
 {: data-variant="no-line-numbers" }
-
-<img src="images/cli002.png" class="invert-colors-in-dark-mode" width="600px" alt="keywords example"/>
 
 ## Basic Commands
 
 ### `ls`
 `ls` prints files and directories in the present working directory.
 
-<table>
-  <tr>
+
   <td markdown="1" >
 
   ```console
   $ ls
-  example.txt main.cpp stuff
+  example.txt main.py stuff
   ```
 
   </td>
-  <td>
-    <img src="images/cli003.png" class="invert-colors-in-dark-mode" alt="ls example" width="470px" />
-  </td>
-  </tr>
-</table>
+
+
 
 <div class="primer-spec-callout info" markdown="1">
 **Pro-tip:** Colorize the output of `ls` to tell files and directories apart ([instructions](#colorize-ls-output)).
@@ -80,7 +64,7 @@ A *path* is the location of a file or directory.  Sometimes we end a directory p
 $ tree
 .
 ├── example.txt
-├── main.cpp
+├── main.py
 └── stuff
     └── hello.txt
 ```
@@ -96,83 +80,69 @@ $ brew install tree      # macOS
 ### `pwd`
 `pwd` prints the path of the present working directory.
 
-<table>
+
   <tr>
   <td markdown="1">
 
   ```console
   $ pwd
-  /Users/ohjun/Desktop/project
+  /Users/creiglas/Desktop/project
   ```
 
   </td>
-  <td>
-    <img src="images/cli004.png" class="invert-colors-in-dark-mode" alt="pwd example" width="470px" />
-  </td>
+
   </tr>
-</table>
 
 ### `mkdir`
 `mkdir` creates a directory.
 
-<table>
+
   <tr>
   <td markdown="1">
 
   ```console
-  $ mkdir myfolder
+  $ mkdir newfolder
   ```
 
   </td>
-  <td>
-    <img src="images/cli012.png" class="invert-colors-in-dark-mode" alt="mkdir example" width="470px"/>
-  </td>
+
   </tr>
-</table>
+
 
 ### `touch`
 `touch` creates an empty file.
 
-<table>
+
   <tr>
   <td markdown="1">
 
   ```console
-  $ touch euchre.cpp
+  $ touch newfile.py
   ```
 
   </td>
-  <td>
-    <img src="images/cli006.png" class="invert-colors-in-dark-mode" alt="touch example" width="470px"/>
-  </td>
+
   </tr>
-</table>
+
 
 ### `rm`
 `rm` removes (deletes) a file.
 
-`rm -rf` removes a directory.
-
-<table>
+`rm -rf` removes a directory. The `rm` command deletes files without requiring confirmation and without the option to undo, so be careful!
   <tr>
   <td markdown="1">
 
   ```console
-  $ rm euchre.cpp
-  $ rm -r stuff2/
+  $ rm oldfile.py
+  $ rm -rf oldfolder/
   ```
 
   </td>
-  <td>
-    <img src="images/cli013.png" class="invert-colors-in-dark-mode" alt="rm example" width="470px" />
-  </td>
   </tr>
-</table>
 
 ### `cd`
-`cd` changes directory.
+`cd` changes directory. You can use `cd ~` to return to your home directory and `cd ..` to move up in the file tree. Check out the [Special Paths](#special-paths) section for more.
 
-<table>
   <tr>
   <td markdown="1">
 
@@ -181,64 +151,45 @@ $ brew install tree      # macOS
   ```
 
   </td>
-  <td>
-    <img src="images/cli014.png" class="invert-colors-in-dark-mode" alt="cd example" width="470px"/>
-  </td>
   </tr>
-</table>
 
 ### `mv`
 `mv` moves a file or directory into a different directory.
 
-<table>
   <tr>
   <td markdown="1">
 
   ```console
-  $ mv main.cpp stuff/
+  $ mv main.py projects/
   ```
 
   </td>
-  <td>
-    <img src="images/cli005.png" class="invert-colors-in-dark-mode" alt="mv example" width="470px"/>
-  </td>
   </tr>
-</table>
 
-`mv` is also used to rename a file or directory.
+`mv` is also the preferred way to rename a file or directory.
 
-<table>
   <tr>
   <td markdown="1">
 
   ```console
-  $ mv example.txt new_name.txt
+  $ mv oldname.txt newname.txt
   ```
 
   </td>
-  <td>
-    <img src="images/cli015.png" class="invert-colors-in-dark-mode" alt="mv rename example" width="470px"/>
-  </td>
   </tr>
-</table>
 
 ### `cp`
 `cp` copies a file.
 
-<table>
   <tr>
   <td markdown="1">
 
   ```console
-  $ cp new_name.txt stuff/
+  $ cp main.py projects/
   ```
 
   </td>
-  <td>
-    <img src="images/cli016.png" class="invert-colors-in-dark-mode" alt="cp example"/>
-  </td>
   </tr>
-</table>
 
 ### `open` / `wslview`
 On macOS, `open` opens a file or directory with the default application, like a double click ([docs](https://ss64.com/osx/open.html)).
@@ -272,8 +223,8 @@ $ sudo apt install wslu
 
 Type the first part of a filename, then press <kbd>TAB</kbd>.  Press again to show multiple completion options.
 ```console
-$ cd ~/src/e  # Press TAB twice to see options
-eecs280/     eecs281/     eecs485/
+$ cd ~/src/eecs2  # Press TAB twice to see options
+eecs280/     eecs281/     eecs298/
 ```
 
 <video controls autoplay loop style="width: 100%; max-width: 640px; max-height: 480px;" class="invert-colors-in-dark-mode">
@@ -282,7 +233,7 @@ eecs280/     eecs281/     eecs485/
 </video>
 
 ### Previous Command <kbd>⬆</kbd>
-<kbd>⬆</kbd> shows previous commands.
+<kbd>⬆</kbd> (the up arrow key) cycles through previous commands. The down arrow key can then cycle in the opposite direction.
 
 <video controls autoplay loop style="width: 100%; max-width: 640px; max-height: 480px;" class="invert-colors-in-dark-mode">
   <source src="images/cli_vid005.mp4" type="video/mp4">
@@ -402,10 +353,10 @@ $ wslview .  # Windows/WSL
 
 ```console
 $ pwd
-/Users/ohjun/Desktop/project/stuff
+/Users/creiglas/Desktop/project/stuff
 $ cd ..
 $ pwd
-/Users/ohjun/Desktop/project
+/Users/creiglas/Desktop/project
 ```
 
 ### Home directory `~`
@@ -414,7 +365,7 @@ $ pwd
 ```console
 $ cd ~
 $ pwd
-/Users/ohjun
+/Users/creiglas
 $ ls
 Applications Pictures Desktop ...
 ```
@@ -441,17 +392,14 @@ A *relative path* starts from the current directory.
 
 For example, running an executable.
 ```console
-$ ./main.exe
+$ python3 ./main.py
 ```
 
 ### Glob `*`
 A *glob* is a wildcard path that may match multiple paths.  The `*` symbol matches any string.
 
 ```console
-$ cp -v starter_files/* .
-'starter-files/Makefile' -> './Makefile'
-'starter-files/main_test.in' -> './main_test.in'
-...
+$ ls *.py
 ```
 
 ## More commands
@@ -460,163 +408,70 @@ This section contains some more useful commands.
 ### `wget`
 `wget` downloads a file from the internet.
 
-For example, download the starter files for EECS 280 project 1:
 ```console
-$ wget https://eecs280staff.github.io/p1-stats/starter-files.tar.gz
+$ wget https://tacobell.com/menu.pdf
 $ ls
-starter-files.tar.gz
+menu.pdf
 ```
 
 ### `tar`
-`tar` unpacks an archive.
+`tar` unpacks an archive ending in `.tar.gz`.
 
-For example, unpack the starter files for EECS 280 project 1:
 ```console
-$ tar -xvzf starter-files.tar.gz
+$ tar -xvzf archive.tar.gz
 starter-files/
 ...
 $ tree
 .
-├── starter-files
-│   ├── Makefile
-│   ├── main_test.in
-│   ├── main_test.out.correct
-│   ├── main_test_data.tsv
-│   ├── p1_library.cpp
-│   ├── p1_library.h
-│   ├── stats.h
-│   ├── stats_public_test.cpp
-│   └── stats_tests.cpp.starter
-└── starter-files.tar.gz
+├── archive
+│   ├── file1.txt
+│   ├── file2.txt
+└── archive.tar.gz
 ```
 
 ### `diff`
-`diff` compares two files.
-
-Here's an example from EECS 280 project 1 ([full example](https://eecs280staff.github.io/p1-stats/#testing-1)).  No output means the files are identical.
+`diff` compares two files. No output means the files are identical.
 ```console
-$ diff main_test.out main_test.out.correct
+$ diff oldfile.py newfile.py
 ```
 
 ### `cat`
-`cat` concatenates files and prints them.
+`cat` prints the contents of files to the terminal.
 
-For example, you can dump the contents of a file to the terminal.
 ```console
-$ cat main.cpp
-#include <iostream>
-using namespace std;
+$ cat shapes.py
+import numpy as np
 
-int main() {
-  cout << "hello from main!\n";
-}
+def get_circumference(radius):
+    diameter = 2*radius
+    circumference = diameter*np.pi
+    return circumference
+
+...
 ```
 
 ### `grep`
-`grep` searches inside a file.  It's short for "*g*lobally search for a *re*gular expression and *p*rint matching lines".
+`grep` searches inside a file.  It's short for "Globally search for a REgular expression and Print matching lines".
 
-Search for `vector` in `main.cpp`.
+Search for `circumference` in `shapes.py`.
 ```console
-$ grep vector main.cpp
-#include <vector>
-  vector<double> v = extract_column(filename, column_name);
-  vector<vector<double> > summary = summarize(v);
+$ grep circumference shapes.py
+def get_circumference(radius):
+    circumference = diameter*np.pi
+    return circumference
 ```
 
-Search for `vector` in all `.cpp` files.  This example also uses a [glob (`*`)](#glob-).
+Search for `circumference` in all `.py` files.  This example also uses a [glob (`*`)](#glob-).
 ```console
-$ grep vector *.cpp
-main.cpp:#include <vector>
-main.cpp:  vector<double> v = extract_column(filename, column_name);
-main.cpp:  vector<vector<double> > summary = summarize(v);
-stats.cpp:#include <vector>
+$ grep circumference *.py
+shapes.py: def get_circumference(radius):
+shapes.py:    circumference = diameter*np.pi
+shapes.py:    return circumference
+main.py: from shapes import get_circumference
+main.py:    circumference = get_circumference(radius)
+
 ...
-stats_tests.cpp:#include <vector>
-...
 ```
-
-## Redirection
-*Redirection* sends input or output to a file or another command.
-
-### Pipe `|`
-The *pipe* (`|`) sends the output of the left command to the input of the right command.
-
-Here's an example that searches for `.cpp` files.  The output of `ls` is piped to the input of `grep`.
-```console
-$ ls | grep cpp
-main.cpp
-stats.cpp
-stats_tests.cpp
-```
-
-### Input redirection `<`
-*Input redirection* sends the contents of a file to the input of a program.   Input redirection is useful for automating program input.
-
-Here's an example program.
-```c++
-#include <iostream>
-#include <string>
-using namespace std;
-
-int main() {
-  cout << "What's your name?" << endl;
-  string name;
-  cin >> name;
-  cout << "Hello " << name << "!\n";
-}
-```
-
-Without input redirection, the user types input (highlighted).
-```console
-$ g++ main.cpp -o main.exe
-$ ./main.exe
-What's your name?
-Drew
-Hello Drew!
-```
-{: data-highlight="4" }
-
-Create a file with user input.  We'll call it `main_test.in`.
-```
-Drew
-```
-{: data-title="main_test.in" data-highlight="1" }
-
-Redirect file `main_test.in` to stdin of `main.exe`.  We have automated user input.
-```console
-$ ./main.exe < main_test.in
-What's your name?
-Hello Drew!
-```
-{: data-highlight="1" }
-
-### Output redirection `>`
-*Output redirection* sends the output of a program to a file.  Output redirection is useful for testing program output.
-
-We will use the example program from the [input redirection section](#input-redirection-).
-
-Create a file with correct output.  We'll call it `main_test.out.correct`.  EECS 280 projects typically provided a few correct output files.
-```
-What's your name?
-Hello Drew!
-```
-{: data-title="main_test.out.corect" }
-
-Run `main.exe`, redirecting input and output.
-- `./main.exe` runs the program
-- `< main_test.in` redirects `main_test.in` to stdin
-- `> main_test.out` redirects stdout to `main_test.out`
-
-```console
-$ ./main.exe < main_test.in > main_test.out
-```
-{: data-variant="no-line-numbers" }
-
-Compare the saved (redirected) output to the correct output using [`diff`](#diff).  No output means the files are identical.
-```console
-$ diff main_test.out main_test.out.correct
-```
-{: data-variant="no-line-numbers" }
 
 ## Shell scripting
 A *shell script* is a file that contains commands.  Shell scripts are useful for automating things like running test cases. Learn more at the [EECS 485 Shell Scripting Tutorial](https://eecs485staff.github.io/p1-insta485-static/setup_scripting.html).

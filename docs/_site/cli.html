@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Command Line Interface (CLI) | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Command Line Interface (CLI)" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/cli.html" />
+<meta property="og:url" content="http://localhost:4000/cli.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Command Line Interface (CLI)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Command Line Interface (CLI)","url":"http://localhost:4000/cli.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="command-line-interface-cli">Command Line Interface (CLI)</h1>
+
+<p>This is a brief tutorial of command line interface basics.</p>
+
+<p>The <em>GUI</em> (Graphic User Interface) is a “point and click” way to interact with a computer.  The Windows File Explorer and macOS Finder are examples of GUIs.</p>
+
+<p>The <em>CLI</em> (Command Line Interface) is a text-based way to interact with a computer.  The terminal is another name for the CLI.  On the Windows Subsystem for Linux (WSL) it might be called “Ubuntu”.  The CLI is fast, easy to automate, and easy to use remotely.</p>
+
+<p><img src="images/cli001.png" class="invert-colors-in-dark-mode" width="600px" alt="gui vs cli" /></p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<p>If you’re on Windows or macOS and haven’t installed CLI tools on your machine yet, follow one of these tutorials first.  Linux users have CLI tools installed by default.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_macos.html">macOS</a></td>
+      <td><a href="setup_wsl.html">Windows</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="keywords">Keywords</h2>
+
+<p>A <em>file</em> stores data like C++ source code (<code class="language-plaintext highlighter-rouge">main.py</code>) or plain text (<code class="language-plaintext highlighter-rouge">example.txt</code>).</p>
+
+<p>A <em>directory</em> contains files and other directories.  It’s also called a folder.</p>
+
+<p>A <em>path</em> is the location of a file or directory.  Sometimes we end a directory path with <code class="language-plaintext highlighter-rouge">/</code>.  For example:</p>
+<div data-variant="no-line-numbers" class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/ohjun/Desktop/project/main.py
+/Users/ohjun/Desktop/project/stuff/
+</code></pre></div></div>
+
+<h2 id="basic-commands">Basic Commands</h2>
+
+<h3 id="ls"><code class="language-plaintext highlighter-rouge">ls</code></h3>
+<p><code class="language-plaintext highlighter-rouge">ls</code> prints files and directories in the present working directory.</p>
+
+<td>
+
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">  example.txt main.py stuff
+</span></code></pre></div>  </div>
+
+</td>
+
+<div class="primer-spec-callout info">
+  <p><strong>Pro-tip:</strong> Colorize the output of <code class="language-plaintext highlighter-rouge">ls</code> to tell files and directories apart (<a href="#colorize-ls-output">instructions</a>).</p>
+
+  <p><img src="images/cli026.png" class="invert-colors-in-dark-mode" width="768px" alt="colorized ls example" /></p>
+</div>
+
+<h3 id="tree"><code class="language-plaintext highlighter-rouge">tree</code></h3>
+<p><code class="language-plaintext highlighter-rouge">tree</code> recursively prints files and directories.  <code class="language-plaintext highlighter-rouge">tree</code> is useful for comparing your files against a project spec.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>tree
+<span class="c">.
+</span><span class="go">├── example.txt
+├── main.py
+└── stuff
+    └── hello.txt
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> You may need to install <code class="language-plaintext highlighter-rouge">tree</code>.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>tree  <span class="c"># WSL, Linux</span>
+<span class="gp">$</span><span class="w"> </span>brew <span class="nb">install </span>tree      <span class="c"># macOS</span>
+</code></pre></div>  </div>
+</div>
+
+<h3 id="pwd"><code class="language-plaintext highlighter-rouge">pwd</code></h3>
+<p><code class="language-plaintext highlighter-rouge">pwd</code> prints the path of the present working directory.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">  /Users/creiglas/Desktop/project
+</span></code></pre></div>    </div>
+
+  </td>
+
+  </tr>
+
+<h3 id="mkdir"><code class="language-plaintext highlighter-rouge">mkdir</code></h3>
+<p><code class="language-plaintext highlighter-rouge">mkdir</code> creates a directory.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">mkdir </span>newfolder
+</code></pre></div>    </div>
+
+  </td>
+
+  </tr>
+
+<h3 id="touch"><code class="language-plaintext highlighter-rouge">touch</code></h3>
+<p><code class="language-plaintext highlighter-rouge">touch</code> creates an empty file.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">touch </span>newfile.py
+</code></pre></div>    </div>
+
+  </td>
+
+  </tr>
+
+<h3 id="rm"><code class="language-plaintext highlighter-rouge">rm</code></h3>
+<p><code class="language-plaintext highlighter-rouge">rm</code> removes (deletes) a file.</p>
+
+<p><code class="language-plaintext highlighter-rouge">rm -rf</code> removes a directory. The <code class="language-plaintext highlighter-rouge">rm</code> command deletes files without requiring confirmation and without the option to undo, so be careful!</p>
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">rm </span>oldfile.py
+<span class="gp">  $</span><span class="w"> </span><span class="nb">rm</span> <span class="nt">-rf</span> oldfolder/
+</code></pre></div>    </div>
+
+  </td>
+  </tr>
+
+<h3 id="cd"><code class="language-plaintext highlighter-rouge">cd</code></h3>
+<p><code class="language-plaintext highlighter-rouge">cd</code> changes directory. You can use <code class="language-plaintext highlighter-rouge">cd ~</code> to return to your home directory and <code class="language-plaintext highlighter-rouge">cd ..</code> to move up in the file tree. Check out the <a href="#special-paths">Special Paths</a> section for more.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">cd </span>stuff/
+</code></pre></div>    </div>
+
+  </td>
+  </tr>
+
+<h3 id="mv"><code class="language-plaintext highlighter-rouge">mv</code></h3>
+<p><code class="language-plaintext highlighter-rouge">mv</code> moves a file or directory into a different directory.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">mv </span>main.py projects/
+</code></pre></div>    </div>
+
+  </td>
+  </tr>
+
+<p><code class="language-plaintext highlighter-rouge">mv</code> is also the preferred way to rename a file or directory.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">mv </span>oldname.txt newname.txt
+</code></pre></div>    </div>
+
+  </td>
+  </tr>
+
+<h3 id="cp"><code class="language-plaintext highlighter-rouge">cp</code></h3>
+<p><code class="language-plaintext highlighter-rouge">cp</code> copies a file.</p>
+
+<tr>
+  <td>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">  $</span><span class="w"> </span><span class="nb">cp </span>main.py projects/
+</code></pre></div>    </div>
+
+  </td>
+  </tr>
+
+<h3 id="open--wslview"><code class="language-plaintext highlighter-rouge">open</code> / <code class="language-plaintext highlighter-rouge">wslview</code></h3>
+<p>On macOS, <code class="language-plaintext highlighter-rouge">open</code> opens a file or directory with the default application, like a double click (<a href="https://ss64.com/osx/open.html">docs</a>).</p>
+
+<p>On WSL (Windows), <code class="language-plaintext highlighter-rouge">wslview</code> opens a file or directory with the default application, like a double click (<a href="https://wslutiliti.es/wslu/man/wslview.html">docs</a>).</p>
+
+<video controls="" autoplay="" loop="" style="width: 100%; max-width: 640px; max-height: 480px;" class="invert-colors-in-dark-mode">
+  <source src="images/cli_vid002.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<div class="primer-spec-callout warning">
+  <p><strong>WSL Pitfall:</strong> You may need to install <code class="language-plaintext highlighter-rouge">wslu</code>, which includes <code class="language-plaintext highlighter-rouge">wslview</code>.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>wslu
+</code></pre></div>  </div>
+</div>
+
+<h2 id="tips-and-tricks">Tips and Tricks</h2>
+
+<h3 id="clear-control--l"><code class="language-plaintext highlighter-rouge">clear</code> <kbd>Control</kbd> + <kbd>l</kbd></h3>
+<p><code class="language-plaintext highlighter-rouge">clear</code> the terminal.  Pro-tip: <kbd>Control</kbd> + <kbd>l</kbd>.  That’s a lowercase L.</p>
+
+<video controls="" autoplay="" loop="" style="width: 100%; max-width: 640px; max-height: 480px;" class="invert-colors-in-dark-mode">
+  <source src="images/cli_vid003.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<h3 id="tab-complete-tab">Tab complete <kbd>TAB</kbd></h3>
+<p><kbd>TAB</kbd> autocompletes a file or directory name.</p>
+
+<p>Type the first part of a filename, then press <kbd>TAB</kbd>.  Press again to show multiple completion options.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/src/eecs2  <span class="c"># Press TAB twice to see options</span>
+<span class="go">eecs280/     eecs281/     eecs298/
+</span></code></pre></div></div>
+
+<video controls="" autoplay="" loop="" style="width: 100%; max-width: 640px; max-height: 480px;" class="invert-colors-in-dark-mode">
+  <source src="images/cli_vid004.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<h3 id="previous-command-">Previous Command <kbd>⬆</kbd></h3>
+<p><kbd>⬆</kbd> (the up arrow key) cycles through previous commands. The down arrow key can then cycle in the opposite direction.</p>
+
+<video controls="" autoplay="" loop="" style="width: 100%; max-width: 640px; max-height: 480px;" class="invert-colors-in-dark-mode">
+  <source src="images/cli_vid005.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<h3 id="colorize-ls-output">Colorize <code class="language-plaintext highlighter-rouge">ls</code> output</h3>
+<p>Colorize the output of <code class="language-plaintext highlighter-rouge">ls</code> so it’s easy to tell the difference between files and directories.</p>
+
+<p><img src="images/cli026.png" class="invert-colors-in-dark-mode" width="768px" alt="colorized ls example" /></p>
+
+<h4 class="primer-spec-toc-ignore" id="windowswsl-and-linux-bash-shell">Windows/WSL and Linux (Bash shell)</h4>
+
+<p>Verify you’re using the Bash shell, which is typical on WSL Ubuntu Linux.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$0</span>
+<span class="go">-bash
+</span></code></pre></div></div>
+
+<p>Edit your shell customization file.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">touch</span> ~/.bash_profile  <span class="c"># Create file if it doesn't exist</span>
+<span class="gp">$</span><span class="w"> </span>wslview ~/.bash_profile
+</code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>WSL Pitfall:</strong> You may need to install <code class="language-plaintext highlighter-rouge">wslu</code>, which includes <code class="language-plaintext highlighter-rouge">wslview</code>.</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>wslu
+</code></pre></div>  </div>
+</div>
+
+<p>Add this line.  Whenever you type <code class="language-plaintext highlighter-rouge">ls</code>, you’ll actually get <code class="language-plaintext highlighter-rouge">ls --color</code>, which adds color.</p>
+<div data-variant="no-line-numbers" data-title="~/.bash_profile" class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias ls</span><span class="o">=</span><span class="s1">'ls --color'</span>
+</code></pre></div></div>
+
+<p>Close your terminal and reopen it.  You should see colorized <code class="language-plaintext highlighter-rouge">ls</code> output.</p>
+
+<p><img src="images/cli027.png" class="invert-colors-in-dark-mode" width="512px" alt="colorized ls WSL example" /></p>
+
+<h4 class="primer-spec-toc-ignore" id="macos-z-shell">macOS (Z shell)</h4>
+
+<p>Verify you’re using the Z shell, which is typical on macOS.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$0</span>
+<span class="go">zsh
+</span></code></pre></div></div>
+
+<p>Edit your shell customization file</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>open ~/.zshrc
+</code></pre></div></div>
+
+<p>Add this line.  Whenever you type <code class="language-plaintext highlighter-rouge">ls</code>, you’ll actually get <code class="language-plaintext highlighter-rouge">ls -G</code>.</p>
+<div data-variant="no-line-numbers" data-title="~/.zshrc" class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias ls</span><span class="o">=</span><span class="s1">'ls -G'</span>
+</code></pre></div></div>
+
+<p>Close your terminal and reopen it.  You should see colorized <code class="language-plaintext highlighter-rouge">ls</code> output.</p>
+
+<p><img src="images/cli028.png" class="invert-colors-in-dark-mode" width="512px" alt="colorized ls macOS example" /></p>
+
+<h3 id="customize-prompt">Customize prompt</h3>
+<p>Customize the terminal prompt to be more helpful and look prettier.</p>
+
+<p>First, complete the <a href="#colorize-ls-output">Colorize <code class="language-plaintext highlighter-rouge">ls</code> output</a> section. At this point, you should know whether you are using Bash or Z Shell, and you should have a working <code class="language-plaintext highlighter-rouge">.bash_profile</code> or <code class="language-plaintext highlighter-rouge">.zshrc</code> file.</p>
+
+<h4 class="primer-spec-toc-ignore" id="windowswsl-and-linux-bash-shell-1">Windows/WSL and Linux (Bash shell)</h4>
+
+<p>Add a line to your <code class="language-plaintext highlighter-rouge">.bash_profile</code> file that sets the <code class="language-plaintext highlighter-rouge">PS1</code> environment variable.</p>
+<div data-variant="no-line-numbers" data-title="~/.bash_profile" class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\e[0;32m\][\u] \[\e[0;34m\]\w/ \[\e[01;34m\]$ \[\e[0m\]'</span>
+</code></pre></div></div>
+
+<p>Close your terminal and reopen it.  It should look like this.  For more, check out <a href="https://medium.com/@adamtowers/how-to-customize-your-terminal-and-bash-profile-from-scratch-9ab079256380">this guide</a>.</p>
+
+<p><img src="images/cli029.png" class="invert-colors-in-dark-mode" width="768px" alt="customized bash example" /></p>
+
+<h4 class="primer-spec-toc-ignore" id="macos-z-shell-1">macOS (Z shell)</h4>
+
+<p>Add a line to your <code class="language-plaintext highlighter-rouge">.zshrc</code> file that sets the <code class="language-plaintext highlighter-rouge">PS1</code> environment variable.</p>
+<div data-variant="no-line-numbers" data-title="~/.zshrc" class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PROMPT</span><span class="o">=</span><span class="s1">'%F{green}[%n] %F{blue}%~%f %B%F{blue}$%f%b '</span>
+</code></pre></div></div>
+
+<p>Close your terminal and reopen it.  It should look like this.  For more, check out <a href="https://shah22j.medium.com/how-to-customize-your-zsh-terminal-on-your-own-81f947ca2f12">this guide</a>.</p>
+
+<p><img src="images/cli030.png" class="invert-colors-in-dark-mode" width="768px" alt="customized zsh example" /></p>
+
+<h2 id="special-paths">Special Paths</h2>
+<p>A <em>path</em> is the location of a file or directory.</p>
+
+<h3 id="current-directory-">Current directory <code class="language-plaintext highlighter-rouge">.</code></h3>
+<p><code class="language-plaintext highlighter-rouge">.</code> refers to the current directory.</p>
+
+<p>For example, you might open the current directory in the Finder (File Explorer).</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>open <span class="nb">.</span>     <span class="c"># macOS</span>
+<span class="gp">$</span><span class="w"> </span>wslview <span class="nb">.</span>  <span class="c"># Windows/WSL</span>
+</code></pre></div></div>
+
+<h3 id="parent-directory-">Parent directory <code class="language-plaintext highlighter-rouge">..</code></h3>
+<p><code class="language-plaintext highlighter-rouge">..</code> refers to the parent directory of the current directory.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/creiglas/Desktop/project/stuff
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ..
+<span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/creiglas/Desktop/project
+</span></code></pre></div></div>
+
+<h3 id="home-directory-">Home directory <code class="language-plaintext highlighter-rouge">~</code></h3>
+<p><code class="language-plaintext highlighter-rouge">~</code> refers to your home directory.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~
+<span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/creiglas
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Applications Pictures Desktop ...
+</span></code></pre></div></div>
+
+<h3 id="root-directory-">Root directory <code class="language-plaintext highlighter-rouge">/</code></h3>
+<p><code class="language-plaintext highlighter-rouge">/</code> refers to the root directory. This is the top-most directory in your file system, and has no parent.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> /
+<span class="go">Applications cores sbin ...
+</span></code></pre></div></div>
+
+<h3 id="absolute-path">Absolute Path</h3>
+<p>An <em>absolute path</em> starts from the root directory <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<p>For example, sometimes it’s useful to make sure the <em>exact</em> file is correct.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>/usr/local/bin/python3  <span class="c"># One version of Python</span>
+<span class="gp">$</span><span class="w"> </span>/usr/bin/python3        <span class="c"># Another version of Python</span>
+</code></pre></div></div>
+
+<h3 id="relative-path">Relative Path</h3>
+<p>A <em>relative path</em> starts from the current directory.</p>
+
+<p>For example, running an executable.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 ./main.py
+</code></pre></div></div>
+
+<h3 id="glob-">Glob <code class="language-plaintext highlighter-rouge">*</code></h3>
+<p>A <em>glob</em> is a wildcard path that may match multiple paths.  The <code class="language-plaintext highlighter-rouge">*</code> symbol matches any string.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="k">*</span>.py
+</code></pre></div></div>
+
+<h2 id="more-commands">More commands</h2>
+<p>This section contains some more useful commands.</p>
+
+<h3 id="wget"><code class="language-plaintext highlighter-rouge">wget</code></h3>
+<p><code class="language-plaintext highlighter-rouge">wget</code> downloads a file from the internet.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://tacobell.com/menu.pdf
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">menu.pdf
+</span></code></pre></div></div>
+
+<h3 id="tar"><code class="language-plaintext highlighter-rouge">tar</code></h3>
+<p><code class="language-plaintext highlighter-rouge">tar</code> unpacks an archive ending in <code class="language-plaintext highlighter-rouge">.tar.gz</code>.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">tar</span> <span class="nt">-xvzf</span> archive.tar.gz
+<span class="go">starter-files/
+</span><span class="c">...
+</span><span class="gp">$</span><span class="w"> </span>tree
+<span class="c">.
+</span><span class="go">├── archive
+│   ├── file1.txt
+│   ├── file2.txt
+└── archive.tar.gz
+</span></code></pre></div></div>
+
+<h3 id="diff"><code class="language-plaintext highlighter-rouge">diff</code></h3>
+<p><code class="language-plaintext highlighter-rouge">diff</code> compares two files. No output means the files are identical.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>diff oldfile.py newfile.py
+</code></pre></div></div>
+
+<h3 id="cat"><code class="language-plaintext highlighter-rouge">cat</code></h3>
+<p><code class="language-plaintext highlighter-rouge">cat</code> prints the contents of files to the terminal.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>shapes.py
+<span class="go">import numpy as np
+
+def get_circumference(radius):
+    diameter = 2*radius
+    circumference = diameter*np.pi
+    return circumference
+
+</span><span class="c">...
+</span></code></pre></div></div>
+
+<h3 id="grep"><code class="language-plaintext highlighter-rouge">grep</code></h3>
+<p><code class="language-plaintext highlighter-rouge">grep</code> searches inside a file.  It’s short for “Globally search for a REgular expression and Print matching lines”.</p>
+
+<p>Search for <code class="language-plaintext highlighter-rouge">circumference</code> in <code class="language-plaintext highlighter-rouge">shapes.py</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">grep </span>circumference shapes.py
+<span class="go">def get_circumference(radius):
+    circumference = diameter*np.pi
+    return circumference
+</span></code></pre></div></div>
+
+<p>Search for <code class="language-plaintext highlighter-rouge">circumference</code> in all <code class="language-plaintext highlighter-rouge">.py</code> files.  This example also uses a <a href="#glob-">glob (<code class="language-plaintext highlighter-rouge">*</code>)</a>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">grep </span>circumference <span class="k">*</span>.py
+<span class="go">shapes.py: def get_circumference(radius):
+shapes.py:    circumference = diameter*np.pi
+shapes.py:    return circumference
+main.py: from shapes import get_circumference
+main.py:    circumference = get_circumference(radius)
+
+</span><span class="c">...
+</span></code></pre></div></div>
+
+<h2 id="shell-scripting">Shell scripting</h2>
+<p>A <em>shell script</em> is a file that contains commands.  Shell scripts are useful for automating things like running test cases. Learn more at the <a href="https://eecs485staff.github.io/p1-insta485-static/setup_scripting.html">EECS 485 Shell Scripting Tutorial</a>.</p>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu and Oh Jun Kweon ohjun@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

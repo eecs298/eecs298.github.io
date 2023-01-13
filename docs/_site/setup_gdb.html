@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup GDB | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup GDB" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_gdb.html" />
+<meta property="og:url" content="http://localhost:4000/setup_gdb.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup GDB" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup GDB","url":"http://localhost:4000/setup_gdb.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="gdb-tutorial">GDB Tutorial</h1>
+
+<p><a href="https://www.gnu.org/software/gdb/">GDB</a> is a command line debugger.  It runs primarily on Linux.  On Windows, you can use GDB via WSL.  On macOS, GDB is <a href="https://sourceware.org/bugzilla/show_bug.cgi?id=24069">unreliable</a>, so we recommend using LLDB instead (<a href="setup_lldb.html">LLDB Tutorial</a>).</p>
+
+<p>GDB is harder to learn compared to most visual debuggers.  However, you might want to use GDB in situations like these:</p>
+<ul>
+  <li>Zero setup compared to Visual Studio or VS Code.  Fast and easy debugging once you’ve learned.</li>
+  <li>Integration with Vim and Emacs (used in EECS 280, optional)</li>
+  <li>Command line only, work on a remote server without a GUI</li>
+  <li>Support for threads (used in EECS 482 Operating Systems)</li>
+  <li>Support for connecting to a remote target like an operating system that has crashed so badly you can’t use the keyboard or monitor</li>
+</ul>
+
+<p>GDB uses commands.  Here’s a handy <a href="http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf">reference card</a>.</p>
+
+<h1 id="quick-start">Quick Start</h1>
+<div class="primer-spec-callout info icon-info">
+  <p>If you’re a first time user, skip this section.</p>
+</div>
+
+<p>Compile your program with the <code class="language-plaintext highlighter-rouge">-g</code> flag and start GDB in text user interface (TUI) mode.  EECS 281 students: remove optimization flags like <code class="language-plaintext highlighter-rouge">-O3</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make stats_tests.exe
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+</span><span class="gp">$</span><span class="w"> </span>gdb <span class="nt">-tui</span> stats_tests.exe
+</code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b main</code></td>
+      <td>breakpoint on main function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b 29</code></td>
+      <td>breakpoint on line 29 of current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b stats.cpp:16</code></td>
+      <td>breakpoint on line 16 of stats.cpp</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>run or rerun</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>step into</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>step over (AKA next)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">refresh</code></td>
+      <td>refresh TUI view</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p myvar</code></td>
+      <td>print variable <code class="language-plaintext highlighter-rouge">myvar</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>quit</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This tutorial uses command line tools.  If you haven’t installed CLI tools on your machine yet, follow one of these tutorials first.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_macos.html">macOS</a></td>
+      <td><a href="setup_wsl.html">Windows</a></td>
+      <td><a href="setup_wsl.html#install-cli-tools">Linux</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We presume you’ve created a folder for your project, downloaded and unpacked the starter files, and created any new files with appropriate function stubs.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile     main_test.in           p1_library.cpp  stats.h
+launch.json  main_test.out.correct  p1_library.h    stats_public_test.cpp
+main.cpp     main_test_data.tsv     stats.cpp       stats_tests.cpp
+</span></code></pre></div></div>
+
+<p>You should have function stubs in <code class="language-plaintext highlighter-rouge">stats.h</code> and <code class="language-plaintext highlighter-rouge">main.cpp</code>.  If you simply want to download a copy with the stubs already in place, use these commands.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget <span class="nt">--no-clobber</span> https://eecs280staff.github.io/tutorials/stats.cpp <span class="nt">-O</span> stats.cpp
+<span class="gp">$</span><span class="w"> </span>wget <span class="nt">--no-clobber</span> https://eecs280staff.github.io/tutorials/main.cpp <span class="nt">-O</span> main.cpp
+</code></pre></div></div>
+
+<p>If you’re not sure how to do this, you might find one of our IDE tutorials helpful. Walk through the tutorial up through the “Create a project” section.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="setup_vscode.html">VS Code</a></td>
+      <td><a href="setup_visualstudio.html">Visual Studio</a></td>
+      <td><a href="setup_xcode.html">Xcode</a></td>
+      <td><a href="setup_emacs.html">Emacs</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="install">Install</h1>
+<p>GDB works best on Linux, including WSL.  If you’re running macOS, use <a href="setup_lldb.html">LLDB</a> instead.  If you’re on CAEN Linux, GDB and GCC are already installed.  Your versions might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>g++ gdb
+<span class="gp">$</span><span class="w"> </span>g++ <span class="nt">--version</span>
+<span class="go">g++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+</span><span class="gp">$</span><span class="w"> </span>gdb <span class="nt">--version</span>
+<span class="go">GNU gdb (Ubuntu 9.2-0ubuntu1~20.04) 9.2
+</span></code></pre></div></div>
+
+<h1 id="compile">Compile</h1>
+<p>GDB debugs a compiled executable.  Compile the executable you plan to debug.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>make clean
+<span class="go">rm -rvf *.exe *~ *.out *.dSYM *.stackdump
+</span><span class="gp">$</span><span class="w"> </span>make stats_tests.exe
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p><strong>PITFALL:</strong> GDB debugging will be very hard to understand if there are no debugging symbols.  Double check the output of <code class="language-plaintext highlighter-rouge">make</code> and verify that you see <code class="language-plaintext highlighter-rouge">-g</code> being used in the commands.  The EECS 280 defaults include <code class="language-plaintext highlighter-rouge">-g</code>.</p>
+</div>
+
+<p>Optionally run your executable at the command line before debugging.  With EECS 280 project 1 starter files and functions stubs in <code class="language-plaintext highlighter-rouge">stats_tests.cpp</code>, we get an assertion failure.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./stats_tests.exe
+<span class="go">test_sum_small_data_set
+</span><span class="gp">stats_tests.exe: stats.cpp:16: double sum(std::vector&lt;double&gt;</span><span class="o">)</span>: Assertion <span class="sb">`</span><span class="nb">false</span><span class="s1">' failed.
+</span><span class="go">Aborted (core dumped)
+</span></code></pre></div></div>
+
+<h1 id="run">Run</h1>
+<p>To run inside GDB, prefix your executable name with <code class="language-plaintext highlighter-rouge">gdb</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>gdb stats_tests.exe
+<span class="c">...
+</span><span class="go">Reading symbols from stats_tests.exe...
+(gdb)
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">r</code> command runs the program.  You can ignore any error about “raise.c: No such file or directory.”.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) r
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/stats_tests.exe
+test_sum_small_data_set
+stats_tests.exe: stats.cpp:16: double sum(std::vector&lt;double&gt;): Assertion `false' failed.
+
+Program received signal SIGABRT, Aborted.
+</code></pre></div></div>
+
+<p>Use the back trace command (<code class="language-plaintext highlighter-rouge">bt</code>) to see the stack at the time of failure.  You can ignore all the standard library functions.  Just pay attention to functions that you wrote.  This is a great way to get a quick look at the root cause of a segfault.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) bt
+#0  ...
+#1  ...
+#2  ...
+#3  ...
+#4  0x0000555555559244 in sum (v=std::vector of length 3, capacity 3 = {...})
+    at stats.cpp:16
+#5  0x0000555555557a5c in test_sum_small_data_set () at stats_tests.cpp:47
+#6  0x0000555555557996 in main () at stats_tests.cpp:30
+</code></pre></div></div>
+
+<p>Quit.  <strong>Pro-tip:</strong> <code class="language-plaintext highlighter-rouge">Control-D</code> will quit, and a second <code class="language-plaintext highlighter-rouge">Control-D</code> will confirm the <code class="language-plaintext highlighter-rouge">y or n</code> prompt.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) q
+A debugging session is active.
+
+  Inferior 1 [process 1090] will be killed.
+
+Quit anyway? (y or n) y
+</code></pre></div></div>
+
+<h2 id="input-redirection">Input redirection</h2>
+<p>Skip this subsection on your first time through the tutorial.  You can use input redirection to avoid typing program input each time you run (for debugging) a program.</p>
+
+<p>Without input redirection, you can type input into GDB after running your program.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gdb main.exe
+...
+(gdb) r
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/main.exe
+enter a filename
+main_test_data.tsv
+enter a column name
+B
+...
+</code></pre></div></div>
+
+<p>With input redirection, use a run command like this <code class="language-plaintext highlighter-rouge">r &lt; main_test.in</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gdb main.exe
+...
+(gdb) r &lt; main_test.in
+</code></pre></div></div>
+
+<h2 id="arguments-and-options">Arguments and options</h2>
+<p>Skip this subsection for EECS 280 project 1.  You’ll need it for project 2 and beyond.</p>
+
+<p><em>Arguments</em> and <em>options</em> are inputs to a program typed at the command line.  Arguments are often required.  Options (AKA <em>flags</em> or <em>switches</em>) start with a hyphen (<code class="language-plaintext highlighter-rouge">-</code>), and are typically optional.</p>
+
+<p><strong>Arguments example</strong> from project 2:  <code class="language-plaintext highlighter-rouge">resize.exe</code> is the name of the program, and the arguments are <code class="language-plaintext highlighter-rouge">horses.ppm</code>,  <code class="language-plaintext highlighter-rouge">horses_400x250.ppm</code>, <code class="language-plaintext highlighter-rouge">400</code>, and <code class="language-plaintext highlighter-rouge">250</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./resize.exe horses.ppm horses_400x250.ppm 400 250
+<span class="gp">$</span><span class="w"> </span>gdb resize.exe
+<span class="go">(gdb) r horses.ppm horses_400x250.ppm 400 250
+</span></code></pre></div></div>
+
+<p><strong>Options example</strong> from project 5:  <code class="language-plaintext highlighter-rouge">main.exe</code> is the name of the program.  <code class="language-plaintext highlighter-rouge">train_small.csv</code> and  <code class="language-plaintext highlighter-rouge">test_small.csv</code> are arguments.  <code class="language-plaintext highlighter-rouge">--debug</code> is an option.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./main.exe train_small.csv test_small.csv <span class="nt">--debug</span>
+<span class="gp">$</span><span class="w"> </span>gdb main.exe
+<span class="go">(gdb) r train_small.csv test_small.csv --debug
+</span></code></pre></div></div>
+
+<h1 id="debug">Debug</h1>
+<p>Start GDB with your executable.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>gdb stats_tests.exe
+<span class="go">GNU gdb (Ubuntu 9.2-0ubuntu1~20.04) 9.2
+</span><span class="c">...
+</span><span class="go">Reading symbols from stats_tests.exe...
+(gdb)
+</span></code></pre></div></div>
+
+<p>Set a breakpoint on the main function (<code class="language-plaintext highlighter-rouge">b main</code>) and run the program (<code class="language-plaintext highlighter-rouge">r</code>).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) b main
+Breakpoint 1 at 0x3989: file stats_tests.cpp, line 29.
+(gdb) r
+Starting program: /home/awdeorio/src/eecs280/p1-stats/stats_tests.exe
+
+Breakpoint 1, main () at stats_tests.cpp:29
+29  {
+</code></pre></div></div>
+
+<p><strong>Pro-tip</strong>: <code class="language-plaintext highlighter-rouge">start</code> is a shortcut for <code class="language-plaintext highlighter-rouge">b main</code> followed by <code class="language-plaintext highlighter-rouge">r</code>.</p>
+
+<p><strong>Pro-tip</strong>: Other ways to set breakpoints:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b main</code></td>
+      <td>breakpoint on main function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b 29</code></td>
+      <td>breakpoint on line 29 of current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b stats.cpp:16</code></td>
+      <td>breakpoint on line 16 of stats.cpp</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Step over to the next line of code with <code class="language-plaintext highlighter-rouge">n</code>, do this twice.  Our test fails because we haven’t implemented <code class="language-plaintext highlighter-rouge">sum()</code> yet.  You can ignore any error about “raise.c: No such file or directory.”.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) n
+30    test_sum_small_data_set();
+(gdb) n
+test_sum_small_data_set
+stats_tests.exe: stats.cpp:16: double sum(std::vector&lt;double&gt;): Assertion `false' failed.
+
+Program received signal SIGABRT, Aborted.
+</code></pre></div></div>
+
+<p>Rerun the program.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/awdeorio/src/eecs280/p1-stats/stats_tests.exe
+
+Breakpoint 1, main () at stats_tests.cpp:29
+29  {
+</code></pre></div></div>
+
+<p>Step over to the next line of code (<code class="language-plaintext highlighter-rouge">n</code>), then step into the function with <code class="language-plaintext highlighter-rouge">s</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) n
+30    test_sum_small_data_set();
+(gdb) s
+test_sum_small_data_set () at stats_tests.cpp:39
+39  {
+</code></pre></div></div>
+
+<p>List a few lines of surrounding code with <code class="language-plaintext highlighter-rouge">l</code> (that’s a lowercase <code class="language-plaintext highlighter-rouge">L</code>).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) l
+34
+35    return 0;
+36  }
+37
+38  void test_sum_small_data_set()
+39  {
+40    cout &lt;&lt; "test_sum_small_data_set\n";
+41
+42    vector&lt;double&gt; data;
+43    data.push_back(1);
+</code></pre></div></div>
+
+<p>Step over to the next line of code (<code class="language-plaintext highlighter-rouge">n</code>) a couple times until you’re on this line of code.  <strong>Pro-tip:</strong> just hit Enter to repeat your previous command.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) n
+40    cout &lt;&lt; "test_sum_small_data_set\n";
+(gdb) n
+test_sum_small_data_set
+42    vector&lt;double&gt; data;
+(gdb) n
+43    data.push_back(1);
+(gdb) n
+44    data.push_back(2);
+(gdb) n
+45    data.push_back(3);
+(gdb) n
+47    assert(sum(data) == 6);
+</code></pre></div></div>
+
+<p>Print the value of a variable with <code class="language-plaintext highlighter-rouge">p</code>.  If you have trouble viewing the contents of the <code class="language-plaintext highlighter-rouge">vector</code> in the previous step, see the <a href="#pretty-printing-stl-containers-with-gdb">Pretty Printing STL Containers with <code class="language-plaintext highlighter-rouge">gdb</code></a> section.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) p data
+$3 = std::vector of length 3, capacity 4 = {1, 2, 3}
+</code></pre></div></div>
+
+<p>Quit.  <strong>Pro-tip:</strong> <code class="language-plaintext highlighter-rouge">Control-D</code> will quit, and a second <code class="language-plaintext highlighter-rouge">Control-D</code> will confirm the <code class="language-plaintext highlighter-rouge">y or n</code> prompt.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) q
+A debugging session is active.
+
+  Inferior 1 [process 1090] will be killed.
+
+Quit anyway? (y or n) y
+</code></pre></div></div>
+
+<h1 id="debug-with-tui-mode">Debug with TUI mode</h1>
+<p>Start GDB in TUI mode with your executable and hit Enter a few times until you see the <code class="language-plaintext highlighter-rouge">(gdb)</code> prompt.  TUI mode shows your source code at the top with a GDB prompt at the bottom.  It uses the <a href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> library for text-based user interfaces.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gdb -tui stats_tests.exe
+┌──stats_tests.cpp─────────────────────────────────────────────────────────────┐
+│   29          {                                                              │
+│   30            test_sum_small_data_set();                                   │
+│   31            test_sum_small_data_set();                                   │
+│   32                                                                         │
+│   33            // Call your test functions here                             │
+│   34                                                                         │
+│   35            return 0;                                                    │
+│   36          }                                                              │
+│   37                                                                         │
+│   38          void test_sum_small_data_set()                                 │
+│   39          {                                                              │
+│   40            cout &lt;&lt; "test_sum_small_data_set\n";                         │
+│   41                                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+exec No process In:                                                L??   PC: ??
+Find the GDB manual and other documentation resources online at:
+    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+
+For help, type "help".
+--Type &lt;RET&gt; for more, q to quit, c to continue without paging--
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from stats_tests.exe...
+(gdb)
+</code></pre></div></div>
+
+<p>Set a breakpoint on the main function (<code class="language-plaintext highlighter-rouge">b main</code>) and run the program (<code class="language-plaintext highlighter-rouge">r</code>).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──stats_tests.cpp─────────────────────────────────────────────────────────────┐
+│B+&gt;29          {                                                              │
+│   30            test_sum_small_data_set();                                   │
+│   31            test_sum_small_data_set();                                   │
+│   32                                                                         │
+│   33            // Call your test functions here                             │
+│   34                                                                         │
+│   35            return 0;                                                    │
+│   36          }                                                              │
+│   37                                                                         │
+│   38          void test_sum_small_data_set()                                 │
+│   39          {                                                              │
+│   40            cout &lt;&lt; "test_sum_small_data_set\n";                         │
+│   41                                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+native process 1154 In: main                           L29   PC: 0x555555557989
+Reading symbols from stats_tests.exe...
+(gdb) b main
+Breakpoint 1 at 0x3989: file stats_tests.cpp, line 29.
+(gdb) r
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/stats_tests.exe
+
+Breakpoint 1, main () at stats_tests.cpp:29
+(gdb)
+</code></pre></div></div>
+
+<p><strong>Pro-tip</strong>: <code class="language-plaintext highlighter-rouge">start</code> is a shortcut for <code class="language-plaintext highlighter-rouge">b main</code> followed by <code class="language-plaintext highlighter-rouge">r</code>.</p>
+
+<p><strong>Pro-tip</strong>: Other ways to set breakpoints:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b main</code></td>
+      <td>breakpoint on main function</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b 29</code></td>
+      <td>breakpoint on line 29 of current file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b stats.cpp:16</code></td>
+      <td>breakpoint on line 16 of stats.cpp</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Step over to the next line of code with <code class="language-plaintext highlighter-rouge">n</code> and notice the line cursor <code class="language-plaintext highlighter-rouge">&gt;</code> advance.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──stats_tests.cpp─────────────────────────────────────────────────────────────┐
+│B+ 29          {                                                              │
+│  &gt;30            test_sum_small_data_set();                                   │
+│   31            test_sum_small_data_set();                                   │
+│   32                                                                         │
+│   33            // Call your test functions here                             │
+│   34                                                                         │
+│   35            return 0;                                                    │
+│   36          }                                                              │
+│   37                                                                         │
+│   38          void test_sum_small_data_set()                                 │
+│   39          {                                                              │
+│   40            cout &lt;&lt; "test_sum_small_data_set\n";                         │
+│   41                                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+native process 1161 In: main                           L30   PC: 0x555555557991
+(gdb) b main
+Breakpoint 1 at 0x3989: file stats_tests.cpp, line 29.
+(gdb) r
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/stats_tests.exe
+
+Breakpoint 1, main () at stats_tests.cpp:29
+(gdb) n
+(gdb)
+</code></pre></div></div>
+
+<p>Again, step over to the next line code with <code class="language-plaintext highlighter-rouge">n</code>.  Our test fails because we haven’t implemented <code class="language-plaintext highlighter-rouge">sum()</code> yet.  You can ignore any error about “raise.c: No such file or directory.”.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+stats_tests.exe: stats.cpp:16: double sum(std::vector&lt;double&gt;): Assertion `false' failed.
+
+Program received signal SIGABRT, Aborted.
+</code></pre></div></div>
+
+<p>Refresh the TUI interface and rerun the program.  Sometimes, a crash can cause random characters to appear in TUI mode, which is why we use <code class="language-plaintext highlighter-rouge">refresh</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) refresh
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+</code></pre></div></div>
+
+<p>At this point, you should be back at the breakpoint on <code class="language-plaintext highlighter-rouge">main</code> that you set earlier.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──stats_tests.cpp─────────────────────────────────────────────────────────────┐
+│B+&gt;29          {                                                              │
+│   30            test_sum_small_data_set();                                   │
+│   31            test_sum_small_data_set();                                   │
+│   32                                                                         │
+│   33            // Call your test functions here                             │
+│   34                                                                         │
+│   35            return 0;                                                    │
+│   36          }                                                              │
+│   37                                                                         │
+│   38          void test_sum_small_data_set()                                 │
+│   39          {                                                              │
+│   40            cout &lt;&lt; "test_sum_small_data_set\n";                         │
+│   41                                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+native process 1209 In: main                           L29   PC: 0x555555557989
+(gdb) refresh
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/stats_tests.exe
+
+Breakpoint 1, main () at stats_tests.cpp:29
+(gdb)
+</code></pre></div></div>
+
+<p>Step over to the next line of code (<code class="language-plaintext highlighter-rouge">n</code>), then step into the function with <code class="language-plaintext highlighter-rouge">s</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──stats_tests.cpp─────────────────────────────────────────────────────────────┐
+│B+ 29          {                                                              │
+│   30            test_sum_small_data_set();                                   │
+│   31            test_sum_small_data_set();                                   │
+│   32                                                                         │
+│   33            // Call your test functions here                             │
+│   34                                                                         │
+│   35            return 0;                                                    │
+│   36          }                                                              │
+│   37                                                                         │
+│   38          void test_sum_small_data_set()                                 │
+│  &gt;39          {                                                              │
+│   40            cout &lt;&lt; "test_sum_small_data_set\n";                         │
+│   41                                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+native process 1209 In: test_sum_small_data_set        L39   PC: 0x5555555579a2
+Start it from the beginning? (y or n) y
+Starting program: /vagrant/src/eecs280/p1-stats-awdeorio/stats_tests.exe
+
+Breakpoint 1, main () at stats_tests.cpp:29
+(gdb) n
+(gdb) s
+test_sum_small_data_set () at stats_tests.cpp:39
+(gdb)
+</code></pre></div></div>
+
+<p>Step over to the next line of code (<code class="language-plaintext highlighter-rouge">n</code>) a couple times until you’re on this line of code.  If the user interface ever starts to look messed up, just <code class="language-plaintext highlighter-rouge">refresh</code> it.  <strong>Pro-tip:</strong> just hit Enter to repeat your previous command.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──stats_tests.cpp─────────────────────────────────────────────────────────────┐
+│   42            vector&lt;double&gt; data;                                         │
+│   43            data.push_back(1);                                           │
+│   44            data.push_back(2);                                           │
+│   45            data.push_back(3);                                           │
+│   46                                                                         │
+│  &gt;47            assert(sum(data) == 6);                                      │
+│   48                                                                         │
+│   49            cout &lt;&lt; "PASS!\n";                                           │
+│   50          }                                                              │
+│   51                                                                         │
+│   52          // Add the test function implementations here.                 │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+native process 1209 In: test_sum_small_data_set        L47   PC: 0x555555557a3d
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) refresh
+(gdb)
+</code></pre></div></div>
+
+<p>Print the value of a variable with <code class="language-plaintext highlighter-rouge">p</code>.  If you have trouble viewing the contents of the <code class="language-plaintext highlighter-rouge">vector</code> in the previous step, see the <a href="#pretty-printing-stl-containers-with-gdb">Pretty Printing STL Containers with <code class="language-plaintext highlighter-rouge">gdb</code></a> section.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) p data
+$3 = std::vector of length 3, capacity 4 = {1, 2, 3}
+</code></pre></div></div>
+
+<p>Quit.  <strong>Pro-tip:</strong> <code class="language-plaintext highlighter-rouge">Control-D</code> will quit, and a second <code class="language-plaintext highlighter-rouge">Control-D</code> will confirm the <code class="language-plaintext highlighter-rouge">y or n</code> prompt.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) q
+A debugging session is active.
+
+  Inferior 1 [process 1090] will be killed.
+
+Quit anyway? (y or n) y
+</code></pre></div></div>
+
+<h1 id="pro-tips">Pro-tips</h1>
+<p>Use the up arrow key to cycle through previously used commands.</p>
+
+<p>Use TAB completion to automatically complete the name of a command or a variable.</p>
+
+<p>Use Emacs keyboard shortcuts to enter and edit your current command.</p>
+
+<h1 id="pretty-printing-stl-containers-with-gdb">Pretty-printing STL Containers with <code class="language-plaintext highlighter-rouge">gdb</code></h1>
+<p>Some installations of <code class="language-plaintext highlighter-rouge">gdb</code> don’t ship with pretty printing support for STL containers like <code class="language-plaintext highlighter-rouge">vector</code>.</p>
+
+<p>If you have this problem, you’ll see something like this when you try to view the contents of a <code class="language-plaintext highlighter-rouge">vector</code> while debugging in GDB or VS Code (some VS Code configurations use GDB under the hood).</p>
+
+<p><img src="images/vscode140.png" width="480px" /></p>
+
+<p>Install Subversion and Python.</p>
+
+<p>Get the GDB STL pretty printers. These are written in Python.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> ~/.gdb.d/
+<span class="gp">$</span><span class="w"> </span>svn co svn://gcc.gnu.org/svn/gcc/trunk/libstdc++-v3/python ~/.gdb.d/python
+</code></pre></div></div>
+
+<p>Use this command to create a <code class="language-plaintext highlighter-rouge">.gdbinit</code> file in your home directory.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s1">'python\nimport os\nimport sys\nsys.path.insert(0, os.path.expanduser("~/.gdb.d/python"))\nfrom libstdcxx.v6.printers import register_libstdcxx_printers\nregister_libstdcxx_printers (None)\nend'</span> <span class="o">&gt;</span> ~/.gdbinit
+</code></pre></div></div>
+
+<p>Double check everything:</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> ~/.gdbinit
+<span class="go">python
+import os
+import sys
+sys.path.insert(0, os.path.expanduser("~/.gdb.d/python"))
+from libstdcxx.v6.printers import register_libstdcxx_printers
+register_libstdcxx_printers (None)
+end
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-R</span> ~/.gdb.d/
+<span class="go">/Users/awdeorio/.gdb.d/:
+python
+
+/Users/awdeorio/.gdb.d/python:
+Makefile.am  Makefile.in  hook.in  libstdcxx
+
+/Users/awdeorio/.gdb.d/python/libstdcxx:
+__init__.py  v6
+
+/Users/awdeorio/.gdb.d/python/libstdcxx/v6:
+__init__.py  printers.py  xmethods.py
+</span></code></pre></div></div>
+
+<p>Finally, restart GDB or VS Code and try to check the contents of vector
+again.</p>
+
+<h1 id="acknowledgments">Acknowledgments</h1>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

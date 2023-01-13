@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Setup CAEN | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Setup CAEN" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/setup_caen.html" />
+<meta property="og:url" content="http://localhost:4000/setup_caen.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Setup CAEN" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Setup CAEN","url":"http://localhost:4000/setup_caen.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="caen-linux">CAEN Linux</h1>
+
+<p>This tutorial will show you how to copy source code from your Laptop to CAEN Linux.  CAEN Linux is a server in the University data center that runs the Linux operating system.  It’s useful for making sure that your code works on a computer that is a lot like the autograder.</p>
+
+<p><img src="images/caen005.excalidraw.png" width="768px" class="invert-colors-in-dark-mode" /></p>
+
+<p>Why use CAEN Linux?  One reason is that it has the same compiler used by the autograder, which is useful for making sure you’ll get the same results as on your laptop.  For example, on an Apple laptop, <code class="language-plaintext highlighter-rouge">g++</code> is actually an alias for the Clang compiler supplied by Apple.  Similar things can happen on Windows.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>g++ <span class="nt">--version</span>
+<span class="go">Apple clang version 12.0.0 (clang-1200.0.32.29)
+</span></code></pre></div></div>
+
+<p>After logging in to CAEN Linux, you can use the same compiler used by the autograder.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>g++
+<span class="go">g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-44)
+</span></code></pre></div></div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<p>We’re assuming that you already have a folder with starter source code in it, e.g., <code class="language-plaintext highlighter-rouge">p1-stats/</code>.  You’ve created new files and added function stubs to make the code base compile, e.g., <code class="language-plaintext highlighter-rouge">stats.cpp</code> and <code class="language-plaintext highlighter-rouge">main.cpp</code>.  We expect that your unit tests will fail because many functions are stubs.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">Makefile      main_test.out.correct  p1_library.h  stats_public_test.cpp
+main.cpp      main_test_data.tsv     stats.cpp     stats_tests.cpp
+main_test.in  p1_library.cpp         stats.h
+</span><span class="gp">$</span><span class="w"> </span>make clean
+<span class="go">rm -rvf *.exe *~ *.out *.dSYM *.stackdump
+</span><span class="gp">$</span><span class="w"> </span>make <span class="nb">test</span>
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 main.cpp stats.cpp p1_library.cpp -o main.exe
+g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+g++ -Wall -Werror -pedantic -g --std=c++11 stats_public_test.cpp stats.cpp p1_library.cpp -o stats_public_test.exe
+./stats_public_test.exe
+Assertion failed: (false), function count, file stats.cpp, line 12.
+countmake: *** [test] Abort trap: 6
+</span></code></pre></div></div>
+
+<p>You have installed <code class="language-plaintext highlighter-rouge">ssh</code> and <code class="language-plaintext highlighter-rouge">rsync</code>.  Your versions might be different.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-V</span>
+<span class="go">OpenSSH_7.4p1, LibreSSL 2.5.0
+</span><span class="gp">$</span><span class="w"> </span>rsync <span class="nt">--version</span>
+<span class="go">rsync  version 2.6.9  protocol version 29
+</span></code></pre></div></div>
+
+<h2 id="test-log-in">Test log in</h2>
+<p>CAEN is the information technology (IT) services department for the University of Michigan (U-M) College of Engineering.  Everyone who registers for an EECS class (like EECS 280) should receive a CAEN account automatically by the first day class.  If you register after the first day of class, you should get your account within 24 hours of registration.</p>
+
+<p>You’ll need a two factor authentication app set up on your mobile device.  Make sure that you have the Duo Mobile app installed and configured according the <a href="http://documentation.its.umich.edu/2fa/enroll-smartphone-or-tablet-duo">ITCS documentation</a>.</p>
+
+<p><img src="images/caen010.png" width="480px" /></p>
+
+<p>Test if you have access to CAEN Linux computers.  Be sure to change <code class="language-plaintext highlighter-rouge">awdeorio</code> to your own uniqname.  If this is the first time you’re logging in, you’ll need to confirm that you want to continue connecting.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu
+<span class="go">The authenticity of host 'login.engin.umich.edu (141.213.74.65)' can't be established.
+ECDSA key fingerprint is SHA256:LL0GPTtaVGa6gvv2kVpGq4ZULA1l5pw2wXC4dK3ymIk.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'login.engin.umich.edu,141.213.74.65' (ECDSA) to the list of known hosts.
+Password: 
+Duo two-factor login for awdeorio
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-3142
+ 2. Phone call to XXX-XXX-3142
+ 3. SMS passcodes to XXX-XXX-3142
+
+Passcode or option (1-3): 1
+Success. Logging you in...
+</span><span class="c">...
+</span><span class="gp">-bash-4.2$</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout info icon-info">
+  <p>If you see an error like <code class="language-plaintext highlighter-rouge">Could not chdir to home directory /home/awdeorio: No such file or directory</code>, a common reason is that you don’t have a home directory set up yet.  Request one at the <a href="https://ifsprovisioning.its.umich.edu/ifs_storage/request">IFS Storage Request page</a>. Note that it may take a few hours before your home directory is available across all CAEN systems. If you already have one, you should see “You already have IFS Storage!”.</p>
+
+  <p>If you’re still having trouble accessing your account, see the <a href="https://caen.engin.umich.edu/contact/">CAEN Help Desk</a>.</p>
+</div>
+
+<p>Exit as soon as your test is successful.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">exit</span>
+<span class="go">Connection to login.engin.umich.edu closed.
+</span></code></pre></div></div>
+
+<h2 id="copy-files-with-rsync">Copy files with <code class="language-plaintext highlighter-rouge">rsync</code></h2>
+<p>Next, we will copy our source code to CAEN Linux using the <code class="language-plaintext highlighter-rouge">rsync</code> command line program.</p>
+
+<p>We don’t want to copy any compiled binary files, so clean up first.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make clean
+<span class="go">rm -rvf *.exe *~ *.out *.dSYM *.stackdump
+removed 'main.exe'
+removed 'stats_tests.exe'
+removed 'stats_public_test.exe'
+</span></code></pre></div></div>
+
+<p>Next, copy files using <code class="language-plaintext highlighter-rouge">rsync</code>.  Remember to change <code class="language-plaintext highlighter-rouge">awdeorio</code> to your username.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>rsync <span class="nt">-rtv</span> <span class="nt">--exclude</span> <span class="s1">'.git*'</span> ../p1-stats/ awdeorio@login.engin.umich.edu:p1-stats-copy/
+<span class="go">building file list ... done
+created directory p1-stats-copy
+./
+Makefile
+main.cpp
+main_test.in
+main_test.out.correct
+main_test_data.tsv
+p1_library.cpp
+p1_library.h
+stats.cpp
+stats.h
+stats_public_test.cpp
+stats_tests.cpp
+
+sent 9557 bytes  received 268 bytes  19650.00 bytes/sec
+total size is 8818  speedup is 0.90
+</span></code></pre></div></div>
+
+<h2 id="connect-with-ssh">Connect with <code class="language-plaintext highlighter-rouge">ssh</code></h2>
+<p>Now connect to CAEN Linux.  We’re going to get a shell on a remote computer.  Don’t forget to change <code class="language-plaintext highlighter-rouge">awdeorio</code> to your own uniqname.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>                                  <span class="c"># folder on awdeorio's laptop</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>                             <span class="c"># name of awdeorio's laptop</span>
+<span class="go">manzana.local
+</span><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu   <span class="c"># connect to CAEN</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>                                  <span class="c"># folder on CAEN computer</span>
+<span class="go">/home/awdeorio
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>                             <span class="c"># name of a CAEN computer</span>
+<span class="go">caen-vnc-vm16.engin.umich.edu
+</span></code></pre></div></div>
+
+<p>Notice that the folder we copied is there on the CAEN Linux machine.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">p1-stats-copy
+</span></code></pre></div></div>
+
+<p>Change directory into the copied folder and double-check that all binary files are cleaned up.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>p1-stats-copy
+<span class="gp">$</span><span class="w"> </span>make clean
+</code></pre></div></div>
+
+<p>Compile and run main, just like we did before using the shell on our local machine.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make main.exe
+<span class="gp">$</span><span class="w"> </span>./main.exe
+<span class="go">hello from main!
+</span></code></pre></div></div>
+
+<p>Run the regression test.  It fails on the assertion we added, just like it did on our local machine.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make <span class="nb">test</span>
+<span class="go">g++ -Wall -Werror -pedantic -g --std=c++11 main.cpp stats.cpp p1_library.cpp -o main.exe
+g++ -Wall -Werror -pedantic -g --std=c++11 stats_tests.cpp stats.cpp p1_library.cpp -o stats_tests.exe
+g++ -Wall -Werror -pedantic -g --std=c++11 stats_public_test.cpp stats.cpp p1_library.cpp -o stats_public_test.exe
+./stats_public_test.exe
+</span><span class="gp">stats_public_test.exe: stats.cpp:12: int count(std::vector&lt;double&gt;</span><span class="o">)</span>: Assertion <span class="sb">`</span><span class="nb">false</span><span class="s1">' failed.
+</span><span class="go">make: *** [test] Aborted
+</span></code></pre></div></div>
+
+<p>Log out.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">caen-vnc-vm16.engin.umich.edu
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">exit</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">hostname</span>
+<span class="go">manzana.local
+</span></code></pre></div></div>
+
+<h2 id="avoiding-repeated-2fa">Avoiding repeated 2FA</h2>
+<p>You’ve noticed that each time we use <code class="language-plaintext highlighter-rouge">ssh</code> or <code class="language-plaintext highlighter-rouge">rsync</code>, CAEN requires us to re-authenticate with 2FA (two factor authentication, using our phone).  You can configure SSH to share one connection and only authenticate once.  Note that <code class="language-plaintext highlighter-rouge">rsync</code> uses SSH under the hood.</p>
+
+<p>Add some lines to the SSH config file, which lives in <code class="language-plaintext highlighter-rouge">~/.ssh/config</code>.  Alternatively, you can use a text editor to make the changes.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s1">'# SSH multiplexing\nHost *\n  ControlMaster auto\n  ControlPersist yes\n   ControlPath ~/.ssh/socket-%C\n  ServerAliveInterval 60\n  ServerAliveCountMax 5'</span> <span class="o">&gt;&gt;</span> ~/.ssh/config
+<span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>600 ~/.ssh/config
+</code></pre></div></div>
+
+<p>Let’s double-check and make sure you see this chunk in your <code class="language-plaintext highlighter-rouge">~/.ssh/config</code> file.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> ~/.ssh/config
+<span class="gp">#</span><span class="w"> </span>SSH multiplexing
+<span class="go">Host *
+  ControlMaster auto
+  ControlPersist yes
+  ControlPath ~/.ssh/socket-%C
+  ServerAliveInterval 60
+  ServerAliveCountMax 5
+</span></code></pre></div></div>
+
+<p>SSH into CAEN Linux.  You’ll need to use 2FA.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu
+<span class="go">Password:
+Duo two-factor login for awdeorio
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-3142
+ 2. Phone call to XXX-XXX-3142
+ 3. SMS passcodes to XXX-XXX-3142
+
+Passcode or option (1-3): 1
+Success. Logging you in...
+
+</span><span class="gp">$</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now, open a second terminal.  We’re going to use SSH again, this time via <code class="language-plaintext highlighter-rouge">rsync</code>.  Notice that no authentication is required.  Cool!</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/Users/awdeorio/src/eecs280/p1-stats
+</span><span class="gp">$</span><span class="w"> </span>rsync <span class="nt">-rtv</span> <span class="nt">--exclude</span> <span class="s1">'.git*'</span> ../p1-stats/ awdeorio@login.engin.umich.edu:p1-stats-copy/
+<span class="go">building file list ... done
+
+sent 273 bytes  received 20 bytes  586.00 bytes/sec
+total size is 13015  speedup is 44.42
+</span></code></pre></div></div>
+
+<h2 id="version-control-on-caen-linux">Version control on CAEN Linux</h2>
+<p>If you’re working on EECS 280 Project 1, you can skip this section.</p>
+
+<p>We can also check out a copy of our committed code on CAEN Linux.</p>
+
+<p>SSH to a CAEN Linux machine and see the copy we made earlier using <code class="language-plaintext highlighter-rouge">rsync</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>ssh awdeorio@login.engin.umich.edu
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="gp">p1-stats-copy  #</span><span class="w"> </span>this is from our rsync<span class="s1">'ed copy earlier
+</span></code></pre></div></div>
+
+<p>Notice that the copy is <em>not</em> under version control.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>p1-stats-copy
+<span class="gp">$</span><span class="w"> </span>git status
+<span class="go">fatal: Not a git repository (or any of the parent directories): .git
+</span></code></pre></div></div>
+
+<p>Change directory and <code class="language-plaintext highlighter-rouge">git clone</code> your repo.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~  <span class="c"># This will move to your home directory</span>
+<span class="gp">$</span><span class="w"> </span>git clone https://gitlab.eecs.umich.edu/awdeorio/p1-stats.git
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">p1-stats p1-stats-copy
+</span></code></pre></div></div>
+
+<h2 id="pro-tips">Pro-tips</h2>
+
+<h3 id="synchronizing-deleted-files">Synchronizing deleted files</h3>
+<p>Tell <code class="language-plaintext highlighter-rouge">rsync</code> to synchronize deleted files.  In other words, if it’s gone on your laptop, delete it on CAEN.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>rsync <span class="nt">-rtv</span> <span class="nt">--delete</span> <span class="nt">--exclude</span> <span class="s1">'.git*'</span> ../p1-stats/ awdeorio@login.engin.umich.edu:p1-stats-copy/
+</code></pre></div></div>
+
+<h3 id="dont-synchronize-git-ignored-files">Don’t synchronize Git-ignored files</h3>
+<p>Tell <code class="language-plaintext highlighter-rouge">rsync</code> not to synchronize files ignored by Git.  You can also combine this option with <code class="language-plaintext highlighter-rouge">--delete</code>.</p>
+<div data-variant="no-line-numbers" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>rsync <span class="nt">-rtv</span> <span class="nt">--exclude</span> <span class="s1">'.git*'</span> <span class="nt">--filter</span><span class="o">=</span><span class="s1">':- .gitignore'</span> ../p1-stats/ awdeorio@login.engin.umich.edu:p1-stats-copy/
+</code></pre></div></div>
+
+<h3 id="make-sync-shortcut"><code class="language-plaintext highlighter-rouge">make sync</code> shortcut</h3>
+<p>Avoid typing a long <code class="language-plaintext highlighter-rouge">rsync</code> command by adding a Makefile target.  Add these lines to the end of your <code class="language-plaintext highlighter-rouge">Makefile</code>.  Notice that’s a TAB character before <code class="language-plaintext highlighter-rouge">rsync</code>.</p>
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Copy files to CAEN Linux
+</span><span class="nl">sync </span><span class="o">:</span>
+	rsync <span class="se">\</span>
+  <span class="nt">-rtv</span> <span class="se">\</span>
+  <span class="nt">--delete</span> <span class="se">\</span>
+  <span class="nt">--exclude</span> <span class="s1">'.git*'</span> <span class="se">\</span>
+  <span class="nt">--filter</span><span class="o">=</span><span class="s1">':- .gitignore'</span> <span class="se">\</span>
+  ../p1-stats/ <span class="se">\</span>
+  awdeorio@login.engin.umich.edu:p1-stats-copy/
+</code></pre></div></div>
+
+<p>Now you can type <code class="language-plaintext highlighter-rouge">make sync</code> as a short cut.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make <span class="nb">sync</span>
+<span class="go">rsync \
+  -rtv \
+  --delete \
+  --exclude '.git*' \
+  --filter=':- .gitignore' \
+  ../p1-stats/ \
+  awdeorio@login.engin.umich.edu:p1-stats-copy/
+building file list ... done
+./
+Makefile
+
+sent 446 bytes  received 60 bytes  1012.00 bytes/sec
+total size is 8939  speedup is 17.67
+</span></code></pre></div></div>
+
+<div class="primer-spec-callout warning icon-warning">
+  <p><strong>PITFALL</strong> Some IDEs (Xcode, for example) will automatically insert several spaces instead of a TAB.  Makefiles <em>must</em> have a TAB just before a command (<code class="language-plaintext highlighter-rouge">rsync</code> in this case).  On macOS, Option-Tab will insert a literal TAB.  Here’s an example of the problem:</p>
+  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>make <span class="nb">sync</span>
+<span class="go">make: Nothing to be done for `sync'.
+</span></code></pre></div>  </div>
+</div>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Original document written by Andrew DeOrio awdeorio@umich.edu.</p>
+
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 License</a>. You’re free to copy and share this document, but not to sell it. You may not share source code provided with this document.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

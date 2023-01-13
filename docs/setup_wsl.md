@@ -64,7 +64,7 @@ Start an Ubuntu Bash shell.
 Use the `apt` package manager to install a few command line programs.  Linux users will run this same command.
 ```console
 $ sudo apt update
-$ sudo apt install g++ make rsync wget git ssh gdb python3 tree
+$ sudo apt install wget git ssh gdb python3 tree
 ```
 {: data-variant="no-line-numbers" }
 
@@ -114,7 +114,7 @@ Click on the properties option in the dropdown.
 
 <img src="https://defragged.org/wp-content/uploads/2020/10/Defragged-LinuxSubsytem-Properties.png" width=480px>
 
-Enable "Use Ctrl+Shift+C/V Copy/Paste" option in the Console "Options" properties page 
+Enable "Use Ctrl+Shift+C/V Copy/Paste" option in the Console "Options" properties page
 
 <img src="https://devblogs.microsoft.com/wp-content/uploads/sites/33/2019/04/copy-paste.png" width=480px>
 
