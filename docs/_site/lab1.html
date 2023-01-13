@@ -57,20 +57,66 @@
 
             <h1 class="primer-spec-toc-ignore" id="lab-1-getting-started-with-python">Lab 1: Getting started with Python</h1>
 
-<p>This lab is intended to provide a starting point for the Python development within this course, and is designed to be approachable from any experience level.</p>
+<p>This lab is intended to provide a starting point for the Python development within this course, and is designed to be approachable from any experience level. Please feel free to ask questions as you progress through the lab.</p>
 
 <h2 id="setup">Setup</h2>
+<p>First, check out the Setup Tutorial section on the homepage of this site. If you are new to navigation with the command line, visit the <a href="setup_wsl.html">windows setup</a> or <a href="setup_macos.html">macOS setup</a>, then review the <a href="setup_cli.html">command line tutorial</a>.</p>
+
+<p>If you do not have an IDE set up for Python, I recommend you <a href="setup_vscode.html">set up VS Code</a>. If you are on Windows and/or plan to develop on multiple machines during this course (such as on both a laptop and a desktop), it may be most convenient for you to set up <a href="setup_remote.html">remote development</a> on one of the U-M Linux servers. This will save you needing to perform setup on multiple machines.</p>
+
+<p>Next, view the <a href="setup_python.html">python tutorial</a> for steps on how to install python and setup a virtual environment for the course.</p>
 
 <h2 id="coding">Coding</h2>
+<p>Once you have completed the setup tutorials, navigate to your folder for the course and create a file named <code class="language-plaintext highlighter-rouge">lab1.py</code>.</p>
+
+<p>From the terminal, ensure you are in the folder containing <code class="language-plaintext highlighter-rouge">lab1.py</code> and use the <code class="language-plaintext highlighter-rouge">wget</code> command to download the text file we’ll use for I/O in today’s lab:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/numbers.txt
+</code></pre></div></div>
+
+<p>Take a look at the file you downloaded. Our goal today will be to read the values from this file in Python, then use the <code class="language-plaintext highlighter-rouge">numpy</code> library to find the average of those values. To continue, open <code class="language-plaintext highlighter-rouge">lab1.py</code> with your editor of choice.</p>
+
 <p>First, import the <code class="language-plaintext highlighter-rouge">numpy</code> library. We can optionally rename this library for ease of use within the scope of this program with the <code class="language-plaintext highlighter-rouge">as</code> keyword.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import numpy as np
 </code></pre></div></div>
 
-<p>To import a text file, we can simply use the built-in <code class="language-plaintext highlighter-rouge">open</code> function.</p>
+<p>To import our text file, we can use the built-in <code class="language-plaintext highlighter-rouge">open</code> function.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f = open("numbers.txt", "r")
 </code></pre></div></div>
+
+<p>Next, create an empty Python <code class="language-plaintext highlighter-rouge">list</code>. Python <code class="language-plaintext highlighter-rouge">list</code>s are dynamically allocated, so we do not need to specify the size.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>numbers = []
+</code></pre></div></div>
+
+<p>We can loop through each line in our file as follows. Python is a dynamically typed language, so although we do not specify it, these lines will come to us as <code class="language-plaintext highlighter-rouge">String</code> objects. When we use <code class="language-plaintext highlighter-rouge">numpy</code> to take the mean of these numbers, it will want a <code class="language-plaintext highlighter-rouge">list</code> of <code class="language-plaintext highlighter-rouge">int</code>s, so we can cast each line to an <code class="language-plaintext highlighter-rouge">int</code> before adding it to our list with <code class="language-plaintext highlighter-rouge">append</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for line in f:
+    num = int(line)
+    numbers.append(num)
+</code></pre></div></div>
+
+<p>We can then check out our list of numbers by printing out the contents as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print("Contents:", numbers)
+</code></pre></div></div>
+
+<p>And, finally, we can compute the mean of our list by calling <code class="language-plaintext highlighter-rouge">numpy</code>’s <code class="language-plaintext highlighter-rouge">np.mean</code> function on our list and casting that result to an <code class="language-plaintext highlighter-rouge">int</code>, then printing the result:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mean = int(np.mean(numbers))
+print("Welcome to EECS", mean)
+</code></pre></div></div>
+
+<p>Run your file and check the output:</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 lab1.py
+</code></pre></div></div>
+
+<p>Next, rerun the file and use the <code class="language-plaintext highlighter-rouge">&gt;</code> operator to pipe the output into a new file called <code class="language-plaintext highlighter-rouge">results.txt</code>.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 lab1.py <span class="o">&gt;</span> results.txt
+</code></pre></div></div>
+
+<p>To mark your completion of the lab, turn in <code class="language-plaintext highlighter-rouge">results.txt</code> on Canvas.</p>
 
 
             

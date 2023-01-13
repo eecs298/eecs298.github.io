@@ -69,7 +69,7 @@
 <span class="go">Python 3.10.8
 </span></code></pre></div></div>
 
-<p>If you do not have Python or your version of Python is older than 3.8, install a recent version of Python using the <a href="https://brew.sh/">Homebrew package manager</a>.</p>
+<p>If you do not have Python or your version of Python is older than 3.6, install a recent version of Python using the <a href="https://brew.sh/">Homebrew package manager</a>.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>brew <span class="nb">install </span>python3
 <span class="gp">$</span><span class="w"> </span>python3 <span class="nt">--version</span>
 <span class="go">Python 3.10.8
@@ -80,116 +80,20 @@
 <span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>python3 python3-pip python3-venv python3-wheel python3-setuptools
 </code></pre></div></div>
 
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> On the CAEN Linux servers, the package manager is <code class="language-plaintext highlighter-rouge">yum</code> insteal of <code class="language-plaintext highlighter-rouge">apt-get</code>. However, Python should be up-to-date already on these servers, so it shouldn’t be an issue.</p>
+</div>
+
 <h2 id="create-a-python-virtual-environment">Create a Python virtual environment</h2>
-<p>This section will help you install the Python tools and packages locally, which won’t affect Python tools and packages installed elsewhere on your computer.</p>
+<p>Virtual environments are used to create containers with separate installed libraries. They are useful when you want to install different Python programs that have different third party package dependencies. For example, you might have different virtual environments for different course assignments, as different courses or assignments may require different third party packages or different versions of those packages. More on venv and the creation of virtual environments <a href="https://docs.python.org/3/library/venv.html">can be found here</a>.</p>
+
+<p>This section will help you install the Python tools and packages locally, which won’t affect Python tools and packages installed elsewhere on the machine.</p>
 
 <p>After finishing this section, you’ll have a folder called <code class="language-plaintext highlighter-rouge">env/</code> that contains all the Python packages you need for this project.</p>
 
-<div class="primer-spec-callout warning">
-  <p><strong>Pitfall:</strong> Python 3.8 or later is required.  Your version might be different.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 <span class="nt">--version</span>
-<span class="go">Python 3.9.4
-</span></code></pre></div>  </div>
-</div>
-
-<div class="primer-spec-callout warning">
-  <p><strong>Pitfall:</strong> Do not use the version of Python provided by Anaconda.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which python3
-<span class="go">/Users/awdeorio/anaconda/bin/python3
-</span></code></pre></div>  </div>
-
-  <p><strong>Option 1 (recommended):</strong> Permanently deactivate Anaconda.  After running this command, close your shell and reopen it.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>conda init <span class="nt">--reverse</span>
-</code></pre></div>  </div>
-
-  <p>Close your shell and open a new shell.  Your path might be different.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which python3
-<span class="gp">/usr/local/bin/python3  #</span><span class="w"> </span>NOT anaconda
-</code></pre></div>  </div>
-
-  <p><strong>Option 2:</strong> Temporarily deactivate Anaconda.  You’ll have to do this every time you start a new shell.  Your path might be different.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>conda deactivate
-<span class="gp">$</span><span class="w"> </span>which python3
-<span class="gp">/usr/local/bin/python3  #</span><span class="w"> </span>NOT anaconda
-</code></pre></div>  </div>
-
-  <p><strong>Option 3:</strong> Uninstall Anaconda completely (<a href="https://docs.anaconda.com/anaconda/install/uninstall/">docs</a>).</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>conda <span class="nb">install </span>anaconda-clean
-<span class="gp">$</span><span class="w"> </span>anaconda-clean <span class="nt">--yes</span>
-</code></pre></div>  </div>
-
-  <p>Close your shell and open a new shell.  Your path might be different.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which python3
-<span class="gp">/usr/local/bin/python3  #</span><span class="w"> </span>NOT anaconda
-</code></pre></div>  </div>
-
-  <p><strong>Option 4:</strong> Manually deactivate Anaconda.  If none of the above options work, then this one will.</p>
-
-  <p>Figure out which hidden shell startup file contains the Anaconda initialization code.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
-<span class="go">/Users/awdeorio
-</span><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-s</span> conda .profile .bashrc .bash_profile .zshrc .zlogin .cshrc .tshrc .login
-<span class="gp">.bash_profile:#</span><span class="w"> </span><span class="o">&gt;&gt;&gt;</span> conda initialize <span class="o">&gt;&gt;&gt;</span>
-<span class="gp">.bash_profile:#</span><span class="w"> </span><span class="o">!!</span> Contents within this block are managed by <span class="s1">'conda init'</span> <span class="o">!!</span>
-<span class="c">...
-</span></code></pre></div>  </div>
-
-  <p>In this case, the file to edit is <code class="language-plaintext highlighter-rouge">.bash_profile</code>.  Yours might be different.  Use any text editor.  If you’re using VS Code, here’s a shortcut.  Remember, your filename might be different.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>code .bash_profile
-</code></pre></div>  </div>
-
-  <p>Remove everything you find about Anaconda and save the file.  In this case, we’ll delete a chunk that looks like this.</p>
-  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.bash' 'hook' 2&gt; /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/local/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# &lt;&lt;&lt; conda initialize &lt;&lt;&lt;
-</code></pre></div>  </div>
-
-  <p>Close your shell and open a new shell.  Your path might be different.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which python3
-<span class="gp">/usr/local/bin/python3  #</span><span class="w"> </span>NOT anaconda
-</code></pre></div>  </div>
-</div>
-
-<div class="primer-spec-callout warning">
-  <p><strong>Pitfall:</strong> If the <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> environment variable is set, it can cause problems.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">printenv </span>PYTHONPATH  <span class="c"># Output isn't blank, problem!</span>
-<span class="go">/Users/awdeorio/local/lib/python3.9/site-packages/
-</span></code></pre></div>  </div>
-
-  <p><strong>Option 1 (recommended):</strong> Permanently remove the environment variable.  Variables are usually set in your shell initialization file.  Check these files to see if they set the offending variable: <code class="language-plaintext highlighter-rouge">.profile</code>, <code class="language-plaintext highlighter-rouge">.bashrc</code>, <code class="language-plaintext highlighter-rouge">.bash_profile</code>, <code class="language-plaintext highlighter-rouge">.zshrc</code>, <code class="language-plaintext highlighter-rouge">.zprofile</code>, <code class="language-plaintext highlighter-rouge">.cshrc</code>, <code class="language-plaintext highlighter-rouge">.tcshrc</code>, <code class="language-plaintext highlighter-rouge">.login</code>.  Delete or comment out any line that contains <code class="language-plaintext highlighter-rouge">PYTHONPATH</code>.</p>
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">pwd</span>
-/Users/awdeorio
-<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-s</span> PYTHONPATH .profile .bashrc .bash_profile .zshrc .zlogin .cshrc .tshrc .login
-.bashrc: <span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>/Users/awdeorio/local/lib/python3.9/site-packages/
-
-<span class="c"># Edit the file and remove the line.  Ask us if you need help.</span>
-
-<span class="c"># Close your shell and open a new shell</span>
-
-<span class="nv">$ </span><span class="nb">printenv </span>PYTHONPATH  <span class="c"># output should be blank</span>
-</code></pre></div>  </div>
-
-  <p><strong>Option 2:</strong> Temporarily unset the <code class="language-plaintext highlighter-rouge">PYTHONPATH</code> environment variable.  You’ll have to do this every time you start a new shell.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">env</span> <span class="nt">--unset</span> PYTHONPATH
-<span class="gp">$</span><span class="w"> </span><span class="nb">printenv </span>PYTHONPATH  <span class="c"># output should be blank</span>
-</code></pre></div>  </div>
-
-</div>
-
-<p>Create a virtual environment in your project’s root directory.  (More on <a href="https://docs.python.org/3/library/venv.html">venv and the creation of virtual environments</a>)</p>
+<p>Create a virtual environment in your project’s root directory.  ())</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static
+<span class="go">/creiglas/eecs298
 </span><span class="gp">$</span><span class="w"> </span>python3 <span class="nt">-m</span> venv <span class="nb">env</span>
 </code></pre></div></div>
 
@@ -199,24 +103,28 @@ unset __conda_setup
 
 <p>We now have a complete local environment for Python.  Everything lives in one directory.  Environment variables point to this virtual environment.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env
+<span class="go">/creiglas/eecs298/env
 </span></code></pre></div></div>
 
 <p>We have a Python interpreter installed inside the virtual environment.  <code class="language-plaintext highlighter-rouge">which python</code> tells you exactly which python executable file will be used when you type <code class="language-plaintext highlighter-rouge">python</code>.  Because we’re in a virtual environment, there’s more than one option!</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which python3     <span class="c"># Default python exectuable</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/python
+<span class="go">/creiglas/eecs298/env/bin/python
 </span><span class="gp">$</span><span class="w"> </span>which <span class="nt">-a</span> python  <span class="c"># All python executables</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/python3
+<span class="go">/creiglas/eecs298/env/bin/python3
 /usr/local/bin/python3
 /usr/bin/python3
 </span></code></pre></div></div>
 
-<p>There’s a package manager for Python installed in the virtual environment.  That will help us install Python packages later.</p>
+<p>There’s a package manager for Python called <code class="language-plaintext highlighter-rouge">pip</code> installed in the virtual environment.  That will help us install Python packages later.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which pip
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/pip
+<span class="go">/creiglas/eecs298/env/bin/pip
 </span><span class="gp">$</span><span class="w"> </span>pip <span class="nt">--version</span>
-<span class="gp">pip 9.0.1 from /Users/awdeorio/src/eecs485/p1-insta485-static/env/lib/python3.7/site-packages (python 3.7)  #</span><span class="w"> </span>Your version may be different
+<span class="gp">pip 9.0.1 from /creiglas/eecs298/env/lib/python3.7/site-packages (python 3.7)  #</span><span class="w"> </span>Your version may be different
 </code></pre></div></div>
+
+<div class="primer-spec-callout warning">
+  <p><strong>Pitfall:</strong> You may face an issue where the <code class="language-plaintext highlighter-rouge">python</code> and/or <code class="language-plaintext highlighter-rouge">pip</code> commands are not recognized on your machine even after following these steps. In this case, substitute and commands referencing these with <code class="language-plaintext highlighter-rouge">python3</code> and <code class="language-plaintext highlighter-rouge">pip3</code> to explicitly reference the executables in your Python 3.x installation.</p>
+</div>
 
 <p>Python packages live in the virtual environment.  We can see that Python’s own tools are already installed (<code class="language-plaintext highlighter-rouge">pip</code> and <code class="language-plaintext highlighter-rouge">setuptools</code>).</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls env</span>/lib/python3.7/site-packages/ <span class="c"># Your version may be different</span>
@@ -229,46 +137,9 @@ setuptools
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>pip <span class="nb">install</span> <span class="nt">--upgrade</span> pip setuptools wheel
 </code></pre></div></div>
 
-<p>Install HTML5 Validator. We’ll use this tool later.  Your version might be different.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>pip <span class="nb">install </span>html5validator
-<span class="gp">$</span><span class="w"> </span>html5validator <span class="nt">--version</span>
-<span class="go">html5validator 0.3.1
-</span></code></pre></div></div>
-
-<h2 id="gitignore-and-python-virtual-environment"><code class="language-plaintext highlighter-rouge">.gitignore</code> and Python virtual environment</h2>
-<p>Do not commit virtual environment files (<code class="language-plaintext highlighter-rouge">env/</code>) to version control.  This is because <code class="language-plaintext highlighter-rouge">pip</code> installs binaries inside <code class="language-plaintext highlighter-rouge">env/</code>.  Those binaries will be different on different operating systems and even different computers running the same OS but using different compilers.</p>
-
-<p>The sample <code class="language-plaintext highlighter-rouge">.gitignore</code> file you added ignores directories called <code class="language-plaintext highlighter-rouge">env/</code>.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
-<span class="go">README.md  env
-</span><span class="gp">$</span><span class="w"> </span>git status
-<span class="go">On branch main
-nothing to commit, working tree clean
-</span></code></pre></div></div>
-
-<p>You made a mistake in your <code class="language-plaintext highlighter-rouge">.gitignore</code> if you see your Python virtual environment folder as an untracked file.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git status
-<span class="go">On branch main
-Untracked files:
-</span><span class="gp">  (use "git add &lt;file&gt;</span>...<span class="s2">" to include in what will be committed)
-</span><span class="go">
-	env/
-
-nothing added to commit but untracked files present (use "git add" to track)
-</span></code></pre></div></div>
-
-<div class="primer-spec-callout info">
-  <p><strong>Pro-tip:</strong> Clean your repo, removing all untracked and git-ignored files with <code class="language-plaintext highlighter-rouge">git clean</code>.</p>
-  <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>git clean <span class="nt">-xdi</span>
-<span class="go">Would remove the following item:
-  env/
-*** Commands ***
-    1: clean                2: filter by pattern    3: select by numbers    4: ask each
-    5: quit                 6: help
-</span><span class="gp">What now&gt;</span><span class="w"> </span>1
-<span class="go">Removing env/
-</span></code></pre></div>  </div>
-</div>
+<p>Install <code class="language-plaintext highlighter-rouge">numpy</code>. We’ll use this tool later.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>pip <span class="nb">install </span>numpy
+</code></pre></div></div>
 
 <h2 id="understanding-virtual-environments">Understanding Virtual Environments</h2>
 <p>This section will give more detail about virtual environments and how they work.  Simply put, a virtual environment is a bunch of files (located in <code class="language-plaintext highlighter-rouge">env/</code> in this tutorial) used by Python.</p>
@@ -279,9 +150,9 @@ nothing added to commit but untracked files present (use "git add" to track)
 <p>Print the names and values of all environment variables using the <code class="language-plaintext highlighter-rouge">env</code> command.  You’ll see key/value pairs used by the shell and used by programs.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">env</span>
 <span class="c">...
-</span><span class="go">PWD=/Users/awdeorio/src/eecs485/p1-insta485-static
-HOME=/Users/awdeorio
-USER=awdeorio
+</span><span class="go">PWD=/creiglas/eecs298
+HOME=/creiglas
+USER=creiglas
 PATH=/usr/local/bin:/usr/bin:/bin
 </span><span class="c">...
 </span></code></pre></div></div>
@@ -345,33 +216,15 @@ python
 easy_install.py  pkg_resources         pip              setuptools
 </span></code></pre></div></div>
 
-<p>A pre-configured <code class="language-plaintext highlighter-rouge">pip</code> executable installs third party packages to <code class="language-plaintext highlighter-rouge">lib/</code>.  Your versions of Python and jinja2 may be different.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./env/bin/pip <span class="nb">install </span>jinja2
-<span class="go">Successfully installed jinja2-2.11.1
-</span><span class="gp">$</span><span class="w"> </span><span class="nb">ls env</span>/lib/python3.7/site-packages/jinja2/ <span class="c"># Your version may be different</span>
-<span class="go">__init__.py
-</span><span class="c">...
-</span></code></pre></div></div>
-
-<p>A pre-configured <code class="language-plaintext highlighter-rouge">python</code> executable in <code class="language-plaintext highlighter-rouge">bin/</code> uses the third party packages in <code class="language-plaintext highlighter-rouge">lib/</code>.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>./env/bin/python
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> import jinja2
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> jinja2.__version__
-<span class="go">'2.11.1'
-</span></code></pre></div></div>
-
-<h3 id="why-virtual-environments">Why virtual environments?</h3>
-<p>Virtual environments are useful when you want to install different Python programs that have different third party package dependencies.  For example, you might have a virtual environment for a web course’s project, and a different one for your machine learning course’s homework assignments.  The two assignments have different third party packages and different versions of those packages.</p>
-
 <h3 id="activate-a-virtual-environment">Activate a virtual environment</h3>
 <p>In the previous example, we used the virtual environment by calling its Python executable explicitly (e.g., <code class="language-plaintext highlighter-rouge">./env/bin/python</code>).  As a convenience, we can temporarily make this version the default.</p>
 
 <p>The <code class="language-plaintext highlighter-rouge">bin/activate</code> script adds <code class="language-plaintext highlighter-rouge">env/bin</code> to the <code class="language-plaintext highlighter-rouge">PATH</code> environment variable, making it the first place to look for commands.  Notice that <code class="language-plaintext highlighter-rouge">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin</code> is first in the list.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">source env</span>/bin/activate
 <span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$PATH</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin:/usr/local/bin:/usr/bin:/bin
+<span class="go">/creiglas/eecs298/env/bin:/usr/local/bin:/usr/bin:/bin
 </span><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$PATH</span> | <span class="nb">tr</span> <span class="s1">':'</span> <span class="s1">'\n'</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin
+<span class="go">/creiglas/eecs298/env/bin
 /usr/local/bin
 /usr/bin
 /bin
@@ -379,51 +232,30 @@ easy_install.py  pkg_resources         pip              setuptools
 
 <p>Ask the shell where all the <code class="language-plaintext highlighter-rouge">python</code> executables live, then which one is the default.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which <span class="nt">-a</span> python
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/python
+<span class="go">/creiglas/eecs298/env/bin/python
 /usr/local/bin/python
 /usr/bin/python
 </span><span class="gp">$</span><span class="w"> </span>which python
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/python
+<span class="go">/creiglas/eecs298/env/bin/python
 </span></code></pre></div></div>
 
 <p>Finally, the <code class="language-plaintext highlighter-rouge">activate</code> script sets a <code class="language-plaintext highlighter-rouge">$VIRTUAL_ENV</code> environment variable, which contains the path to the virtual environment directory.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env
+<span class="go">/creiglas/eecs298/env
 </span></code></pre></div></div>
 
 <h3 id="replicate-a-virtual-environment">Replicate a virtual environment</h3>
 <p>In the previous section, we created a Python virtual environment, activated it, and upgraded the Python installer tools (<code class="language-plaintext highlighter-rouge">pip</code>, <code class="language-plaintext highlighter-rouge">setuptools</code>, <code class="language-plaintext highlighter-rouge">wheel</code>).  We have not yet installed any new third party Python packages.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static
+<span class="go">/creiglas/eecs298/
 </span><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env
+<span class="go">/creiglas/eecs298/env
 </span><span class="gp">$</span><span class="w"> </span>pip list
 <span class="go">Package    Version
 ---------- -------
 pip        20.1.1
 setuptools 47.3.1
 wheel      0.34.2
-</span></code></pre></div></div>
-
-<p>A <code class="language-plaintext highlighter-rouge">requirements.txt</code> file lists the exact third party Python packages and their versions needed to replicate another virtual environment.  This is useful for ensuring that developers and production servers have identical packages with identical versions.  It’s also useful for ensuring that students and the autograder have identical packages with identical versions.</p>
-
-<p>See the list of package dependencies provided in a <code class="language-plaintext highlighter-rouge">requirements.txt</code> file. This <code class="language-plaintext highlighter-rouge">requirements.txt</code> file is bundled with project starter files, so please download the appropriate project starter files before proceeding.  Your output might be different.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>requirements.txt
-<span class="go">astroid==2.4.2
-</span><span class="c">...
-</span><span class="go">zipp==3.1.0
-</span></code></pre></div></div>
-
-<p>Install the package dependencies.  Your output might be different.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
-<span class="c">...
-</span><span class="go">Successfully installed astroid-2.4.2 ... zipp-3.1.0
-</span><span class="gp">$</span><span class="w"> </span>pip list
-<span class="go">Package            Version
------------------- ---------
-astroid            2.4.2
-</span><span class="c">...
-</span><span class="go">zipp               3.1.0
 </span></code></pre></div></div>
 
 <h3 id="deactivate-a-virtual-environment">Deactivate a virtual environment</h3>
@@ -445,15 +277,15 @@ astroid            2.4.2
 
 <p>Activate the virtual environment each time you start a new shell.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">pwd</span>
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static
+<span class="go">/creiglas/eecs298/
 </span><span class="gp">$</span><span class="w"> </span><span class="nb">source env</span>/bin/activate
 </code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">activate</code> script changes the <code class="language-plaintext highlighter-rouge">PATH</code> environment variable, which temporarily changes the default <code class="language-plaintext highlighter-rouge">python</code> and <code class="language-plaintext highlighter-rouge">pip</code> executables.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>which python
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/python
+<span class="go">/creiglas/eecs298/env/bin/python
 </span><span class="gp">$</span><span class="w"> </span>which pip
-<span class="go">/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin/pip
+<span class="go">/creiglas/eecs298/env/bin/pip
 </span></code></pre></div></div>
 
 <h2 id="acknowledgments">Acknowledgments</h2>
