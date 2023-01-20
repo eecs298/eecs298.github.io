@@ -10,7 +10,7 @@ Lab 2
 
 
 ## Task
-For this lab, you will play the role of an IT intern at MyHealth, a large new hospital in Ann Arbor. The company is currently onboarding ten prestigious new medical doctors from out-of-state, and you have been asked to write a Python program to make generating their new employee information simpler. 
+For this lab, you will play the role of an IT intern at MyHealth, a large new hospital in Ann Arbor. The company recently hired and is currently onboarding ten prestigious surgeons from out-of-state, and you have been asked to write a Python program to automate generating the new doctors' employee information.
 
 For each doctor, you will need to generate a random 6-digit personal identification number (PID), as well as a company email. Each company email should adhere to the following format: first 4 digits of first name + first 4 digits of last name + last 2 digits of PID + @myhealth.org.
 
