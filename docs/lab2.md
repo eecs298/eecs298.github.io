@@ -25,7 +25,7 @@ Create a file titled `lab2.py`. In this file, perform the following:
 * Load and read `doctors.txt` using the method from last week's lab. Create a `Doctor` object for each name in the file, with the PID for each doctor randomly generated and the email address generated using the `generateEmail` function. Add these `Doctor` objects to a list.
 * Iterate through this list, printing out the name, PID, and email of each doctor, as follows:
 
-```
+```console
 FirstName LastName, PID: 123456, email: FirsLast56@myhealth.org
 ...
 ```
@@ -35,7 +35,7 @@ Turn in `doctors.txt` and `lab2.py`.
 ## Tips
 ### Random integers
 Generate a random integer as follows:
-```
+```python
 from random import randint
 
 n = randint(a, b) # a ≤ n ≤ b
@@ -43,7 +43,7 @@ n = randint(a, b) # a ≤ n ≤ b
 
 ### Type casting
 Python is a dynamically typed language, which means that the type of any variable will be determined during runtime. As such, you do not need to specify the type of a variable when you instantiate it. You still need to keep track of a variable's type, though, as certain operations or functions will still require certain types. To cast a variable, use the built-in functions:
-```
+```python
 num = 123
 num = str(num) # "123"
 num = int(num) # 123
@@ -52,7 +52,7 @@ num = float(num) # 123.0
 
 ### Lists
 Python lists are the most common data structure used, and function like souped-up C arrays. Note that they support items of different types.
-```
+```python
 mylist = []
 
 mylist.append(123)
@@ -63,7 +63,7 @@ print(mylist[0]) # 123
 
 ### String slicing
 Python string syntax provides powerful tools to index and "slice" strings. See below:
-```
+```python
 s = "abcdef"
 
 print(s[0]) # The first char: "a"
@@ -76,20 +76,20 @@ print(s[:-2]) # From the beginning to the second-to-last char (non-inclusive), "
 
 ### String splitting
 The `split()` function can be used to split a string into substrings. These substrings will be put into a list and split based on a given delimiter string. If none is given, the default delimiter is the space character.
-```
+```python
 tokens = "abc def".split() # tokens = ["abc", "def"]
 ```
 
 ### Defining a function
 You can define a function in Python as follows:
-```
+```python
 def my_func(arg1, arg2):
   return arg1 + arg2
 ```
 
 ### Defining a class
 Python is an object-oriented language. Create and instantiate a class as follows. The `__init__` function is called automatically whenever an object of that class is instantiated. You can get and set internal variables by referencing them explicitly, as shown below.  Note that functions of a class always include `self` in their signature, but this is never included when calling the function (it's passed in automatically).
-```
+```python
 class Test:
   def __init__(self, arg1, arg2):
     self.arg1 = arg1
@@ -107,7 +107,7 @@ test_obj.test_func() #this returns a Boolean
 
 ### Main branch
 Python can be used purely as a scripting language, but if any functions or classes are defined, you'll need to define the main branch as follows. The body of this branch is what will run when you execute your program.
-```
+```python
 if __name__ == "__main__":
 ```
 
