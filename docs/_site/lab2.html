@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 2 | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Lab 2" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/lab2.html" />
+<meta property="og:url" content="http://localhost:4000/lab2.html" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Lab 2","url":"http://localhost:4000/lab2.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 class="primer-spec-toc-ignore" id="lab-2">Lab 2</h1>
+
+<h2 id="task">Task</h2>
+<p>For this lab, you will play the role of an IT intern at MyHealth, a large new hospital in Ann Arbor. The company is currently onboarding ten prestigious new medical doctors from out-of-state, and you have been asked to write a Python program to make generating their new employee information simpler.</p>
+
+<p>For each doctor, you will need to generate a random 6-digit personal identification number (PID), as well as a company email. Each company email should adhere to the following format: first 4 digits of first name + first 4 digits of last name + last 2 digits of PID + @myhealth.org.</p>
+
+<h3 id="doctorstxt">doctors.txt</h3>
+<p>Create a file titled <code class="language-plaintext highlighter-rouge">doctors.txt</code>, containing the full names names of ten doctors at the hospital, with one full name per line. Write these names yourself, but keep them appropriately realistic – we will come back to these details in a future lecture.</p>
+
+<h3 id="lab2py">lab2.py</h3>
+<p>Create a file titled <code class="language-plaintext highlighter-rouge">lab2.py</code>. In this file, perform the following:</p>
+
+<ul>
+  <li>Define a <code class="language-plaintext highlighter-rouge">Doctor</code> class with fields for name, PID, and email address.</li>
+  <li>Define a <code class="language-plaintext highlighter-rouge">generateEmail</code> function which, given a name and PID, returns an email address as outlined above.</li>
+  <li>Load and read <code class="language-plaintext highlighter-rouge">doctors.txt</code> using the method from last week’s lab. Create a <code class="language-plaintext highlighter-rouge">Doctor</code> object for each name in the file, with the PID for each doctor randomly generated and the email address generated using the <code class="language-plaintext highlighter-rouge">generateEmail</code> function. Add these <code class="language-plaintext highlighter-rouge">Doctor</code> objects to a list.</li>
+  <li>Iterate through this list, printing out the name, PID, and email of each doctor, as follows:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FirstName LastName, PID: 123456, email: FirsLast56@myhealth.org
+...
+</code></pre></div></div>
+
+<p>Turn in <code class="language-plaintext highlighter-rouge">doctors.txt</code> and <code class="language-plaintext highlighter-rouge">lab2.py</code>.</p>
+
+<h2 id="tips">Tips</h2>
+<h3 id="random-integers">Random integers</h3>
+<p>Generate a random integer as follows:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from random import randint
+
+n = randint(a, b) # a ≤ n ≤ b
+</code></pre></div></div>
+
+<h3 id="type-casting">Type casting</h3>
+<p>Python is a dynamically typed language, which means that the type of any variable will be determined during runtime. As such, you do not need to specify the type of a variable when you instantiate it. You still need to keep track of a variable’s type, though, as certain operations or functions will still require certain types. Cast a variable as such:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>num = 123
+num = str(num) # "123"
+num = int(num) # 123
+num = float(num) # 123.0
+</code></pre></div></div>
+
+<h3 id="lists">Lists</h3>
+<p>Python lists are the most common data structure used, and function like souped-up C arrays. Note that they support items of different types.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mylist = []
+
+mylist.append(123)
+mylist.append("abc")
+
+print(mylist[0]) # 123
+</code></pre></div></div>
+
+<h3 id="string-slicing">String slicing</h3>
+<p>Python string syntax provides powerful tools to index and “slice” strings. See below:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s = "abcdef"
+
+print(s[0]) # The first char: "a"
+print(s[-1]) # The last char: "f"
+
+print(s[1:3]) # From the 2nd char to the fourth char (non-inclusive): "bc"
+print(s[2:]) # From the 3rd char to the end: "cdef"
+print(s[:-2]) # From the beginning to the second-to-last char (non-inclusive), "abcd"
+</code></pre></div></div>
+
+<h3 id="string-splitting">String splitting</h3>
+<p>The <code class="language-plaintext highlighter-rouge">split()</code> function can be used to split a string into substrings. These substrings will be put into a list and split based on a given delimiter string. If none is given, the default delimiter is the space character.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tokens = "abc def".split() # tokens = ["abc", "def"]
+</code></pre></div></div>
+
+<h3 id="defining-a-function">Defining a function</h3>
+<p>You can define a function in Python as follows:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def my_func(arg1, arg2):
+  return arg1 + arg2
+</code></pre></div></div>
+
+<h3 id="defining-a-class">Defining a class</h3>
+<p>Python is an object-oriented language. Create and instantiate a class as follows. The <code class="language-plaintext highlighter-rouge">__init__</code> function is called automatically whenever an object of that class is instantiated. You can get and set internal variables by referencing them explicitly, as shown below.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Test:
+  def __init__(self, arg1, arg2):
+    self.arg1 = arg1
+    self.arg2 = arg3
+    self.arg3 = self.arg1 + self.arg2
+
+test_obj = Test(arg1, arg2)
+num = test_obj.arg3
+test_obj.arg1 = 0
+</code></pre></div></div>
+
+<h3 id="main-branch">Main branch</h3>
+<p>Python can be used purely as a scripting language, but if any functions or classes are defined, you’ll need to define the main branch as follows. The body of this branch is what will run when you execute your program.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if __name__ == "__main__":
+</code></pre></div></div>
+
+<p>If you run into any issues, feel free to ask a question.</p>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>
