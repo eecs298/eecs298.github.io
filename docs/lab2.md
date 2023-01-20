@@ -15,7 +15,7 @@ For this lab, you will play the role of an IT intern at MyHealth, a large new ho
 For each doctor, you will need to generate a random 6-digit personal identification number (PID), as well as a company email. Each company email should adhere to the following format: first 4 digits of first name + first 4 digits of last name + last 2 digits of PID + @myhealth.org.
 
 ### doctors.txt
-Create a file titled `doctors.txt`, containing the full names names of ten doctors at the hospital, with one full name per line. Write these names yourself, but keep them appropriately realistic -- we will come back to these details in a future lecture.
+Create a file titled `doctors.txt`, containing the full names of ten doctors at the hospital, with one full name per line. Write these names yourself, but keep them appropriately realistic -- we will come back to these details in a future lecture.
 
 ### lab2.py
 Create a file titled `lab2.py`. In this file, perform the following:
@@ -42,7 +42,7 @@ n = randint(a, b) # a ≤ n ≤ b
 ```
 
 ### Type casting
-Python is a dynamically typed language, which means that the type of any variable will be determined during runtime. As such, you do not need to specify the type of a variable when you instantiate it. You still need to keep track of a variable's type, though, as certain operations or functions will still require certain types. Cast a variable as such:
+Python is a dynamically typed language, which means that the type of any variable will be determined during runtime. As such, you do not need to specify the type of a variable when you instantiate it. You still need to keep track of a variable's type, though, as certain operations or functions will still require certain types. To cast a variable, use the built-in functions:
 ```
 num = 123
 num = str(num) # "123"
@@ -88,17 +88,21 @@ def my_func(arg1, arg2):
 ```
 
 ### Defining a class
-Python is an object-oriented language. Create and instantiate a class as follows. The `__init__` function is called automatically whenever an object of that class is instantiated. You can get and set internal variables by referencing them explicitly, as shown below.
+Python is an object-oriented language. Create and instantiate a class as follows. The `__init__` function is called automatically whenever an object of that class is instantiated. You can get and set internal variables by referencing them explicitly, as shown below.  Note that functions of a class always include `self` in their signature, but this is never included when calling the function (it's passed in automatically).
 ```
 class Test:
   def __init__(self, arg1, arg2):
     self.arg1 = arg1
-    self.arg2 = arg3
+    self.arg2 = arg2
     self.arg3 = self.arg1 + self.arg2
+
+  def test_func(self):
+    return self.arg1 + self.arg2 == self.arg3
 
 test_obj = Test(arg1, arg2)
 num = test_obj.arg3
 test_obj.arg1 = 0
+test_obj.test_func() #this returns a Boolean
 ```
 
 ### Main branch
@@ -107,4 +111,4 @@ Python can be used purely as a scripting language, but if any functions or class
 if __name__ == "__main__":
 ```
 
-If you run into any issues, feel free to ask a question.
+If you run into any issues, please ask questions.
