@@ -94,12 +94,11 @@ my_list.remove(12)
 my_list # [10, 11, 13]
 ```
 
-Find the mean of a list using `numpy.mean()`
+Find the sum and length of a list using `sum() and `len()`. You can calculate the mean by dividing the two.
 ```python
-import numpy
-
 my_list = [1, 3, 5, 7, 9]
-numpy.mean(my_list) # 5.0
+sum(my_list) # 25
+len(my_list) # 5
 ```
 
 ### Rounding output
