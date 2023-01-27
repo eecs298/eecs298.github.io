@@ -94,7 +94,7 @@ my_list.remove(12)
 my_list # [10, 11, 13]
 ```
 
-Find the sum and length of a list using `sum() and `len()`. You can calculate the mean by dividing the two.
+Find the sum and length of a list using `sum()` and `len()`. You can calculate the mean by dividing the two.
 ```python
 my_list = [1, 3, 5, 7, 9]
 sum(my_list) # 25
