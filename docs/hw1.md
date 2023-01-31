@@ -38,6 +38,7 @@ The `Demographics` tool allows advertisers to fine-tune the demographic informat
 
 Answer the following short-response questions:
 
+{:start="3"}
 3. Why does Google provide access to fields such as `Gender`, `Age`, and `Parental status`? What benefits might targeting within these demographics give to advertisers? Provide an example. 
 
 4. Read and briefly reflect on the information in the `About demographic targeting` flyout (particularly the `How Google determines demographic information` section). How does Google measure demographic variables?  What effects are these measurements likely to have? Describe any potential harms, using the terms we discussed in class.
@@ -49,6 +50,7 @@ The `Keywords` tool allows advertisers to select keywords to target with their c
 
 Answer the following short-response questions:
 
+{:start="6"}
 6. Using the search box, select at least ten keywords to target with your campaign. Discuss what they were, why you chose them, and how their inclusion could be harmful.
 
 7. Some phrases are hardcoded not to yield any keyword results in the search bar. It is likely that Google bans certain words from yielding results in order to curate the types of products and strategies advertisers can use Google's platform for. Find some phrases that do not return any results and discuss why Google may have chosen to ban them from the system.
@@ -62,6 +64,7 @@ Once you have completed the above sections, screenshot your work in each of the 
 
 Answer the following short-response questions:
 
+{:start="10"}
 10.  Describe the company you created, as well as why you made the decisions you did during the creation process.  What would be the effects and harms of the advertising campaign you designed if it were to be launched?
 
 11.  In what ways did Google's tools enable you to materialize the harm your company presents to society?
@@ -73,14 +76,13 @@ Google Ads uses a sealed-bid second-price auction system to match keywords with 
 
 Your task is to implement a simulation of Google's sealed-bid second-price auction system. You are provided with a database, `bids.csv`, detailing bids by different companies for a variety of keywords. Each company is competing for multiple keywords in the hopes of displaying their ads on Google searches that contain those keywords. Companies bid in terms of Cost-Per-Click (CPC) -- the price they are willing to pay each time a user clicks on one of their ads associated with that keyword. Each row represents a single CPC bid by a company for a keyword. There are three columns: `Company`, containing the name of the company making the bid; `Keyword`, containing the word or phrase that the company is competing for; and `Bid`, the price that the company has indicated that they are willing to pay. For each keyword, you will select two companies, the winner and the runner-up, and determine the amount that they will pay in Cost-Per-Click according to the general second-price auction system.
 
-Your task is to write a Python program to process this database using the Python `csv` class and apply Google's auction system as described. Base your program on the sample code provided in the form of `hw1.py`. You will be tasked with implementing one class, `Bid`, and four functions: `processCSV`, `auctionKeyword`, and `secondPriceAuction`. The `Bid` class will be used to represent each bid in `bids.csv`. The `processCSV` function will process the information in `bids.csv` and return a dictionary, with keywords as keys and lists of `Bid` objects representing bids for those keywords as values. The `auctionKeyword` function will take a list of `Bid` objects for the same keyword as input and execute a general second-price auction, returning a list containing the two winning `Bid` objects, updated with the price they will pay according to the auction. The `secondPriceAuction` function will house your calls to the other two functions and organize your auctioning of each keyword. This function will return the results of each call to `auctionKeyword` stored in a dictionary with the keywords as keys. 
+Your task is to write a Python program to process this database using the Python `csv` class and apply Google's auction system as described. Base your program on the sample code provided in the form of `hw1.py`. You will be tasked with implementing one class -- `Bid` -- and four functions: `processCSV`, `auctionKeyword`, and `secondPriceAuction`. The `Bid` class will be used to represent each bid in `bids.csv`. The `processCSV` function will process the information in `bids.csv` and return a dictionary, with keywords as keys and lists of `Bid` objects representing bids for those keywords as values. The `auctionKeyword` function will take a list of `Bid` objects for the same keyword as input and execute a general second-price auction, returning a list containing the two winning `Bid` objects, updated with the price they will pay according to the auction. The `secondPriceAuction` function will house your calls to the other two functions and organize your auctioning of each keyword. This function will return the results of each call to `auctionKeyword` stored in a dictionary with the keywords as keys. More information on the implementation of these functions is given in the documentation given in `hw1.py` Your code will be graded with the help of an autograder, so your implementations will need to match the function signatures described in the documentation in the sample code exactly.
 
-More information on the implementation of these functions is given in the documentation given in `hw1.py`. Your code will be graded with the help of an autograder, so your implementations will need to match the function signatures described in the documentation in the sample code exactly. The necessary files are available on Canvas under `Files` > `Homework 1`, or, if you rather, you can download [hw1.py here](https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/hw1.py) and [bids.csv here](https://github.com/eecs298/eecs298.github.io/blob/main/bids.csv). (Right-click > `Save As...` or download to your terminal via `wget`.)
-
-The database `bids.csv` includes bids for racially coded names. For more on this, see [Discrimination in Online Ad Delivery](https://dataprivacylab.org/projects/onlineads/1071-1.pdf) (Sweeney 2013).
+The database `bids.csv` includes bids for racially coded names.  For more on this, see [Discrimination in Online Ad Delivery](https://dataprivacylab.org/projects/onlineads/1071-1.pdf) (Sweeney 2013).
 
 ### Reflection Questions
 
+{:start="12"}
 12. Using terms discussed in class, describe the components and properties of Google Ads (including both advertiser-facing sides, like the ad auction system and the campaign creation system, and consumer-facing sides) as a sociotechnical system.
 
-13. Choose three unrelated keywords from the database of bids `bids.csv`. For each, describe how a company that wins this keyword might use it in a way that results in harm.  How does the ad auction system make this harm easier or harder to perpetuate?
+13. Choose three unrelated keywords from the database of bids `bids.csv`. For each, describe how a company that wins this keyword might use it in a way that results in harm. How does the ad auction system make this harm easier or harder to perpetuate?
