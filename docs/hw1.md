@@ -5,7 +5,7 @@ subtitle: Due 11:59 PM EST on Friday, February 17, 2022.
 sitemapOrder: 20
 ---
 
-EECS 298 Homework 1: Ad Auctions
+Homework 1: Ad Auctions
 ==========================
 Due 11:59 PM EST on Friday, February 17, 2022. 
 
