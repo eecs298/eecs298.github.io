@@ -47,10 +47,11 @@ if not match:
 
 To gain a feel for how to write a Regular Expression, check out these resources:
 
-https://www.w3schools.com/python/python_regex.asp
+[https://www.w3schools.com/python/python_regex.asp](
+https://www.w3schools.com/python/python_regex.asp)
 
-https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285
+[https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285](https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285)
 
 To write and test RegEx live and get feedback, check out the site below:
 
-https://regex101.com/r/cO8lqs/10
+[https://regex101.com/r/cO8lqs/10](https://regex101.com/r/cO8lqs/10)
