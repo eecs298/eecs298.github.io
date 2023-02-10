@@ -31,6 +31,8 @@ After completing your implementation, write a short reflection on how the expres
 The `re` library in Python supports Regular Expression use and can be used as follows:
 
 ```python
+import re
+
 test_case_1 = "The rain in Spain" # An example test case
 regex = "^The.*Spain$" # An example expression
 
