@@ -10,7 +10,7 @@ Lab 6
 
 
 ## Task
-For this lab, you will be given three `.csv` databases, each containing the metadata for several posts from one of three social media sites -- Twitter, Facebook, and Reddit. Your task will be to use user IP addresses for each post to match user accounts between these three sites in order to track cross-site aggregate statistics for users. To this end, you will store post data by utilizing object polymorphism in Python: you will create a parent `Post` class and three child classes, `Tweet`, `FacebookPost`, and `RedditPost`.
+For this lab, you will be given three `.csv` databases, each containing the metadata for several posts from one of three social media sites -- Twitter, Facebook, and Reddit. Your task will be to use user IP addresses for each post to match user accounts between these three sites in order to track cross-site aggregate statistics for users. To this end, you will store post data by utilizing object polymorphism in Python: you will create a parent `Post` class and three child classes, `Tweet`, `FacebookPost`, and `RedditPost`. Download the databases [here](https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/facebook.csv), [here](https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/reddit.csv), and [here](https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/twitter.csv).
 
 ### lab6.py
 Create a file titled `lab6.py`.
