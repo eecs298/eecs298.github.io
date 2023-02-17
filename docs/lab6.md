@@ -60,7 +60,7 @@ Child class:
 ```python
   class MyChildClass(MyParentClass):
       __init__(self, otherfield1, otherfield2, otherfield3): # Child's constructor
-        super.__init__(otherfield1, otherfield2) # Runs the code in the parent class' constructor
+        super().__init__(otherfield1, otherfield2) # Runs the code in the parent class' constructor
         self.otherfield3 = otherfield3
 ```
 
