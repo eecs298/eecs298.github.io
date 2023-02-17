@@ -40,6 +40,7 @@ Read in the data from the three databases into a dictionary. The keys of these d
 * All of the user's usernames across the different platforms
 * The total number of interactions on all of the user's posts across all platforms
 * The text of the user's post with the most interactions from any platform (using that post's `__str__` method)
+* The name of the social media site that the above post was made on. 
 
 In addition, call `dir(mypost)` on any post from the dataset and print the output. This list contains all methods contained within the object, most of which are inherited from the base `Object` class. Any of these methods can be overwritten as done in this lab. For example the `__iadd__` and `__imul__` methods change how the object responds to the + and * operators, and the `__del__` method, known as the deconstructor, handles behaviour for when all references to the object are deleted. Pick one of these and leave a comment with an idea for how one of these could be used in either this lab's context or another context.
 
