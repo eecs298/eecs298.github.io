@@ -54,8 +54,8 @@ It is possible that not every celebrity in this dataset is boarding a taxi conta
 
 The City of New York currently hosts publicly accessible databases listing all current licensed taxi drivers, along with their hack license number. With this information, you will be able to identify not only the passengers in select trips, but the names of the drivers themselves as well. Each row represents a registered NYC taxi driver, and the columns are as follows:
 
-* `hack_license`: The hack license number of the taxi driver.
-* `name`: The name of the driver, formatted as `Lastname, Firstname`.
+* `HACK_LICENSE`: The hack license number of the taxi driver.
+* `NAME`: The name of the driver, formatted as `Lastname, Firstname`.
 
 Every hack license in the trip dataset matches to a driver in this dataset, but not every driver here can be found in the trip dataset.
 
