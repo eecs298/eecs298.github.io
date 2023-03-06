@@ -108,7 +108,7 @@ Use your code to give answers to the following questions. Include a short respon
 
 2. [1 pt.] Use your implementation of the `get_mean_tip` method (including outliers) to find the average tip for all rides in the NYC database (not just those with celebrities). Do the same for all trips occurring between July 1st and August 1st, 2013. Report those values here. Is the average tip from the celebrities higher or lower than the year average?
 
-3. [1 pts.] As it turns out, the full NYC database misreports tip amounts for many rides paid with cash as $0, leading some outlets to incorrectly report that some celebrities commonly tipped $0. This is a result of a data collection error, as tips made in cash are not reported in the dataset. What percentage of the passengers in this database paid with cash? Compare the average mean tip for the year including these outliers to the mean tip when these outliers are discluded.
+3. [1 pt.] As it turns out, the full NYC database misreports tip amounts for many rides paid with cash as $0, leading some outlets to incorrectly report that some celebrities commonly tipped $0. This is a result of a data collection error, as tips made in cash are not reported in the dataset. What percentage of the passengers in this database paid with cash? Compare the average mean tip for the year including these outliers to the mean tip when these outliers are discluded.
 
 
 ### Reflection
