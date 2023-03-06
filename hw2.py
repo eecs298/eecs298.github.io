@@ -10,12 +10,12 @@ class Celebrity:
     Contains information represented in one photo of a celebrity.
 
     Attributes:
-    celebrity_name: The name of the celebrity in the photo, in Firstname Lastname format.
+    celeb_name: The name of the celebrity in the photo, in Firstname Lastname format.
     medallion: The taxi cab identification number in the photo. This can be stored as either hashed or unhashed.
     photo_date: The date the photo was taken, as a string, in YYYY-MM-DD format.
     """
 
-    def __init__(self, celebrity_name: str, medallion: str, photo_date: str):
+    def __init__(self, celeb_name: str, medallion: str, photo_date: str):
         pass
 
 
