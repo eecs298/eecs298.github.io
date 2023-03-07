@@ -121,14 +121,14 @@ def process_drivers(driver_csv_path: str):
     pass
 
 
-def linkage_attack(trip_csv_path: str, celebrity_list: List[Celebrity], diver_list: List[Driver]):
+def linkage_attack(trip_csv_path: str, celebrity_list: List[Celebrity], driver_list: List[Driver]):
     """
     Performs a linkage attack on the NYC taxi dataset using information on passengers and drivers.
 
     Attributes:
     travel_csv_path: The location of the NYC trip database.
     celebrity_list: A list of Celebrity objects.
-    diver_list: A list of Driver objects.
+    driver_list: A list of Driver objects.
 
     Returns:
     A list of Trip and CelebrityTrip objects containing deanonymized information from the trip database, one for each row. 
