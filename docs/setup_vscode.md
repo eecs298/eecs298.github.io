@@ -44,7 +44,9 @@ $ brew install --cask visual-studio-code
 ```
 
 ### Windows
-Make sure you have updated Windows and WSL installations according to the [WSL tutorial](setup_wsl.html).
+<div class="primer-spec-callout info" markdown="1">
+**Pro-tip:** Windows-only users may find it difficult to navigate the file structure at first. Make sure you understand how to locate your files according to the [WSL tutorial](setup_wsl.html).
+</div>
 
 Then, Install VS Code from the web [https://code.visualstudio.com/](https://code.visualstudio.com/).
 
