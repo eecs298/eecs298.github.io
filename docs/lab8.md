@@ -14,6 +14,7 @@ In this lab, you will engage in some exploratory data analysis on a public datas
 
 For this assignment, you will include a short write-up in addition to your code submission. Include this write-up as a comment on your Canvas submission or by submitting a `.txt` or `.docx` file along with your code submission for the lab.
 
+### Downloading the dataset
 First, you will need the scikit-learn Python library. To install this library via pip, load up your virtual environment and run the following:
 
 ```console
@@ -28,6 +29,7 @@ from sklearn import datasets
 diabetes = datasets.load_diabetes()
 ```
 
+### Exploring the dataset
 This dataset will be given to you in a form similar to a Python dictionary. View the keys of this dataset by running:
 
 ```python
@@ -75,7 +77,9 @@ print(diabetes['target'][:25])
 
 2. Using the information gathered so far, along with your previous knowledge of diabetes as a disease, which of these features do you think would make the best predictor of disease progression? List the top two or three features you can think of, along with a short summary of your reasoning, in your write-up.
 
-Next, use `matplotlib` to construct a scatterplot of each feature against the target. For each value of `N` from 0 through 9, use the following method:
+### Generating scatterplots
+
+Next, to explore how each feature correlated with disease progression, we can use `matplotlib` to construct a scatterplot of each feature against the target. For each value of `N` from 0 through 9, use the following matplotlib function to generate a scatterplot:
 
 ```python
 import matplotlib.pyplot as plt
@@ -95,6 +99,8 @@ plt.clf()
 Then, answer the following:
 {:start="3"}
 3. Judging by these scatter plots, which features seem to be the best predictors of disease progression? How can you tell from the scatterplot?
+
+### Generating a heatmap
 
 Next, we can use the `seaborn` library to compute a heatmap showing correlations between these variables. A heatmap is a 2D grid with the list of variables on each axis, where each cell denotes the strength of the correlation between those variables.
 
