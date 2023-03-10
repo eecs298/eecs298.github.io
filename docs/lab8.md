@@ -87,7 +87,7 @@ plt.show()
 Make sure to also label your axes using the feature list for your own convenience. 
 
 Then, answer the following:
-{:start="11"}
+{:start="3"}
 3. Judging by these scatter plots, which features seem to be the best predictors of disease progression? How can you tell from the scatterplot?
 
 Next, we can use the `seaborn` library to compute a heatmap showing correlations between these variables. A heatmap is a 2D grid with the list of variables on each axis, where each cell denotes the strength of the correlation between those variables.
