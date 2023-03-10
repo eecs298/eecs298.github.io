@@ -70,7 +70,7 @@ View the first 25 lines of the target variable by running the following. Recall 
 ```python
 print(diabetes['target'][:25])
 ```
-
+{:start="1"}
 1. Next, write a few lines of code to output the minimum and maximum values for the target variable across all 442 patients. Include these two values in your write-up.
 
 2. Using the information gathered so far, along with your previous knowledge of diabetes as a disease, which of these features do you think would make the best predictor of disease progression? List the top two or three features you can think of, along with a short summary of your reasoning, in your write-up.
@@ -86,8 +86,9 @@ plt.show()
 
 Make sure to also label your axes using the feature list for your own convenience. 
 
-Then answer the following:
-1. Judging by these scatter plots, which features seem to be the best predictors of disease progression? How can you tell from the scatterplot?
+Then, answer the following:
+{:start="11"}
+3. Judging by these scatter plots, which features seem to be the best predictors of disease progression? How can you tell from the scatterplot?
 
 Next, we can use the `seaborn` library to compute a heatmap showing correlations between these variables. A heatmap is a 2D grid with the list of variables on each axis, where each cell denotes the strength of the correlation between those variables.
 
@@ -116,8 +117,9 @@ plt.show() # Display the heatmap using matplotlib
 ```
 
 Observing this heatmap, answer the following:
-1. Which features correlate most disease progression? Does this fit your hypothesis?
+{:start="4"}
+4. Which features correlate most disease progression? Does this fit your hypothesis?
 
-2. Which different features correlate most with eath other? Explain this correlation using your knowledge of the dataset and your real-world knowledge of diabetes.
+5. Which different features correlate most with eath other? Explain this correlation using your knowledge of the dataset and your real-world knowledge of diabetes.
 
 Once you are complete, turn `lab8.py`, along with your write-up, to Canvas.
