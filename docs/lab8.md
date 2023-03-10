@@ -75,6 +75,19 @@ print(diabetes['target'][:25])
 
 2. Using the information gathered so far, along with your previous knowledge of diabetes as a disease, which of these features do you think would make the best predictor of disease progression? List the top two or three features you can think of, along with a short summary of your reasoning, in your write-up.
 
+Next, use `matplotlib` to construct a scatterplot of each feature against the target. For each value of `N` from 0 through 9, use the following method:
+
+```python
+import matplotlib.pyplot as plt
+
+plt.scatter(diabetes['data'].T[N], diabetes['target'])
+plt.show()
+```
+
+Make sure to also label your axes using the feature list for your own convenience. 
+
+Then answer the following:
+1. Judging by these scatter plots, which features seem to be the best predictors of disease progression? How can you tell from the scatterplot?
 
 Next, we can use the `seaborn` library to compute a heatmap showing correlations between these variables. A heatmap is a 2D grid with the list of variables on each axis, where each cell denotes the strength of the correlation between those variables.
 
@@ -97,7 +110,6 @@ corr = df.corr() # Generate the correlation matrix
 Then, use the `seaborn` library to generate the heatmap and display it with `matplotlib`.
 ```python
 import seaborn as sns
-import matplotlib.pyplot as plt
 
 ax_heatmap = sns.heatmap(corr, vmax=1, vmin=0, cmap="rocket_r") # Generate the heatmap
 plt.show() # Display the heatmap using matplotlib
