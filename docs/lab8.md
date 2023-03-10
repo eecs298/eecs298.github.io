@@ -87,6 +87,11 @@ plt.show()
 
 Make sure to also label your axes using the feature list for your own convenience. 
 
+To clear the plot in-between each, you can run:
+```python3
+plt.clf()
+```
+
 Then, answer the following:
 {:start="3"}
 3. Judging by these scatter plots, which features seem to be the best predictors of disease progression? How can you tell from the scatterplot?
