@@ -20,7 +20,7 @@ First, you will need the scikit-learn Python library. To install this library vi
 pip3 install scikit-learn
 ```
 
-To use `sklearn` to download the diabetes dataset, run the following:
+To use `scikit-learn` to download the diabetes dataset, run the following:
 
 ```python
 from sklearn import datasets
