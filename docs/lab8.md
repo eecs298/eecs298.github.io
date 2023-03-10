@@ -82,6 +82,7 @@ import matplotlib.pyplot as plt
 
 plt.scatter(diabetes['data'].T[N], diabetes['target'])
 plt.show()
+# Or matplotlib.pyplot.savefig(filepath)
 ```
 
 Make sure to also label your axes using the feature list for your own convenience. 
