@@ -105,4 +105,7 @@ plt.show() # Display the heatmap using matplotlib
 
 Observing this heatmap, answer the following:
 1. Which features correlate most disease progression? Does this fit your hypothesis?
+
 2. Which different features correlate most with eath other? Explain this correlation using your knowledge of the dataset and your real-world knowledge of diabetes.
+
+Once you are complete, turn `lab8.py`, along with your write-up, to Canvas.
