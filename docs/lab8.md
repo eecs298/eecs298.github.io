@@ -122,6 +122,8 @@ ax_heatmap = sns.heatmap(corr, vmax=1, vmin=0, cmap="rocket_r") # Generate the h
 plt.show() # Display the heatmap using matplotlib
 ```
 
+In the heatmap, a darker color indicates a high correlation between features, and a lighter color indicates a lower correlation.
+
 Observing this heatmap, answer the following:
 {:start="4"}
 4. Which features correlate most disease progression? Does this fit your hypothesis?
