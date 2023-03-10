@@ -17,7 +17,7 @@ For this assignment, you will include a short write-up in addition to your code 
 First, you will need the scikit-learn Python library. To install this library via pip, load up your virtual environment and run the following:
 
 ```console
-pip3 install sklearn
+pip3 install scikit-learn
 ```
 
 To use `sklearn` to download the diabetes dataset, run the following:
