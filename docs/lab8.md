@@ -132,8 +132,8 @@ In the heatmap, a darker color indicates a high correlation between features, an
 
 Observing this heatmap, answer the following:
 {:start="4"}
-4. Which features correlate most disease progression? Does this fit your hypothesis?
+4. What were some of the features which correlated most with disease progression? Does this fit your hypothesis?
 
-5. Which different features correlate most with eath other? Explain this correlation using your knowledge of the dataset and your real-world knowledge of diabetes.
+5. What were some of the different features which correlated most with eath other? Explain this correlation using your knowledge of the dataset and your real-world knowledge of diabetes.
 
 Once you are complete, turn `lab8.py`, along with your write-up, to Canvas.
