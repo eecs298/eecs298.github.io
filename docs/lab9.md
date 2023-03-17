@@ -95,6 +95,7 @@ What does the density graph show? What does it indicate about the predictions ma
 plt.title('Density of Prediction vs. Actual Progression')
 plt.xlabel('Progression')
 plt.ylabel('Density')
+plt.legend() # Show the labels of the ground truth and prediction lines
 plt.show()
 ```
 
