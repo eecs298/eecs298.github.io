@@ -52,7 +52,7 @@ metrics.mean_squared_error(y_test, y_test_pred)
 ```
 
 ### Identifying predictive bias
-Compare the ability of the model to predict diabetes progression for people classified as male vs. for people classified as female. To do this, train the model as normal. Next, you will need to split the x and y test sets into those for people classified as male and female using your knowledge of Python dictionary and list comprehension. You may need to review earlier labs for a reminder on how the dataset is structured. In the dataset, negative values for the sex column indicate a person classified as female, and positive values indicate a person classified as male. Is there a disparity in test accuracy between the two? If so, why might this be? Report the difference in MSE for the two groups and discuss your results in your writeup.
+Compare the ability of the model to predict diabetes progression for people classified as male vs. for people classified as female. To do this, train the model as normal. Next, you will need to split the x and y test sets into those for people classified as male and female using your knowledge of Python dictionary and list comprehension. You may need to review earlier labs for a reminder on how the dataset is structured. In the dataset, negative values for the sex column indicate a person classified as female, and positive values indicate a person classified as male. Test your model on the test sets for both sexes and calculate the MSE for each. Is there a disparity in test accuracy between the two groups? If so, why might this be? Conisder how this dataset  was likely colected and how this may influence the existence of bias in the dataset. Report the difference in MSE for the two groups and discuss your results in your writeup.
 
 One might imagine that a possible way to remove any biases for one sex or another would be to remove the sex feature entirely during training. Is this a good choice for removing bias in the dataset? Is it likely to work? Discuss this in your writeup by referring to previous discussions in lecture.
 
@@ -63,4 +63,4 @@ index_of_feature = feature_names.index("sex")
 x = np.delete(x, index_of_feature, 1)
 ```
 
-Does disparity across sex improve just by removing the feature? Discuss the results in your writeup and identify why this may be the case.
+Does disparity across sex improve just by removing the feature? Discuss the results in your writeup and identify why this may be the case. Once you are done, upload your code and your writeup to Canvas.
