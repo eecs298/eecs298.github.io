@@ -63,4 +63,4 @@ index_of_feature = feature_names.index("sex")
 x = np.delete(x, index_of_feature, 1)
 ```
 
-Does disparity across sex improve just by removing the feature? Discuss the results in your writeup and identify why this may be the case. Once you are done, upload your code and your writeup to Canvas.
+Does disparity across sex improve just by removing the feature? Discuss the results in your writeup and identify why this may or may not be the case. Once you are done, upload your code and your writeup to Canvas.
