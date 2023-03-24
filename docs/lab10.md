@@ -14,7 +14,7 @@ In this lab, you will continue your exploration of the scikit-learn diabetes dat
 
 For this assignment, you will include a short write-up in addition to your code submission. Include this write-up as a comment on your Canvas submission or by submitting a `.txt` or `.docx` file along with your code submission for the lab.
 
-### Intro to Multiple Linear Regression
+### Review: training the model
 As before, to get started, import `numpy` and `sklearn`. If you need to install `sklearn`, refer to the previous lab.
 ```python
 import numpy as np
@@ -31,7 +31,6 @@ x = diabetes['data'] # Features
 y = diabetes['target'] # Target (disease progression)
 ```
 
-### Review: training the model
 Recall that, in order to train the model, you must first fix the seed, split the data into train and test sets, then call the scikit-learn `LinearRegression` method.
 
 ```python
