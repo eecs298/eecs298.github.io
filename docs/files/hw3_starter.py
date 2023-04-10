@@ -193,7 +193,10 @@ class PredPol:
 
         Output: The expected number of arrests at time t at the given tract, as a float.
         """
-        pass
+        if timestamps == None:
+            timestamps = self.train_timestamps
+        kernels = [self.omega*np.exp(-self.omega*(t-t_n)) for t_n in timestamps[tract] if t_n < t]
+        return self.mu[tract] + self.theta*sum(kernels)
 
 
 def q1(dw:DataWrapper):
