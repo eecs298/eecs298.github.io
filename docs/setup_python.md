@@ -192,7 +192,7 @@ easy_install.py  pkg_resources         pip              setuptools
 ### Activate a virtual environment
 In the previous example, we used the virtual environment by calling its Python executable explicitly (e.g., `./env/bin/python`).  As a convenience, we can temporarily make this version the default.
 
-The `bin/activate` script adds `env/bin` to the `PATH` environment variable, making it the first place to look for commands.  Notice that `/Users/awdeorio/src/eecs485/p1-insta485-static/env/bin` is first in the list.
+The `bin/activate` script adds `env/bin` to the `PATH` environment variable, making it the first place to look for commands.  Notice that `/creiglas/eecs298/env/bin` is first in the list.
 ```console
 $ source env/bin/activate
 $ echo $PATH
