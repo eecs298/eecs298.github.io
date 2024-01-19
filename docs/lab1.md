@@ -80,8 +80,8 @@ def read_numbers(self, filename):
     f = open(filename, "r", encoding="utf-8")
 
     for line in f:
-      num = int(line)
-      self.numbers.append(num)
+        num = int(line)
+        self.numbers.append(num)
 
     f.close()
 ```
