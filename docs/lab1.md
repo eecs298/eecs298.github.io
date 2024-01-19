@@ -30,7 +30,7 @@ Take a look at the file you downloaded. Our goal today will be to read the value
 
 First, import the `numpy` library. We can optionally rename this library for ease of use within the scope of this program with the `as` keyword.
 
-```
+```python
 import numpy as np
 ```
 
@@ -40,68 +40,67 @@ Next, create the outline for our `meanCalculator` class. We will need a construc
 class meanCalculator:
 
     def __init__(self):
-
         pass
 
     def read_numbers(self, filename):
-
         pass
 
     def calculate_integer_mean(self):
-
         pass
 ```
 We will first write the constructor function `__init__`. The only attribute we will need is a `list` to hold the numbers we read in from the file. We will call it `self.numbers` and initiate it as an empty `list`. Python `list`s are dynamically allocated, so we do not need to specify the size.
 
-It is good practice to add `documentation comments` on all of your functions and classes. All starter code in homeworks and labs will have the same documentation style as seen in this lab. The documentation for the constructor function `__init__` will always describe the class it constructs and the other documentation comments will describe the purpose of the function they describe. After these short descriptions, `__init__` will include a list of `Attributes` of the class while all other functions will include a list of `Arguments` passed into the function (besides `self`), a list of which `Attributes` are `Modified`, and what the function `Returns`.
+It is good practice to add `docstring comments` on all of your functions and classes. All starter code in homeworks and labs will have the same documentation style as seen in this lab. The documentation for the constructor function `__init__` will always describe the class it constructs and the other documentation comments will describe the purpose of the function they describe. After these short descriptions, `__init__` will include a list of `Attributes` of the class while all other functions will include a list of `Arguments` passed into the function (besides `self`), a list of which `Attributes` are `Modified`, and what the function `Returns`.
 
 ```python
 def __init__(self):
-      """The meanCalculator class calculates the integer mean on a list of numbers.
+    """The meanCalculator class calculates the integer mean on a list of numbers.
 
-      Attributes:
-          self.numbers (List): a list to store numbers on which to calculate the mean.
-      """
-      self.numbers = []
+    Attributes:
+      self.numbers (List): a list to store numbers on which to calculate the mean.
+    """
+    self.numbers = []
 ```
 
-Next, we will write the `read_numbers` function that reads numbers from the specified `filename`. To import our text file, we can use the built-in Python `open` function. We can loop through the object `f` and get one line (everything before the `\n` character) at a time as follows. Python is a dynamically typed language, so although we do not specify it, these lines will come to us as `String` objects. When we use `numpy` to take the mean of these numbers, it will want a `list` of `int`s, so we can cast each line to an `int` before adding it to our list with `append`.
+Next, we will write the `read_numbers` function that reads numbers from the specified `filename`. To read from our text file, we can use the built-in Python `open` function. We can loop through the object `f` and get one line (everything before the `\n` character) at a time as follows. Python is a dynamically typed language, so although we do not specify it, these lines will come to us as `str` (string) objects. When we use `numpy` to take the mean of these numbers, it will want a `list` of `int`s, so we can cast each line to an `int` before adding it to our list with `append`. After we finish, we `close` our text file to indicate to the system that we are done reading from it.
 
 ```python
 def read_numbers(self, filename):
-      """Function to read in a number file. Adds numbers from files to
-      self.numbers cast as integers
-
-      Arguments:
-          filename (String): filename of .txt file to read numbers from
-      Modifies:
-          self.numbers
-      Returns:
-          None
-      """
-
-      f = open(filename, "r")
-
-      for line in f:
-          num = int(line)
-          self.numbers.append(num)
+    """Function to read in a number file. Adds numbers from files to
+    self.numbers cast as integers
+    
+    Arguments:
+      filename (String): filename of .txt file to read numbers from
+    Modifies:
+      self.numbers
+    Returns:
+      None
+    """
+    
+    f = open(filename, "r", encoding="utf-8")
+    
+    for line in f:
+      num = int(line)
+      self.numbers.append(num)
+    
+    f.close()
 ```
 Finally, we will write the `calculate_integer_mean` function that calculates the mean of the given numbers and casts the result to an integer. We can compute the mean of our list by calling `numpy`'s `np.mean` function and return the result as an `int`.
 
 ```python
 def calculate_integer_mean(self):
-      """Calculates and returns mean of numbers in self.numbers cast as an integer.
-
-      Arguments:
-          None
-      Modifies:
-          None
-      Returns:
-          Integer mean of self.numbers
-      """
-      mean = int(np.mean(self.numbers))
-
-      return mean
+    """Calculates and returns mean of numbers in self.numbers cast as an integer.
+    
+    Arguments:
+      None
+    Modifies:
+      None
+    Returns:
+      Integer mean of self.numbers
+    """
+    mean = int(np.mean(self.numbers))
+    
+    return mean
 ```
 
 Now that we have implemented our full class, we can move to the `__main__` branch of our Python file to use the class. The body of this branch is what will run when you execute your program. To write code in this branch, we specify the following conditional.
@@ -109,14 +108,13 @@ Now that we have implemented our full class, we can move to the `__main__` branc
 if __name__ == "__main__":
 ```
 
-Here, we first need to declare an instance of our `meanCalculator` class.
+Here, we first need to construct an instance of our `meanCalculator` class.
 ```python
 if __name__ == "__main__":
-
   calculator = meanCalculator()
 ```
 
-Next, we can use the `read_numbers` function to read from the `numbers.txt` file. Make sure your `numbers.txt` file is in the same directory as your `lab1.py`.
+Next, we can use the `read_numbers` member function to read from the `numbers.txt` file. Make sure your `numbers.txt` file is in the same directory as your `lab1.py`.
 
 ```python
 if __name__ == "__main__":
@@ -127,7 +125,7 @@ if __name__ == "__main__":
 
 ```
 
- We can then check out our list of numbers by printing out the contents as follows. Note that Python class variables are `Public` by default which means `get` and `set` functions are not necessary as in C++!
+ We can then check out our list of numbers by printing out the contents as follows. Note that Python class variables are `public` by default, much like `structs` in C++!
 
 ```python
 if __name__ == "__main__":
