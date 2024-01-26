@@ -95,7 +95,7 @@ Then, you can use the `reader()` function as follows. Note that all information 
 import csv
 
 with open("file.csv","r") as file: # The 'with' keyword defines the scope where "file.csv" is open and automatically closes it out of scope.
-    data = csv.reader(file)
+    data = csv.reader(file, newline="") # add newline keyword when passing in a file object
     for row in data: # for loop in Python -- 'data' is an iterable and 'row' is a holder variable for each element in 'data'
         print(row) # first prints ["1","2","3"] then prints ["a","b","c"]
 ```
