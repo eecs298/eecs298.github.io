@@ -45,6 +45,7 @@ To get started, you will choose any city in the **United States** to collect res
 If you cannot find one of the above categories for one of your restaurants, use the tag `None` to indicate the information was not available. We will use this later to replace the value with the built-in Python keyword `None` which represents a null value. Keep in mind that since you have control over the restaurants you choose for the database, you should try to limit your use of the tag (i.e., by choosing restaurants with most of the categories filled in).   
 
 After collecting the restaurants, you will format the information into a `csv` file. To begin, create a file named `restaurants.csv` in the same folder as `HW1.py`. First, you will add the header line with the names of all the categories as follows:
+EDIT: Do not change "YOUR_CATEGORY" here to any other word to avoid errors on the autograder.
 ```
 Restaurant name,Restaurant address,Restaurant telephone,Restaurant website,Rating,Relative price,Keyword,YOUR_CATEGORY
 ```
