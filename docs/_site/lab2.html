@@ -9,18 +9,16 @@
 <meta name="generator" content="Jekyll v3.9.2" />
 <meta property="og:title" content="Lab 2" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/lab2.html" />
-<meta property="og:url" content="http://localhost:4000/lab2.html" />
 <meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Lab 2" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","headline":"Lab 2","url":"http://localhost:4000/lab2.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","headline":"Lab 2","url":"/lab2.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
         <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
-        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.10/css/primer-spec-base.css">
 
         <!--
             This page is formatted using Primer Spec.
@@ -30,7 +28,7 @@
         <script>
             window.PrimerSpecConfig = {
                 pdfPath: null, // @managed by build-primer-spec-action
-                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                siteQualifiedBaseUrl: '/',
                 hideSidebarOnLoad: false,
                 disableSidebar: false,
                 defaultSubthemeName: 'default',
@@ -44,7 +42,7 @@
                 disableJokes: false
             };
         </script>
-        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.10/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
     </head>
     <body>
         <div id="primer-spec-top"></div>
@@ -52,103 +50,130 @@
 
         <div id="primer-spec-plugin-main-content">
             
-            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            <h1 class="primer-spec-toc-ignore"><a href="/">EECS 298: Social Consequences of Computing</a></h1>
             
 
             <h1 class="primer-spec-toc-ignore" id="lab-2">Lab 2</h1>
 
 <h2 id="task">Task</h2>
-<p>For this lab, you will play the role of an IT intern at MyHealth, a large new hospital in Ann Arbor. The company is currently onboarding ten prestigious new medical doctors from out-of-state, and you have been asked to write a Python program to make generating their new employee information simpler.</p>
+<p>For this lab, you will play the role of an IT intern at MyHealth, a large new hospital in Ann Arbor. The company recently hired and is currently onboarding five prestigious surgeons from out-of-state, and you have been asked to write a Python program to automate generating the new doctors’ employee information.</p>
 
-<p>For each doctor, you will need to generate a random 6-digit personal identification number (PID), as well as a company email. Each company email should adhere to the following format: first 4 digits of first name + first 4 digits of last name + last 2 digits of PID + @myhealth.org.</p>
+<p>For each doctor, you will need to create their company email. Each company email should adhere to the following format: first letter of first name + last name + PID + @myhealth.org.</p>
 
-<h3 id="doctorstxt">doctors.txt</h3>
-<p>Create a file titled <code class="language-plaintext highlighter-rouge">doctors.txt</code>, containing the full names names of ten doctors at the hospital, with one full name per line. Write these names yourself, but keep them appropriately realistic – we will come back to these details in a future lecture.</p>
+<h3 id="doctorscsv">doctors.csv</h3>
+<p>The <code class="language-plaintext highlighter-rouge">doctors.csv</code> file contains a <code class="language-plaintext highlighter-rouge">FirstName</code>, <code class="language-plaintext highlighter-rouge">LastName</code>, <code class="language-plaintext highlighter-rouge">Department</code>, and <code class="language-plaintext highlighter-rouge">PID</code> of five doctors. Using the <code class="language-plaintext highlighter-rouge">wget</code> command, download the <code class="language-plaintext highlighter-rouge">doctors.csv</code> file.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/doctors.csv
+</code></pre></div></div>
 
 <h3 id="lab2py">lab2.py</h3>
 <p>Create a file titled <code class="language-plaintext highlighter-rouge">lab2.py</code>. In this file, perform the following:</p>
 
 <ul>
-  <li>Define a <code class="language-plaintext highlighter-rouge">Doctor</code> class with fields for name, PID, and email address.</li>
-  <li>Define a <code class="language-plaintext highlighter-rouge">generateEmail</code> function which, given a name and PID, returns an email address as outlined above.</li>
-  <li>Load and read <code class="language-plaintext highlighter-rouge">doctors.txt</code> using the method from last week’s lab. Create a <code class="language-plaintext highlighter-rouge">Doctor</code> object for each name in the file, with the PID for each doctor randomly generated and the email address generated using the <code class="language-plaintext highlighter-rouge">generateEmail</code> function. Add these <code class="language-plaintext highlighter-rouge">Doctor</code> objects to a list.</li>
-  <li>Iterate through this list, printing out the name, PID, and email of each doctor, as follows:</li>
+  <li><code class="language-plaintext highlighter-rouge">import</code> the <code class="language-plaintext highlighter-rouge">csv</code> package at the top of the file.</li>
+  <li>Define a <code class="language-plaintext highlighter-rouge">Doctor</code> class with attributes for first name, last name, department, PID, and email address. The first name, last name, department, and PID are passed in as arguments to the <code class="language-plaintext highlighter-rouge">__init__()</code> constructor and you will set the email address yourself according to the specifications above.</li>
+  <li>Override the less than operator, which has the function header <code class="language-plaintext highlighter-rouge">__lt__(self, other)</code>, to compare the PID of two <code class="language-plaintext highlighter-rouge">Doctor</code> objects.</li>
+  <li>
+    <p>Override the greater than operator, which has the function header <code class="language-plaintext highlighter-rouge">__gt__(self, other)</code>, to compare the PID of two <code class="language-plaintext highlighter-rouge">Doctor</code> objects.</p>
+  </li>
+  <li>In the <code class="language-plaintext highlighter-rouge">__main__</code> branch, load and read <code class="language-plaintext highlighter-rouge">doctors.csv</code> using the <code class="language-plaintext highlighter-rouge">open</code> built-in Python function and the function <code class="language-plaintext highlighter-rouge">reader()</code> from the <code class="language-plaintext highlighter-rouge">csv</code> package. Create a <code class="language-plaintext highlighter-rouge">Doctor</code> object for each doctor in the file. Add these <code class="language-plaintext highlighter-rouge">Doctor</code> objects to a <code class="language-plaintext highlighter-rouge">list</code>.</li>
+  <li>Use the Python function <code class="language-plaintext highlighter-rouge">sorted()</code> to sort the <code class="language-plaintext highlighter-rouge">list</code> from low to high <code class="language-plaintext highlighter-rouge">PID</code>.</li>
+  <li>Create a <code class="language-plaintext highlighter-rouge">dict</code> and add the doctors to the dictionary using department as the key and a <code class="language-plaintext highlighter-rouge">list</code> of emails of doctors in the department in order of low to high PID as the value. Hint: use the ordering from the sorted list above!</li>
+  <li>Print out the key/value pairs from the <code class="language-plaintext highlighter-rouge">dict</code> as follows:</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FirstName LastName, PID: 123456, email: FirsLast56@myhealth.org
-...
-</code></pre></div></div>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Department1:[email1, email2]
+</span><span class="c">...
+</span></code></pre></div></div>
 
-<p>Turn in <code class="language-plaintext highlighter-rouge">doctors.txt</code> and <code class="language-plaintext highlighter-rouge">lab2.py</code>.</p>
+<p>Turn in <code class="language-plaintext highlighter-rouge">lab2.py</code> on Gradescope.</p>
 
 <h2 id="tips">Tips</h2>
-<h3 id="random-integers">Random integers</h3>
-<p>Generate a random integer as follows:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from random import randint
-
-n = randint(a, b) # a ≤ n ≤ b
-</code></pre></div></div>
-
-<h3 id="type-casting">Type casting</h3>
-<p>Python is a dynamically typed language, which means that the type of any variable will be determined during runtime. As such, you do not need to specify the type of a variable when you instantiate it. You still need to keep track of a variable’s type, though, as certain operations or functions will still require certain types. Cast a variable as such:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>num = 123
-num = str(num) # "123"
-num = int(num) # 123
-num = float(num) # 123.0
-</code></pre></div></div>
 
 <h3 id="lists">Lists</h3>
 <p>Python lists are the most common data structure used, and function like souped-up C arrays. Note that they support items of different types.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mylist = []
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mylist</span> <span class="o">=</span> <span class="p">[]</span>
 
-mylist.append(123)
-mylist.append("abc")
+<span class="n">mylist</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">mylist</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"abc"</span><span class="p">)</span>
+<span class="n">mylist</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">456</span><span class="p">)</span>
+<span class="n">mylist</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"def"</span><span class="p">)</span>
 
-print(mylist[0]) # 123
-</code></pre></div></div>
+<span class="k">print</span><span class="p">(</span><span class="n">mylist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># 123
+</span><span class="k">print</span><span class="p">(</span><span class="n">mylist</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># [123,"abc"]
+</span></code></pre></div></div>
+
+<h3 id="python-dictionaries">Python dictionaries</h3>
+<p>The <code class="language-plaintext highlighter-rouge">dict</code> object in Python is a built-in data structure. A dictionary can be thought of as a generalization of a list that is indexable by any object, rather than only an <code class="language-plaintext highlighter-rouge">int</code>. More formally, dictionaries contain key/value pairs. Indexing a dictionary by its key returns the matching value. See usage below:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="c1"># Add a key/value pair by indexing with any object and assigning a value
+</span><span class="n">my_dict</span><span class="p">[</span><span class="s">"Key 1"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">my_dict</span><span class="p">[</span><span class="s">"The next key"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Its value"</span>
+<span class="n">my_dict</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="n">my_dict</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span> <span class="c1"># ["Key 1", "The next key", 15]
+</span><span class="n">my_dict</span><span class="p">[</span><span class="s">"Key 1"</span><span class="p">]</span> <span class="c1"># 10
+</span><span class="n">my_dict</span> <span class="c1"># {"Key 1": 10, "The next key": "Its value", 15: 0.0}
+</span></code></pre></div></div>
 
 <h3 id="string-slicing">String slicing</h3>
 <p>Python string syntax provides powerful tools to index and “slice” strings. See below:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s = "abcdef"
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="s">"abcdef"</span>
 
-print(s[0]) # The first char: "a"
-print(s[-1]) # The last char: "f"
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># The first char: "a"
+</span><span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># The last char: "f"
+</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span> <span class="c1"># From the 2nd char to the fourth char (non-inclusive): "bc"
+</span><span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span> <span class="c1"># From the 3rd char to the end: "cdef"
+</span><span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># From the beginning to the second-to-last char (non-inclusive), "abcd"
+</span></code></pre></div></div>
 
-print(s[1:3]) # From the 2nd char to the fourth char (non-inclusive): "bc"
-print(s[2:]) # From the 3rd char to the end: "cdef"
-print(s[:-2]) # From the beginning to the second-to-last char (non-inclusive), "abcd"
+<h3 id="csv-reader-function">CSV <code class="language-plaintext highlighter-rouge">reader()</code> function</h3>
+<p>The <code class="language-plaintext highlighter-rouge">reader()</code> function in the <code class="language-plaintext highlighter-rouge">csv</code> package is used to read in information from a <code class="language-plaintext highlighter-rouge">csv</code> file. The <code class="language-plaintext highlighter-rouge">reader()</code> function returns an iterable where each element in the iterable is the next line of the <code class="language-plaintext highlighter-rouge">csv</code> file represented as a list of <code class="language-plaintext highlighter-rouge">str</code>s when you split the line by commas. For example, suppose you have a file called <code class="language-plaintext highlighter-rouge">file.csv</code> that contains two lines of information</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1,2,3
+a,b,c
 </code></pre></div></div>
+<p>Then, you can use the <code class="language-plaintext highlighter-rouge">reader()</code> function as follows. Note that all information (including numbers!) is read in as <code class="language-plaintext highlighter-rouge">str</code>s.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">csv</span>
 
-<h3 id="string-splitting">String splitting</h3>
-<p>The <code class="language-plaintext highlighter-rouge">split()</code> function can be used to split a string into substrings. These substrings will be put into a list and split based on a given delimiter string. If none is given, the default delimiter is the space character.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tokens = "abc def".split() # tokens = ["abc", "def"]
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"file.csv"</span><span class="p">,</span><span class="s">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s">""</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span> <span class="c1"># The 'with' keyword defines the scope where "file.csv" is open and automatically closes it out of scope.
+</span>    <span class="n">data</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">reader</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span> <span class="c1"># for loop in Python -- 'data' is an iterable and 'row' is a holder variable for each element in 'data'
+</span>        <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="c1"># first prints ["1","2","3"] then prints ["a","b","c"]
+</span></code></pre></div></div>
+
+<h3 id="python-sorted-function">Python <code class="language-plaintext highlighter-rouge">sorted()</code> function</h3>
+<p>The Python <code class="language-plaintext highlighter-rouge">sorted()</code> function takes an iterable (like a <code class="language-plaintext highlighter-rouge">list</code>) as input and returns a sorted version of the iterable. There are two optional keyword arguments. (1) <code class="language-plaintext highlighter-rouge">key</code> is a function that is run on each element of the iterable before comparisons are made between elements to sort the iterable. You can use the Python keyword <code class="language-plaintext highlighter-rouge">lambda</code> to write a simple function that takes as input a single argument representing the element in the iterable and returns to the <code class="language-plaintext highlighter-rouge">sorted()</code> function an new element to sort by. (2) <code class="language-plaintext highlighter-rouge">reverse</code> is default <code class="language-plaintext highlighter-rouge">False</code> and indicates whether the order of the sorted elements should be reversed or not at the end. The default sorting is <code class="language-plaintext highlighter-rouge">A-Za-z</code> for <code class="language-plaintext highlighter-rouge">str</code>s and low to high for <code class="language-plaintext highlighter-rouge">int</code>s.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">myList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">myList</span><span class="p">))</span> <span class="c1"># [1,4,5,7,9]
+</span><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">myList</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span> <span class="c1"># [9,7,5,4,1]
+</span>
+<span class="n">myList2</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="s">"banana"</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="s">"apple"</span><span class="p">)]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">myList</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">element</span><span class="p">:</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1"># [(1,"banana"),(2,"apple")], sorting according to the first element of each tuple
+</span><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">myList</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">element</span><span class="p">:</span> <span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="c1"># [(2,"apple"),(1,"banana")], sorting according to the second element of each tuple
+</span></code></pre></div></div>
+
+<h3 id="overriding-functions">Overriding functions</h3>
+<p>Any method within a parent class can be overridden in a child of that class. When writing the constructor, you actually override the default constructor of the <code class="language-plaintext highlighter-rouge">Object</code> class, from which every class inherits. You can do the same with other methods belonging to parent classes, for example the ` <strong>le</strong>(self, other)<code class="language-plaintext highlighter-rouge"> method, which is automatically called whenever two objects from the same class are compared by </code>&lt;=`.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_1</span><span class="p">,</span> <span class="n">attribute_2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">att1</span> <span class="o">=</span> <span class="n">attribute_1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">att2</span> <span class="o">=</span> <span class="n">attribute_2</span>
+
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">att1</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="p">.</span><span class="n">att1</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">obj1</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">obj2</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">obj1</span><span class="o">&lt;=</span><span class="n">obj2</span><span class="p">)</span> <span class="c1"># prints True
+</span>
 </code></pre></div></div>
-
-<h3 id="defining-a-function">Defining a function</h3>
-<p>You can define a function in Python as follows:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def my_func(arg1, arg2):
-  return arg1 + arg2
-</code></pre></div></div>
-
-<h3 id="defining-a-class">Defining a class</h3>
-<p>Python is an object-oriented language. Create and instantiate a class as follows. The <code class="language-plaintext highlighter-rouge">__init__</code> function is called automatically whenever an object of that class is instantiated. You can get and set internal variables by referencing them explicitly, as shown below.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Test:
-  def __init__(self, arg1, arg2):
-    self.arg1 = arg1
-    self.arg2 = arg3
-    self.arg3 = self.arg1 + self.arg2
-
-test_obj = Test(arg1, arg2)
-num = test_obj.arg3
-test_obj.arg1 = 0
-</code></pre></div></div>
-
-<h3 id="main-branch">Main branch</h3>
-<p>Python can be used purely as a scripting language, but if any functions or classes are defined, you’ll need to define the main branch as follows. The body of this branch is what will run when you execute your program.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if __name__ == "__main__":
-</code></pre></div></div>
-
-<p>If you run into any issues, feel free to ask a question.</p>
 
 
             

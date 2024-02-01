@@ -9,18 +9,16 @@
 <meta name="generator" content="Jekyll v3.9.2" />
 <meta property="og:title" content="Windows command line tools (WSL)" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/setup_wsl.html" />
-<meta property="og:url" content="http://localhost:4000/setup_wsl.html" />
 <meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Windows command line tools (WSL)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","headline":"Windows command line tools (WSL)","url":"http://localhost:4000/setup_wsl.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","headline":"Windows command line tools (WSL)","url":"/setup_wsl.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
         <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
-        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.10/css/primer-spec-base.css">
 
         <!--
             This page is formatted using Primer Spec.
@@ -30,7 +28,7 @@
         <script>
             window.PrimerSpecConfig = {
                 pdfPath: null, // @managed by build-primer-spec-action
-                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                siteQualifiedBaseUrl: '/',
                 hideSidebarOnLoad: false,
                 disableSidebar: false,
                 defaultSubthemeName: 'default',
@@ -44,7 +42,7 @@
                 disableJokes: false
             };
         </script>
-        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.10/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
     </head>
     <body>
         <div id="primer-spec-top"></div>
@@ -52,7 +50,7 @@
 
         <div id="primer-spec-plugin-main-content">
             
-            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            <h1 class="primer-spec-toc-ignore"><a href="/">EECS 298: Social Consequences of Computing</a></h1>
             
 
             <h1 class="primer-spec-toc-ignore" id="windows-command-line-tools-wsl">Windows Command line tools (WSL)</h1>
@@ -99,6 +97,15 @@ Usage: wsl.exe [Argument]
 </div>
 
 <p>Restart your computer.</p>
+
+<p>Start PowerShell as administrator, and check that the  <code class="language-plaintext highlighter-rouge">VERSION</code> is 2.</p>
+
+<div data-highlight="3" class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">C:\WINDOWS\system32&gt;</span><span class="w"> </span>wsl <span class="nt">-l</span> <span class="nt">-v</span>
+<span class="go">  NAME      STATE       VERSION
+* Ubuntu    Stopped     2
+</span></code></pre></div></div>
+
+<p>If the <code class="language-plaintext highlighter-rouge">VERSION</code> is 1, you must <a href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">upgrade to WSL 2</a>.</p>
 
 <h2 id="open-terminal">Open terminal</h2>
 <p>Start an Ubuntu Bash shell.</p>
