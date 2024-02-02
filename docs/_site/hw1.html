@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>EECS 298 Homework 1 | EECS 298: Social Consequences of Computing</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="EECS 298 Homework 1" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="EECS 298 Homework 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"EECS 298 Homework 1","url":"/hw1.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+        <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.10/css/primer-spec-base.css">
+
+        <!--
+            This page is formatted using Primer Spec.
+            Would you like to contribute to the theme?
+            Check out: https://github.com/eecs485staff/primer-spec
+        -->
+        <script>
+            window.PrimerSpecConfig = {
+                pdfPath: null, // @managed by build-primer-spec-action
+                siteQualifiedBaseUrl: '/',
+                hideSidebarOnLoad: false,
+                disableSidebar: false,
+                defaultSubthemeName: 'default',
+                defaultSubthemeMode: 'system',
+                sitemapEnabled: false,
+                sitemapUrls: [],
+                sitemapLabel: undefined,
+                sitemapSiteTitle: 'EECS 298: Social Consequences of Computing',
+                useLegacyCodeBlocks: false,
+                defaultCodeblockVariant: "enhanced",
+                disableJokes: false
+            };
+        </script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.10/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id="primer-spec-top"></div>
+        <div id="primer-spec-app-container" onclick="return true;"></div>
+
+        <div id="primer-spec-plugin-main-content">
+            
+            <h1 class="primer-spec-toc-ignore"><a href="/">EECS 298: Social Consequences of Computing</a></h1>
+            
+
+            <h1 id="homework-1-restaurant-recommendations">Homework 1: Restaurant Recommendations</h1>
+<p>Due 11:59 PM EST on Friday, February 2, 2024.</p>
+
+<p>Autograder points: 20</p>
+
+<p>Written response points: 38</p>
+
+<p>Total points: 58</p>
+
+<h2 id="submission">Submission</h2>
+<p>This homework will consist of a written section with reflection questions and a programming section in Python. You will submit your work via Gradescope (linked from Canvas). On Gradescope, there are two assignments you will need to use to submit. Part 1 is the coding part where you will write all your implementations in <code class="language-plaintext highlighter-rouge">HW1.py</code>. Part 2 is the written reflection part.  Upload your code for Part 1 as <code class="language-plaintext highlighter-rouge">HW1.py</code> to the <code class="language-plaintext highlighter-rouge">Homework 1: Code Submission</code> Gradescope assignment. The code that you upload to Gradescope for Part 1 will be graded using an autograder. Upload your written responses for the reflection questions in Part 2 as a <code class="language-plaintext highlighter-rouge">.pdf</code> file to the <code class="language-plaintext highlighter-rouge">Homework 1: Written Responses</code> Gradescope assignment. It is required that you typeset your written responses in a document editor or a program like LaTeX.</p>
+
+<h2 id="introduction">Introduction</h2>
+<p>For this assignment, you are a software engineer for LivingLikeALocal, a software company that creates a restaurant recommendation website for travelers in cities across the United States. Your task is to design a database of local restaurants as well as implement a class to sort and search the database. Your goal as a designer is to provide the most amount of information to your customers so that they can go to highly recommended restaurants in an area.</p>
+
+<p>Specifications where you must implement code will be highlighted in $\color{blue}\text{Blue}$ for clarity.</p>
+
+<h2 id="part-1-creating-the-database">Part 1: Creating the Database</h2>
+<p>In this section, you will create the restaurant database including data collection and code implementation. The first task will be to collect restaurant information and organize it in a <code class="language-plaintext highlighter-rouge">csv</code> file. Next, you will implement the <code class="language-plaintext highlighter-rouge">RestaurantDatabase</code> class in <code class="language-plaintext highlighter-rouge">HW1.py</code> which includes several functions related to searching, sorting, and outputting the data in the database. After, you will answer a few analysis questions.</p>
+
+<p>First, use the <code class="language-plaintext highlighter-rouge">wget</code> command to get the <code class="language-plaintext highlighter-rouge">HW1.py</code> starter code file.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/homeworks/HW1.py
+</code></pre></div></div>
+
+<h3 id="collecting-restaurant-data">Collecting Restaurant Data</h3>
+<p>To get started, you will choose any city in the <strong>United States</strong> to collect restaurant information from. Once you have a city in mind, you can use <a href="https://www.yelp.com/">Yelp</a> and <a href="https://www.google.com/maps">Google Maps</a> to look up <strong>5 restaurants</strong> in that city. You will collect the following information to include in the <code class="language-plaintext highlighter-rouge">csv</code> file:</p>
+<ol>
+  <li>Restaurant name</li>
+  <li>Restaurant address</li>
+  <li>Restaurant telephone</li>
+  <li>Restaurant website</li>
+  <li>A rating out of 5 stars</li>
+  <li>The relative price in the terms of the number of dollar signs shown</li>
+  <li>A keyword describing the restaurant (bar, pizza place, etc.)</li>
+  <li>1 other categories of your choosing based on the information available on Yelp and Google Maps</li>
+</ol>
+
+<p>If you cannot find one of the above categories for one of your restaurants, use the tag <code class="language-plaintext highlighter-rouge">None</code> to indicate the information was not available. We will use this later to replace the value with the built-in Python keyword <code class="language-plaintext highlighter-rouge">None</code> which represents a null value. Keep in mind that since you have control over the restaurants you choose for the database, you should try to limit your use of the tag (i.e., by choosing restaurants with most of the categories filled in).</p>
+
+<p>After collecting the restaurants, you will format the information into a <code class="language-plaintext highlighter-rouge">csv</code> file. To begin, create a file named <code class="language-plaintext highlighter-rouge">restaurants.csv</code> in the same folder as <code class="language-plaintext highlighter-rouge">HW1.py</code>. First, you will add the header line with the names of all the categories as follows:
+EDIT: Do not change “YOUR_CATEGORY” here to any other word to avoid errors on the autograder.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Restaurant name,Restaurant address,Restaurant telephone,Restaurant website,Rating,Relative price,Keyword,YOUR_CATEGORY
+</code></pre></div></div>
+<p>Then, add all your restaurant information to this file and make sure to separate each restaurant by a new line. See below for an example of adding Cafe Zola in Ann Arbor to <code class="language-plaintext highlighter-rouge">restaurants.csv</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Restaurant name,Restaurant address,Restaurant telephone,Restaurant website,Rating,Relative price,Keyword,YOUR_CATEGORY
+Cafe Zola,"112 W Washington St Ann Arbor, MI 48104",+17347692020,http://www.cafezola.com/,3.8,2,Eclectic restaurant,YOUR_CATEGORY_INFO
+</code></pre></div></div>
+<p>Remember that <code class="language-plaintext highlighter-rouge">csv</code> stands for “Comma-separated values”, so any value that has commas must be given in quotes so the information is read in properly. See the address value in the example above for an example of this. You will use the Python <code class="language-plaintext highlighter-rouge">csv</code> package to read in the file in your database which you can read more about <a href="https://docs.python.org/3/library/csv.html">here</a>. Keep in mind that <code class="language-plaintext highlighter-rouge">csv</code> files read in data as <code class="language-plaintext highlighter-rouge">str</code>s and we will work with all numeric data as if they are <code class="language-plaintext highlighter-rouge">str</code>s for ease of searching and sorting. However, we do not want the missing categories to affect our searching and sorting, so you will change any attribute value that is <code class="language-plaintext highlighter-rouge">"None"</code> to the Python  keyword <code class="language-plaintext highlighter-rouge">None</code>.</p>
+
+<h3 id="implementing-the-database-in-hw1py">Implementing the Database in <code class="language-plaintext highlighter-rouge">HW1.py</code></h3>
+<p>Now it is time to implement the restaurant database. In <code class="language-plaintext highlighter-rouge">HW1.py</code> you will see two class outlines <code class="language-plaintext highlighter-rouge">Restaurant</code> and <code class="language-plaintext highlighter-rouge">RestaurantDatabase</code>. The <code class="language-plaintext highlighter-rouge">Restaurant</code> class will define our restaurant objects and give us a way to access the different information categories for each restaurant. In the constructor <code class="language-plaintext highlighter-rouge">__init__</code> function of <code class="language-plaintext highlighter-rouge">Restaurant</code>, you will see a list of input variables that corresponds to the list of categories of restaurant information above. $\color{blue}\text{Create and assign attributes}$ for this class for each of the input variables. Recall that all attributes in Python are <code class="language-plaintext highlighter-rouge">Public</code> by default, so there is no need to add any <code class="language-plaintext highlighter-rouge">get</code> or <code class="language-plaintext highlighter-rouge">set</code> functions to this class! Instead, we access attributes as follows</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">restaurant</span> <span class="o">=</span> <span class="n">Restaurant</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">telephone</span><span class="p">,</span> <span class="n">website</span><span class="p">,</span> <span class="n">rating</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">category_choice</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">restaurant</span><span class="p">.</span><span class="n">name</span><span class="p">)</span> <span class="c1"># accessing and printing the restaurant name
+</span></code></pre></div></div>
+<p>We will eventually want to be able to easily see the information in a <code class="language-plaintext highlighter-rouge">Restaurant</code> object, so we are going to overload the <code class="language-plaintext highlighter-rouge">__str__(self)</code> function in the <code class="language-plaintext highlighter-rouge">Restaurant</code> class. Python automatically calls the built-in function <code class="language-plaintext highlighter-rouge">__str__(self)</code> when you use the <code class="language-plaintext highlighter-rouge">print()</code> function and <code class="language-plaintext highlighter-rouge">__str__(self)</code> returns a <code class="language-plaintext highlighter-rouge">str</code> to be printed out. So, we can change the implementation of the <code class="language-plaintext highlighter-rouge">__str__(self)</code> function in the <code class="language-plaintext highlighter-rouge">Restaurant</code> class to get Python to display what we want when you use the <code class="language-plaintext highlighter-rouge">print()</code> function on a <code class="language-plaintext highlighter-rouge">Restaurant</code> object.</p>
+
+<ul>
+  <li>$\color{blue}\text{Implement the function}$ <code class="language-plaintext highlighter-rouge">__str__(self)</code> to return a <code class="language-plaintext highlighter-rouge">str</code> that displays the following information when you use the <code class="language-plaintext highlighter-rouge">print()</code> function on a <code class="language-plaintext highlighter-rouge">Restaurant</code> object where each attribute value below (in all caps) should be the value of the attribute for that specific <code class="language-plaintext highlighter-rouge">Restaurant</code> object. Note that there is a single space before and after each value (except before <code class="language-plaintext highlighter-rouge">website</code> and after <code class="language-plaintext highlighter-rouge">telephone</code> and <code class="language-plaintext highlighter-rouge">keyword</code>) and there should be newline characters <code class="language-plaintext highlighter-rouge">\n</code> at the end of each line.
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: NAME_VALUE Address: ADDRESS_VALUE Telephone: TELEPHONE_VALUE\n
+Website: WEBSITE_VALUE Rating: RATING_VALUE Price: PRICE_VALUE Keyword: KEYWORD_VALUE\n
+</code></pre></div>    </div>
+    <p>An example output for Cafe Zola is given below</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: Cafe Zola Address: 112 W Washington St Ann Arbor, MI 48104 Telephone: +17347692020
+Website: http://www.cafezola.com/ Rating: 3.8 Price: 2 Keyword: Eclectic restaurant
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Next, the <code class="language-plaintext highlighter-rouge">RestaurantDatabase</code> class will be used to read and store the restaurant information as well as sort and search through the information. The descriptions and implementation instructions of each function in the class are given below. Look for the <code class="language-plaintext highlighter-rouge"># TODO</code> comment in <code class="language-plaintext highlighter-rouge">HW1.py</code> for where to add your implementations and remember to remove the <code class="language-plaintext highlighter-rouge">pass</code> keyword during your implementation.</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">__init__(self)</code>: Constructor for the <code class="language-plaintext highlighter-rouge">RestaurantDatabase</code> class. This class has one <code class="language-plaintext highlighter-rouge">attribute</code> called <code class="language-plaintext highlighter-rouge">self.restaurants</code> to hold all the <code class="language-plaintext highlighter-rouge">Restaurant</code> objects and is initialized as an empty list here.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">read_data(self, file)</code>: $\color{blue}\text{Implement this function}$ to read in data from a <code class="language-plaintext highlighter-rouge">csv</code> file named <code class="language-plaintext highlighter-rouge">file</code> and create and add <code class="language-plaintext highlighter-rouge">Restaurant</code> objects to <code class="language-plaintext highlighter-rouge">self.restaurant</code>. Refer to the <a href="https://docs.python.org/3/library/csv.html">csv package documentation</a> for how to use the function <code class="language-plaintext highlighter-rouge">csv.reader()</code>. As stated above, you will have to check if any of the attribute values are <code class="language-plaintext highlighter-rouge">"None"</code> (a <code class="language-plaintext highlighter-rouge">str</code>) and pass in the Python <code class="language-plaintext highlighter-rouge">None</code> keyword to the <code class="language-plaintext highlighter-rouge">Restaurant</code> constructor instead.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sort_database(self, attribute_name, reverse=False, k=0)</code>: $\color{blue}\text{Implement this function}$ to sort <code class="language-plaintext highlighter-rouge">self.restaurants</code> based on the given <code class="language-plaintext highlighter-rouge">attribute_name</code>. First, create a list of <code class="language-plaintext highlighter-rouge">Restaurant</code> objects that <strong>do not</strong> have the Python keyword <code class="language-plaintext highlighter-rouge">None</code> as the value for the given <code class="language-plaintext highlighter-rouge">attribute_name</code>. Then, use the default sorting of the built-in Python <code class="language-plaintext highlighter-rouge">sorted()</code> function on this list of filtered <code class="language-plaintext highlighter-rouge">Restaurant</code> objects. Use the optional argument <code class="language-plaintext highlighter-rouge">reverse</code> boolean argument in the <code class="language-plaintext highlighter-rouge">sorted()</code> function to determine if this default sorting is reversed or not. Refer to <a href="https://docs.python.org/3/howto/sorting.html">Python sorting documentation</a> for how to use the <code class="language-plaintext highlighter-rouge">sorted()</code> function. Use the optional argument <code class="language-plaintext highlighter-rouge">k</code> to return the top <code class="language-plaintext highlighter-rouge">k</code> <code class="language-plaintext highlighter-rouge">Restaurant</code> objects in a <code class="language-plaintext highlighter-rouge">list</code> after sorting. Hint: use <a href="https://docs.python.org/3/library/functions.html#getattr">getattr()</a> to access an attribute of a class when <code class="language-plaintext highlighter-rouge">attribute_name</code> is given as a <code class="language-plaintext highlighter-rouge">str</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sort_by_keyword(self)</code>: $\color{blue}\text{Implement this function}$ to create and return a <code class="language-plaintext highlighter-rouge">dict</code> object where the <code class="language-plaintext highlighter-rouge">key</code> is the <code class="language-plaintext highlighter-rouge">keyword</code> attribute of the <code class="language-plaintext highlighter-rouge">Restaurant</code> class and the <code class="language-plaintext highlighter-rouge">value</code> is a list of <code class="language-plaintext highlighter-rouge">Restaurant</code>s that have a given <code class="language-plaintext highlighter-rouge">keyword</code>. Do not include any <code class="language-plaintext highlighter-rouge">Restaurant</code> objects where the <code class="language-plaintext highlighter-rouge">keyword</code> is the Python keyword <code class="language-plaintext highlighter-rouge">None</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">search_database(self, attribute_name, search_query)</code>: $\color{blue}\text{Implement this function}$ to search for the given <code class="language-plaintext highlighter-rouge">search_query</code> in the given <code class="language-plaintext highlighter-rouge">attribute_name</code> of the list of restaurants and return a <code class="language-plaintext highlighter-rouge">list</code> of matching <code class="language-plaintext highlighter-rouge">Restaurant</code>s. Use the Python keyword <code class="language-plaintext highlighter-rouge">in</code> to check if the <code class="language-plaintext highlighter-rouge">search_query</code> exists in the attribute of each <code class="language-plaintext highlighter-rouge">Restaurant</code>. As such, partial <code class="language-plaintext highlighter-rouge">str</code> matches are enough for the <code class="language-plaintext highlighter-rouge">Restaurant</code> to be in the returned <code class="language-plaintext highlighter-rouge">list</code>. We assume searches are <strong>not</strong> case sensitive, so make sure to match the case between the search query and the database information for an accurate search. Hint: use the <a href="https://www.w3schools.com/python/ref_string_lower.asp">lower()</a> function for <code class="language-plaintext highlighter-rouge">str</code>s and remember to skip any <code class="language-plaintext highlighter-rouge">Restaurant</code> objects where the value of the <code class="language-plaintext highlighter-rouge">attribute_name</code> is the Python keyword <code class="language-plaintext highlighter-rouge">None</code>.</p>
+  </li>
+</ul>
+
+<h3 id="expanding-the-scope-of-livinglikealocal">Expanding the Scope of LivingLikeALocal</h3>
+<p>Your company has started to gain some attention from investors in <strong>Japan</strong>! Naturally, your company is excited to expand operations to this new country and has asked you to test the existing database to see if it can be deployed as-is as soon as possible for maximum profits.</p>
+
+<p>Similar to above, you will choose any city in <strong>Japan</strong> and look for 5 restaurants on <a href="https://www.yelp.com/">Yelp</a> and <a href="https://www.google.com/maps">Google Maps</a> again and add the information to another <code class="language-plaintext highlighter-rouge">csv</code> file named <code class="language-plaintext highlighter-rouge">restaurants_japan.csv</code>.</p>
+
+<h3 id="analyzing-code-output">Analyzing Code Output</h3>
+<p>Recall that scripting code will execute in the <code class="language-plaintext highlighter-rouge">__main__</code> branch of a Python file, so any code you write to view the output of your program will be under the conditional</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+</code></pre></div></div>
+<p>Remember the importance of whitespace in Python and make sure all code in this section follows the indent of the <code class="language-plaintext highlighter-rouge"># TODO</code> comment.</p>
+
+<p>A few of the reflection questions below will be based on the output of your code and you may use your class implementation however you’d like here to answer these questions.</p>
+
+<h2 id="part-2-written-reflection-questions">Part 2: Written Reflection Questions</h2>
+<p>For this section, write a short paragraph response to each question. The purpose of this part is to reflect on the design process in this homework as a whole and the consequences the decisions made throughout this assignment could have when implemented. In your responses, we are looking for an effort to apply concepts from lectures and readings to answer each of these questions.  Make sure to briefly justify each answer.</p>
+
+<ol>
+  <li>
+    <p>[6 pts] Suppose four users in the American city you chose are looking for the top <code class="language-plaintext highlighter-rouge">k=2</code> restaurants sorted by <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">price</code> (low to high), <code class="language-plaintext highlighter-rouge">rating</code> (high to low), and your <code class="language-plaintext highlighter-rouge">category_choice</code>, respectively. Name <strong>two design decisions</strong> that could change the output of at least one of these recommendations if those design decisions had been made differently. In your answer, consider design decisions made by either us, the homework designers, or you in choosing the additional category, creating the <code class="language-plaintext highlighter-rouge">csv</code> file, and implementing the code. Cite <strong>specific examples from your dataset</strong> for each design decision you named and explain why the outputs would change.</p>
+  </li>
+  <li>
+    <p>[3 pts] Report the city you chose in the United States and the city you chose in Japan. Name <strong>two things</strong> that were different about the process of finding 5 restaurants in a Japanese city compared to finding 5 restaurants in an American city. For example, why it was easy or difficult to parse the information you needed for your database in both cases. Name <strong>one assumption</strong> in the categories given to you for the database (or the one you chose) that might make it more difficult to collect data in contexts beyond the United States. If you encountered no difficulties at all, try to imagine a country/city/context where you might run into difficulties and report on that instead.</p>
+  </li>
+  <li>
+    <p>[3 pts] An American tourist visiting the Japanese city you chose used your recommendation function and went to the first restaurant recommended when sorting by <code class="language-plaintext highlighter-rouge">rating</code>. They loved the restaurant and wanted to send a handwritten letter to the owners to personally thank them for the experience. The tourist knows that the Japanese addressing system is different than in the United States, but they forget how it works. However, they had such success with your recommendation that they trust your algorithm to return the address in the correct order it would go on a letter. You may assume the following ordering for the <a href="https://en.wikipedia.org/wiki/Japanese_addressing_system#Address_order">Japanese addressing system</a>.<br /> <br />Report the <code class="language-plaintext highlighter-rouge">address</code> output of your implementation for the restaurant recommendation described above using the output from the overloaded <code class="language-plaintext highlighter-rouge">__str__(self)</code> function. Does your implementation of <code class="language-plaintext highlighter-rouge">search_database</code> return the address in the correct order? (Note: your answer does not need to be yes here!) Briefly explain why or why not. Describe <strong>one benefit</strong> for reporting address information as the user would understand it in <em>their</em> local context and <strong>one benefit</strong> for reporting address information as it is understood in <em>the restaurant’s</em> local context.</p>
+  </li>
+  <li>
+    <p>[6 pts] Using the concepts from the Friedman and Nissenbaum reading, describe <strong>three examples</strong> of <strong>preexisting bias</strong> in this restaurant recommendation system.</p>
+  </li>
+  <li>
+    <p>[6 pts] Using the concepts from the Friedman and Nissenbaum reading, describe <strong>three examples</strong> of <strong>technical bias</strong> in this restaurant recommendation system.</p>
+  </li>
+  <li>
+    <p>[6 pts] Using the concepts from the Friedman and Nissenbaum reading, describe <strong>three examples</strong> of <strong>emergent bias</strong> in this restaurant recommendation system.</p>
+  </li>
+  <li>
+    <p>[4 pts] Suppose LivingLikeALocal becomes very popular in a certain city such that hundreds of people (tourists and locals!) a day use the website to decide where to eat. Give <strong>two potential consequences</strong> on the local restaurants of deploying the website in this popular city compared to a city of the same size where only a few people use the website.</p>
+  </li>
+  <li>
+    <p>[4 pts] Using concepts and specific terms from the Winner reading, name <strong>one way</strong> the website technology might influence the communities it is deployed in and <strong>one way</strong> the community use might affect future development of the website technology.</p>
+  </li>
+  <li>
+    <p>[OPTIONAL FEEDBACK] As this class is a work in progress, what difficulties did you encounter while doing this assignment and how can we make the next homework assignment better? Thank you!</p>
+  </li>
+</ol>
+
+
+            
+        </div> <!-- .container-lg -->
+
+        
+    </body>
+</html>

@@ -9,18 +9,16 @@
 <meta name="generator" content="Jekyll v3.9.2" />
 <meta property="og:title" content="Lab 1" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/lab1.html" />
-<meta property="og:url" content="http://localhost:4000/lab1.html" />
 <meta property="og:site_name" content="EECS 298: Social Consequences of Computing" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Lab 1" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","headline":"Lab 1","url":"http://localhost:4000/lab1.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","headline":"Lab 1","url":"/lab1.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="preload" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" as="style" crossorigin="anonymous" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
         <link rel="icon" href="https://michigan.it.umich.edu/news/wp-content/uploads/2017/01/favicon.png">
-        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.9/css/primer-spec-base.css">
+        <link rel="stylesheet" href="https://eecs485staff.github.io/primer-spec/assets/v1.10/css/primer-spec-base.css">
 
         <!--
             This page is formatted using Primer Spec.
@@ -30,7 +28,7 @@
         <script>
             window.PrimerSpecConfig = {
                 pdfPath: null, // @managed by build-primer-spec-action
-                siteQualifiedBaseUrl: 'http://localhost:4000/',
+                siteQualifiedBaseUrl: '/',
                 hideSidebarOnLoad: false,
                 disableSidebar: false,
                 defaultSubthemeName: 'default',
@@ -44,7 +42,7 @@
                 disableJokes: false
             };
         </script>
-        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.9/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
+        <script src="https://eecs485staff.github.io/primer-spec/assets/v1.10/js/primer_spec_plugin.min.js" crossorigin="anonymous" defer></script>
     </head>
     <body>
         <div id="primer-spec-top"></div>
@@ -52,7 +50,7 @@
 
         <div id="primer-spec-plugin-main-content">
             
-            <h1 class="primer-spec-toc-ignore"><a href="http://localhost:4000/">EECS 298: Social Consequences of Computing</a></h1>
+            <h1 class="primer-spec-toc-ignore"><a href="/">EECS 298: Social Consequences of Computing</a></h1>
             
 
             <h1 class="primer-spec-toc-ignore" id="lab-1-getting-started-with-python">Lab 1: Getting started with Python</h1>
@@ -71,52 +69,131 @@
 
 <p>From the terminal, ensure you are in the folder containing <code class="language-plaintext highlighter-rouge">lab1.py</code> and use the <code class="language-plaintext highlighter-rouge">wget</code> command to download the text file we’ll use for I/O in today’s lab:</p>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/numbers.txt
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/numbers.txt
 </code></pre></div></div>
 
-<p>Take a look at the file you downloaded. Our goal today will be to read the values from this file in Python, then use the <code class="language-plaintext highlighter-rouge">numpy</code> library to find the average of those values. To continue, open <code class="language-plaintext highlighter-rouge">lab1.py</code> with your editor of choice.</p>
+<p>Take a look at the file you downloaded. Our goal today will be to read the values from this file in Python, then use the <code class="language-plaintext highlighter-rouge">numpy</code> library to find the average of those values. We will create a <code class="language-plaintext highlighter-rouge">meanCalculator</code> class with the appropriate functions to do the calculations. To continue, open <code class="language-plaintext highlighter-rouge">lab1.py</code> with your editor of choice.</p>
 
 <p>First, import the <code class="language-plaintext highlighter-rouge">numpy</code> library. We can optionally rename this library for ease of use within the scope of this program with the <code class="language-plaintext highlighter-rouge">as</code> keyword.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import numpy as np
 </code></pre></div></div>
 
-<p>To import our text file, we can use the built-in <code class="language-plaintext highlighter-rouge">open</code> function.</p>
+<p>Next, create the outline for our <code class="language-plaintext highlighter-rouge">meanCalculator</code> class. We will need a constructor, a function to read in numbers file, and a function to calculate and return the integer mean.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f = open("numbers.txt", "r")
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">meanCalculator</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">read_numbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">calculate_integer_mean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">pass</span>
+</code></pre></div></div>
+<p>We will first write the constructor function <code class="language-plaintext highlighter-rouge">__init__</code>. The only attribute we will need is a <code class="language-plaintext highlighter-rouge">list</code> to hold the numbers we read in from the file. We will call it <code class="language-plaintext highlighter-rouge">self.numbers</code> and initiate it as an empty <code class="language-plaintext highlighter-rouge">list</code>. Python <code class="language-plaintext highlighter-rouge">list</code>s are dynamically allocated, so we do not need to specify the size.</p>
+
+<p>It is good practice to add <code class="language-plaintext highlighter-rouge">documentation comments</code> on all of your functions and classes. All starter code in homeworks and labs will have the same documentation style as seen in this lab. The documentation for the constructor function <code class="language-plaintext highlighter-rouge">__init__</code> will always describe the class it constructs and the other documentation comments will describe the purpose of the function they describe. After these short descriptions, <code class="language-plaintext highlighter-rouge">__init__</code> will include a list of <code class="language-plaintext highlighter-rouge">Attributes</code> of the class while all other functions will include a list of <code class="language-plaintext highlighter-rouge">Arguments</code> passed into the function (besides <code class="language-plaintext highlighter-rouge">self</code>), a list of which <code class="language-plaintext highlighter-rouge">Attributes</code> are <code class="language-plaintext highlighter-rouge">Modified</code>, and what the function <code class="language-plaintext highlighter-rouge">Returns</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="s">"""The meanCalculator class calculates the integer mean on a list of numbers.
+
+      Attributes:
+          self.numbers (List): a list to store numbers on which to calculate the mean.
+      """</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div></div>
 
-<p>Next, create an empty Python <code class="language-plaintext highlighter-rouge">list</code>. Python <code class="language-plaintext highlighter-rouge">list</code>s are dynamically allocated, so we do not need to specify the size.</p>
+<p>Next, we will write the <code class="language-plaintext highlighter-rouge">read_numbers</code> function that reads numbers from the specified <code class="language-plaintext highlighter-rouge">filename</code>. To import our text file, we can use the built-in Python <code class="language-plaintext highlighter-rouge">open</code> function. We can loop through the object <code class="language-plaintext highlighter-rouge">f</code> and get one line (everything before the <code class="language-plaintext highlighter-rouge">\n</code> character) at a time as follows. Python is a dynamically typed language, so although we do not specify it, these lines will come to us as <code class="language-plaintext highlighter-rouge">String</code> objects. When we use <code class="language-plaintext highlighter-rouge">numpy</code> to take the mean of these numbers, it will want a <code class="language-plaintext highlighter-rouge">list</code> of <code class="language-plaintext highlighter-rouge">int</code>s, so we can cast each line to an <code class="language-plaintext highlighter-rouge">int</code> before adding it to our list with <code class="language-plaintext highlighter-rouge">append</code>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>numbers = []
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">read_numbers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+      <span class="s">"""Function to read in a number file. Adds numbers from files to
+      self.numbers cast as integers
+
+      Arguments:
+          filename (String): filename of .txt file to read numbers from
+      Modifies:
+          self.numbers
+      Returns:
+          None
+      """</span>
+
+      <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+          <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+          <span class="bp">self</span><span class="p">.</span><span class="n">numbers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Finally, we will write the <code class="language-plaintext highlighter-rouge">calculate_integer_mean</code> function that calculates the mean of the given numbers and casts the result to an integer. We can compute the mean of our list by calling <code class="language-plaintext highlighter-rouge">numpy</code>’s <code class="language-plaintext highlighter-rouge">np.mean</code> function and return the result as an <code class="language-plaintext highlighter-rouge">int</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calculate_integer_mean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="s">"""Calculates and returns mean of numbers in self.numbers cast as an integer.
+
+      Arguments:
+          None
+      Modifies:
+          None
+      Returns:
+          Integer mean of self.numbers
+      """</span>
+      <span class="n">mean</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">numbers</span><span class="p">))</span>
+
+      <span class="k">return</span> <span class="n">mean</span>
 </code></pre></div></div>
 
-<p>We can loop through each line in our file as follows. Python is a dynamically typed language, so although we do not specify it, these lines will come to us as <code class="language-plaintext highlighter-rouge">String</code> objects. When we use <code class="language-plaintext highlighter-rouge">numpy</code> to take the mean of these numbers, it will want a <code class="language-plaintext highlighter-rouge">list</code> of <code class="language-plaintext highlighter-rouge">int</code>s, so we can cast each line to an <code class="language-plaintext highlighter-rouge">int</code> before adding it to our list with <code class="language-plaintext highlighter-rouge">append</code>.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for line in f:
-    num = int(line)
-    numbers.append(num)
+<p>Now that we have implemented our full class, we can move to the <code class="language-plaintext highlighter-rouge">__main__</code> branch of our Python file to use the class. The body of this branch is what will run when you execute your program. To write code in this branch, we specify the following conditional.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
 </code></pre></div></div>
 
-<p>We can then check out our list of numbers by printing out the contents as follows:</p>
+<p>Here, we first need to declare an instance of our <code class="language-plaintext highlighter-rouge">meanCalculator</code> class.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print("Contents:", numbers)
+  <span class="n">calculator</span> <span class="o">=</span> <span class="n">meanCalculator</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p>And, finally, we can compute the mean of our list by calling <code class="language-plaintext highlighter-rouge">numpy</code>’s <code class="language-plaintext highlighter-rouge">np.mean</code> function on our list and casting that result to an <code class="language-plaintext highlighter-rouge">int</code>, then printing the result:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mean = int(np.mean(numbers))
-print("Welcome to EECS", mean)
+<p>Next, we can use the <code class="language-plaintext highlighter-rouge">read_numbers</code> function to read from the <code class="language-plaintext highlighter-rouge">numbers.txt</code> file. Make sure your <code class="language-plaintext highlighter-rouge">numbers.txt</code> file is in the same directory as your <code class="language-plaintext highlighter-rouge">lab1.py</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+
+    <span class="n">calculator</span> <span class="o">=</span> <span class="n">meanCalculator</span><span class="p">()</span>
+
+    <span class="n">calculator</span><span class="p">.</span><span class="n">read_numbers</span><span class="p">(</span><span class="s">"numbers.txt"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>We can then check out our list of numbers by printing out the contents as follows. Note that Python class variables are <code class="language-plaintext highlighter-rouge">Public</code> by default which means <code class="language-plaintext highlighter-rouge">get</code> and <code class="language-plaintext highlighter-rouge">set</code> functions are not necessary as in C++!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+
+    <span class="n">calculator</span> <span class="o">=</span> <span class="n">meanCalculator</span><span class="p">()</span>
+
+    <span class="n">calculator</span><span class="p">.</span><span class="n">read_numbers</span><span class="p">(</span><span class="s">"numbers.txt"</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"Contents:"</span><span class="p">,</span> <span class="n">calculator</span><span class="p">.</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And, finally, we can compute the mean of our list by calling the <code class="language-plaintext highlighter-rouge">calculate_integer_mean</code> function as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+
+    <span class="n">calculator</span> <span class="o">=</span> <span class="n">meanCalculator</span><span class="p">()</span>
+
+    <span class="n">calculator</span><span class="p">.</span><span class="n">read_numbers</span><span class="p">(</span><span class="s">"numbers.txt"</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"Contents:"</span><span class="p">,</span> <span class="n">calculator</span><span class="p">.</span><span class="n">numbers</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">"Welcome to EECS"</span><span class="p">,</span> <span class="n">calculator</span><span class="p">.</span><span class="n">calculate_integer_mean</span><span class="p">())</span>
 </code></pre></div></div>
 
 <p>Run your file and check the output:</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 lab1.py
 </code></pre></div></div>
 
-<p>Next, rerun the file and use the <code class="language-plaintext highlighter-rouge">&gt;</code> operator to pipe the output into a new file called <code class="language-plaintext highlighter-rouge">results.txt</code>.</p>
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>python3 lab1.py <span class="o">&gt;</span> results.txt
-</code></pre></div></div>
-
-<p>To mark your completion of the lab, turn in <code class="language-plaintext highlighter-rouge">results.txt</code> on Canvas.</p>
+<p>Next, turn in <code class="language-plaintext highlighter-rouge">lab1.py</code> on Gradescope. Once you pass the autograder, you are done with the lab!</p>
 
 
             
