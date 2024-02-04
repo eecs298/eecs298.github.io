@@ -21,7 +21,7 @@ This homework will consist of a written section with reflection questions and a 
 ## Introduction
 For this assignment, you are a software engineer for LivingLikeALocal, a software company that creates a restaurant recommendation website for travelers in cities across the United States. Your task is to design a database of local restaurants as well as implement a class to sort and search the database. Your goal as a designer is to provide the most amount of information to your customers so that they can go to highly recommended restaurants in an area.
 
-Specifications where you must implement code will be highlighted in $\color{blue}\text{Blue}$ for clarity.
+Specifications where you must implement code will be highlighted in <span style="background-color: #ADD8E6">Blue</span> for clarity.
 
 ## Part 1: Creating the Database
 In this section, you will create the restaurant database including data collection and code implementation. The first task will be to collect restaurant information and organize it in a `csv` file. Next, you will implement the `RestaurantDatabase` class in `HW1.py` which includes several functions related to searching, sorting, and outputting the data in the database. After, you will answer a few analysis questions.
