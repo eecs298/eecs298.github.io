@@ -9,9 +9,9 @@ Homework 2: Celebrity Linkage Attack
 ==========================
 Due 11:59 PM EST on Friday, February 23rd, 2024.
 
-Written Points: 22
+Written Points: 23
 Coding Points: 38
-Total Points: 60
+Total Points: 61
 
 ## Submission
 This homework will consist of two sections, each with a programming task and written responses. You will submit your work via Gradescope (linked from Canvas). On Gradescope, there are two assignments you will need to use to submit. Upload your written responses as a `.pdf` file to the `Homework 2: Written Responses` Gradescope assignment. It is required that you typeset your written responses in a document editor or a program like LaTeX. In addition, upload your implementation in `HW2.py` to the `Homework 2: Code Submission` Gradescope assignment. The code that you upload to Gradescope will be graded using an autograder. This autograder will consist of public test cases, the results of which are visible upon each submission, and private test cases, the results of which will only be visible after the final deadline for the assignment. You can submit your code to the autograder as many times as you wish.  We encourage collaboration, but all work you submit must be your own.  All writing must be your own, and collaboration must not result in code or writing that is identifiably similar to other solutions.
@@ -34,7 +34,7 @@ $ wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/tr
 $ wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/celebrities.csv
 ```
 
-For this assignment, you will be provided access to a lightly modified version in the interest of convenience of the original 2013 NYC TLC database in `trips.csv`. In addition, you will be provided with the `celebrities.csv` file containing information about another publicly available NYC TLC dataset with photographs of celebrities in taxi cabs. 
+For this assignment, you will be provided access to a lightly modified version in the interest of convenience of the original 2013 NYC TLC database in `trips.csv`. In addition, you will be provided with the `celebrities.csv` file containing information about another publicly available NYC TLC dataset with photographs of celebrities in taxi cabs.
 
 Your task will be to perform a linkage attack using these two datasets. The NYC TLC dataset has tips, but no names of passengers, while the celebrity photographs we have names, but no tip amounts. The goal is to match celebrity information with trips in the taxi database. It is possible that not every celebrity in this dataset is boarding a taxi contained in the NYC dataset, and furthermore, there are many taxis in the NYC dataset for which we have no photographs. So, your implementation should not assume a strict one-to-one relationship between datasets. However, you may assume that a **medallion** and **date** match between the datasets is a correct match.
 
@@ -71,7 +71,7 @@ The hashing of the `medallion` data with MD5 appears to be evidence that NYC off
 To encode a string using MD5, you can use the `md5` library as follows:
 
 ```python3
-import md5 
+import md5
 
 hashed_value = md5(my_value.encode()).hexdigest()
 ```
@@ -85,7 +85,7 @@ First, you will <span style="background-color: #ADD8E6">implement several classe
 Celebrity Name: Olivia Munn, Medallion: 2E42, Photo Date: 2013-04-19\n
 ```
 
-* `Trip`: A class containing all information for a given trip as given in `trips.csv`. You will <span style="background-color: #ADD8E6">overload the `print` function</span> so that you get the following output when printing a `Trip` object using an example `Trip` from `trips.csv`: 
+* `Trip`: A class containing all information for a given trip as given in `trips.csv`. You will <span style="background-color: #ADD8E6">overload the `print` function</span> so that you get the following output when printing a `Trip` object using an example `Trip` from `trips.csv`:
 ```
 Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare Amount: 8, Tip Amount: 2.1, Pickup Location: (40.757977,-73.978165), Dropoff Location: (40.751171,-73.989838)\n
 ```
@@ -98,18 +98,18 @@ Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare 
         * Returns
             - Return a `list` of `Trip` objects to store into `self.trips_list`.
 
-    * `query_trips`: <span style="background-color: #ADD8E6"> Implement this function</span> to return a `list` of `Trip` objects that have the same attribute values as the attributes names passed into the function. 
+    * `query_trips`: <span style="background-color: #ADD8E6"> Implement this function</span> to return a `list` of `Trip` objects that have the same attribute values as the attributes names passed into the function.
         * Arguments
             - `attribute_list`: A `list` of `Trip` attribute names to use to query the database
             - `attribute_matching_values`: A `list` of values (one for each attribute name given in attribute_list) to match in the database
         * Returns
             - a `list` of `Trip`s with matching given attributes
-        * Error Handling 
+        * Error Handling
             - `raise` an `AttributeError` if any attribute name in `attribute_list` is not one of the `Trip` class attributes: `"md5_medallion", "date", "fare_amount", "tip_amount", "pickup_location", "dropoff_location"`.
         * Example Output
-            - For example, `query_trips(["date", "tip_amount"], ["2013-02-09", 1.50])` should return a list of `Trip` objects that have `date ==  "2013-02-09"` and `tip_amount==1.50`. 
+            - For example, `query_trips(["date", "tip_amount"], ["2013-02-09", 1.50])` should return a list of `Trip` objects that have `date ==  "2013-02-09"` and `tip_amount==1.50`.
 
-    * `query_mean_tip`: <span style="background-color: #ADD8E6">Implement this function</span> to calculates and returns the mean tip in `self.trips_list` between the given dates . Additonally, do not include `Trip`s in the mean calculation that have the same hashed medallion as the optional argument `filtered_medallion`. Finally, if the optional argument `epsilon` is not `None`, you will implement <span style="background-color: #ADD8E6"> implement `epsilon`-Differential Privacy</span> as specified in a later section, for now you can ignore this optional argument. 
+    * `query_mean_tip`: <span style="background-color: #ADD8E6">Implement this function</span> to calculates and returns the mean tip in `self.trips_list` between the given dates . Additonally, do not include `Trip`s in the mean calculation that have the same hashed medallion as the optional argument `filtered_medallion`. Finally, if the optional argument `epsilon` is not `None`, you will implement <span style="background-color: #ADD8E6"> implement `epsilon`-Differential Privacy</span> as specified in a later section, for now you can ignore this optional argument.
         * Arguments
             - `start_date`: The start date for the average, in YYYY-MM-DD format.
             - `end_date`: The end date (inclusive) for the average, in YYYY-MM-DD format.
@@ -119,7 +119,7 @@ Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare 
             - Two values separated by a comma: 1. A float denoting the average tip within the timeframe, 2. the number of tips used in the mean calculation. For example: `return mean_tip, number_of_tips`. Make sure to properly unpack the
             return values when calling the function. For example: `mean_tip, num_tips = query_mean_tip(*args)`.
         * Error Handling
-            - If no `Trip`s are found within the given timeframe, `raise ValueError`. 
+            - If no `Trip`s are found within the given timeframe, `raise ValueError`.
         * Hint: Refer to [datetime.strptime(string, format)](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) for how to create a `datetime` object out of a given `string` formatted in the given `format`. The `format` you will use is `%Y-%m-%d`. This will allow you to compare dates using the `<=` and `>=` operators.
 
 
@@ -130,7 +130,7 @@ You are now going to attempt a *linkage attack* by implementing `perform_linkage
 * `perform_linkage_attack`: <span style="background-color: #ADD8E6"> Implement this function</span> to return a `list` of `(Trip, Celebrity)` `tuple`s (in that order) to link a `Celebrity` to a `Trip`.
     * Arguments
         - `celebrity_list`: A list of `Celebrity` objects to link
-        - `taxi_trip_databse`: An instance of a `TaxiTripsDatabase` to query data from 
+        - `taxi_trip_databse`: An instance of a `TaxiTripsDatabase` to query data from
     * Returns
         - A `list` of linked `(Trip, Celebrity)` `tuple`s.
 
@@ -189,5 +189,3 @@ Answer the following short-response questions. In your responses, we are looking
     a. [2 pts.] Describe the sociotechnical context for this setting: the sender and recipient, the subject, information, and relationship under which information is transmitted.<br><br>
     b. [3 pts.] Describe a setting with a similar sociotechnical context **that is not this one** (it should not involve the NYC TLC dataset).  Make sure to point out why the context is similar.  Then describe the *norms of appropriateness* and the *norms of flow* for that other context.<br><br>
     c. [3 pts.] Describe how norms of appropriatness and norms of flow are violated in **this** setting by using the previous two parts to this question.  Conclude by stating whether contextual integrity holds in this setting.
-
-
