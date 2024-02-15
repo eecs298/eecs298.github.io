@@ -31,7 +31,7 @@ There are three intermediate graded assignments to help make sure you are on tra
 
 - [Code of conduct]({% link final_project_conduct.md %}) (due Feb. 14)
 
-- A project description (due March 8)
+- [A project description]({% link final_project_description.md %}) (due March 8)
 
 - A project outline (due March 29)
 
@@ -97,7 +97,7 @@ Everything will be submitted to Gradescope as a group.  Make sure to enter all o
 in the prompt when submitting.  You will be graded as a group.  Details for submission will be on Gradescope.
 
 # Examples
-Below are a few examples of what you might want to aspire to, although these are largely to serve as inspirations:  you may choose very different topics or styles
+Below are a few examples of what you might want to aspire to, although these are largely to serve as inspirations:  you may choose very different topics or styles.
 
 Example student projects:
 
