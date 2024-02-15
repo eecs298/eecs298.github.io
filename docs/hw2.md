@@ -87,7 +87,7 @@ Celebrity Name: Olivia Munn, Medallion: 2E42, Photo Date: 2013-04-19\n
 
 * `Trip`: A class containing all information for a given trip as given in `trips.csv`. You will <span style="background-color: #ADD8E6">overload the `print` function</span> so that you get the following output when printing a `Trip` object using an example `Trip` from `trips.csv`:
 ```
-Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare Amount: 8, Tip Amount: 2.1, Pickup Location: (40.757977,-73.978165), Dropoff Location: (40.751171,-73.989838)\n
+Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare Amount: 8, Tip Amount: 2.1, Pickup Location: ('40.757977','-73.978165'), Dropoff Location: ('40.751171','-73.989838')\n
 ```
 
 * `TaxiTripsDatabase`: This class is used to store and query information from `trips.csv`. The constructor is implemented for you and sets the `self.trips_list` attribute to the return value of `_read_trips_data`.
