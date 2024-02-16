@@ -10,7 +10,7 @@ Lab 5
 
 
 ## Task
-For this lab, you will work with a dataset of product sales at a clothing store to report the average price of each product over different time periods. 
+For this lab, you will work with a dataset of product sales at a clothing store to report the average price of each product over different time periods.
 
 ### lab5.py
 First download the dataset you will use for this lab, `sales.csv`:
@@ -24,15 +24,15 @@ import csv
 from datetime import datetime
 ```
 
-There are three types of products in `sales.csv`: `"t-shirt"`, `"jeans"`, and `"sweaters"` and each line in the `csv` represents a sale of one of the products and the corresponding `date` and `price` of the purchase. When you read in the data, you will create a `dictionary` where each key is one of the products and the value is a list of purchases associated with that product. The purchases will be stored as `tuple`s in the format of `(date, price)` where `date` is a string in the format of `YYYY-MM-DD` and `price` is a `float`.
+There are three types of products in `sales.csv`: `"t-shirt"`, `"jeans"`, and `"sweater"` and each line in the `csv` represents a sale of one of the products and the corresponding `date` and `price` of the purchase. When you read in the data, you will create a `dictionary` where each key is one of the products and the value is a list of purchases associated with that product. The purchases will be stored as `tuple`s in the format of `(date, price)` where `date` is a string in the format of `YYYY-MM-DD` and `price` is a `float`.
 
-You will implement one function `get_average_price(start_date: str, end_date: str, product_list: list[tuple])` that you will use to calculate the average price for a list of products in the `__main__` branch. 
+You will implement one function `get_average_price(start_date: str, end_date: str, product_list: list[tuple])` that you will use to calculate the average price for a list of products in the `__main__` branch.
 
 * `get_average_price`: Calculates the average price of a list of products within the given date range.
     * Arguments
         - `start_date`: A `string` for the start of the date range to calculate the average in. In `YYYY-MM-DD` format.
         - `end_date`: A `string` for the end of the date range to calculate the average in. In `YYYY-MM-DD` format.
-        - `product_list`: A `list` of product `tuple`s formatted as `(date, price)`. 
+        - `product_list`: A `list` of product `tuple`s formatted as `(date, price)`.
     * Returns
         - The average price of products purchased between the `start_date` and `end_date` (inclusive).
     * Hint
@@ -89,7 +89,7 @@ def my_func(input1: str, input2: int, input3: bool):
 message = ["EECS",298,True]
 my_func(*message) # prints out: EECS 298 True
 
-# Using **kwargs operator 
+# Using **kwargs operator
 message = {"input1": "EECS", "input2":298, "input3":True}
 my_func(**message) # prints out: EECS 298 True
 ```
@@ -108,6 +108,6 @@ date1 = datetime.strptime(date1_string, format="%Y-%m-%d")
 date2 = datetime.strptime(date2_string, format="%Y-%m-%d")
 date3 = datetime.strptime(date3_string, format="%Y-%m-%d")
 
-print(date1 <= date2) # True 
+print(date1 <= date2) # True
 print(date3 - date2) # datetime.timedelta(days=32)
 ```
