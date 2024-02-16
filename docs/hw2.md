@@ -168,25 +168,26 @@ The tip amount column in this database is a continuous value rather than a discr
 * If the added noise makes the average tip value *negative*, output 0 instead.
 
 {:start = "3"}
-3. [1 pt.] First, we will check the accuracy of our noised queries. Query the mean tip for the month of January in 2013 (i.e., `start_date="2013-01-01"` and `end_date="2013-01-31"`) without DP and with `epsilon=0.8`. Are the returned outputs close (within $0.50)?
+1. [1 pt.] First, we will check the accuracy of our noised queries. Query the mean tip for the month of January in 2013 (i.e., `start_date="2013-01-01"` and `end_date="2013-01-31"`) without DP and with `epsilon=0.8`. Are the returned outputs close (within $0.50)?
 
-4. [2 pts.] Set `epsilon=0.8` and use `perform_difference_attack` in the previous section and use the same calculation to try to guess each celebrity's tip amount. Report the tip guess for Judd Apatow and whether it is close to his actual tip value (within $0.50).  
+1. [2 pts.] Set `epsilon=0.8` and use `perform_difference_attack` in the previous section and use the same calculation to try to guess each celebrity's tip amount. Report the tip guess for Judd Apatow and whether it is close to his actual tip value (within $0.50).  
 
-5. [2 pts.] Repeat the above with `epsilon=0.1`, `epsilon=1`, and `epsilon=15`. Were you able to calculate a tip guess for Judd Apatow that is within $0.50 of his actual tip value for any of these values? If so, which one(s)? Use your results to order the `epsilon` values from **most** to **least** accurate in terms of how close the calculated tip value was to the true tip value.
+1. [2 pts.] Repeat the above with `epsilon=0.1`, `epsilon=1`, and `epsilon=15`. Were you able to calculate a tip guess for Judd Apatow that is within $0.50 of his actual tip value for any of these values? If so, which one(s)? Use your results to order the `epsilon` values from **most** to **least** accurate in terms of how close the calculated tip value was to the true tip value.
 
 ## Part 2: Written Reflection Questions
 
 Answer the following short-response questions. In your responses, we are looking for an effort to apply concepts from lectures and readings to answer each of these questions. Make sure to briefly justify each answer.
+
 {:start = "6"}
-6. [4 pts.] Give 3 differences between k-anonymity and differential privacy in terms of the properties described in lecture. Which one is better at preventing difference attacks?
+1. [4 pts.] Give 3 differences between k-anonymity and differential privacy in terms of the properties described in lecture. Which one is better at preventing difference attacks?
 
-7. [2 pts.] Using the conception of privacy as restricted access to hidden information, describe whether this case study constitutes a violation of privacy. Why or why not?
+1. [2 pts.] Using the conception of privacy as restricted access to hidden information, describe whether this case study constitutes a violation of privacy. Why or why not?
 
-8. Given that we were able to perform the linkage attack due to the poor anonymization of the taxi medallions, one reaction might be to *remove the taxi medallion information altogether* from the released data. However, the [FOIL](https://opengovernment.ny.gov/system/files/documents/2023/11/foil-law-text-11032023.pdf) act is intended to provide transparency of government data to the public, so one should be careful in removing publically available information.<br><br>
+1. Given that we were able to perform the linkage attack due to the poor anonymization of the taxi medallions, one reaction might be to *remove the taxi medallion information altogether* from the released data. However, the [FOIL](https://opengovernment.ny.gov/system/files/documents/2023/11/foil-law-text-11032023.pdf) act is intended to provide transparency of government data to the public, so one should be careful in removing publically available information.<br><br>
     a. [2 pts.] Describe **one possible benefit** to the community (NYC residents taking the taxis) for publically releasing some version of the taxi medallion information (anonymized or not). <br><br>
     b. [2 pts.] Describe **one possible way** the linkage attack could still be performed even if the taxi medallion information was removed.
 
-9. In this question, we will examine contextual integrity in this setting of the NYC TLC dataset and celebrity photographs. <br><br>
+1. In this question, we will examine contextual integrity in this setting of the NYC TLC dataset and celebrity photographs. <br><br>
     a. [2 pts.] Describe the sociotechnical context for this setting: the sender and recipient, the subject, information, and relationship under which information is transmitted.<br><br>
     b. [3 pts.] Describe a setting with a similar sociotechnical context **that is not this one** (it should not involve the NYC TLC dataset).  Make sure to point out why the context is similar.  Then describe the *norms of appropriateness* and the *norms of flow* for that other context.<br><br>
     c. [3 pts.] Describe how norms of appropriatness and norms of flow are violated in **this** setting by using the previous two parts to this question.  Conclude by stating whether contextual integrity holds in this setting.
