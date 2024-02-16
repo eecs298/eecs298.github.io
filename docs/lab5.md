@@ -36,7 +36,7 @@ You will implement one function `get_average_price(start_date: str, end_date: st
     * Returns
         - The average price of products purchased between the `start_date` and `end_date` (inclusive).
     * Hint
-        - Use `datetime.strptime(date_string, format="%Y-%m-%d")` to create a `datetime` object out of a date given as a `string` so that you can check if a date is in the given range with `<=` and `>=` operators.
+        - Use `datetime.strptime(date_string,"%Y-%m-%d")` to create a `datetime` object out of a date given as a `string` so that you can check if a date is in the given range with `<=` and `>=` operators.
 * `__main__`: Perform the following tasks in the `__main__` branch.
     * Read in the `csv` data and store it in a `dictionary` described above.
     * Print out the result of three queries to `get_average_price`
