@@ -77,28 +77,28 @@ hashed_value = md5(my_value.encode()).hexdigest()
 ```
 
 ## HW2.py
-First, you will <span style="background-color: #ADD8E6">implement several classes</span> to set up the taxi trip database with `trips.csv` as described below. Then, you will use the main branch of the file to perform a linkage attack with the `celebrities.csv` information. We will then explore trying to protect against this attack by coarsening the query allowed to the database as well as making the query function differentially private.
+First, you will <span style="background-color: #777777E3">implement several classes</span> to set up the taxi trip database with `trips.csv` as described below. Then, you will use the main branch of the file to perform a linkage attack with the `celebrities.csv` information. We will then explore trying to protect against this attack by coarsening the query allowed to the database as well as making the query function differentially private.
 
 ### Implementing the classes
-* `Celebrity`: A class containing information from a single photo of a celebrity. Takes the name of the celebrity or celebrities in the photo, the taxi medallion in the photo, and the date the photo was taken. You will <span style="background-color: #ADD8E6">compute and store</span> the hashed `medallion` value with *all letters given in upper case* as an attribute. You will also <span style="background-color: #ADD8E6">overload the `print` function</span> so that you get the following output when printing a `Celebrity` object using Olivia Munn as an example:  
+* `Celebrity`: A class containing information from a single photo of a celebrity. Takes the name of the celebrity or celebrities in the photo, the taxi medallion in the photo, and the date the photo was taken. You will <span style="background-color: #777777E3">compute and store</span> the hashed `medallion` value with *all letters given in upper case* as an attribute. You will also <span style="background-color: #777777E3">overload the `print` function</span> so that you get the following output when printing a `Celebrity` object using Olivia Munn as an example:  
 ```
 Celebrity Name: Olivia Munn, Medallion: 2E42, Photo Date: 2013-04-19\n
 ```
 
-* `Trip`: A class containing all information for a given trip as given in `trips.csv`. You will <span style="background-color: #ADD8E6">overload the `print` function</span> so that you get the following output when printing a `Trip` object using an example `Trip` from `trips.csv`:
+* `Trip`: A class containing all information for a given trip as given in `trips.csv`. You will <span style="background-color: #777777E3">overload the `print` function</span> so that you get the following output when printing a `Trip` object using an example `Trip` from `trips.csv`:
 ```
 Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare Amount: 8, Tip Amount: 2.1, Pickup Location: ('40.757977','-73.978165'), Dropoff Location: ('40.751171','-73.989838')\n
 ```
 
 * `TaxiTripsDatabase`: This class is used to store and query information from `trips.csv`. The constructor is implemented for you and sets the `self.trips_list` attribute to the return value of `_read_trips_data`.
 
-    * `_read_trips_data`: <span style="background-color: #ADD8E6"> Implement this function</span> to read in the data from `trips.csv` from the location given as `file_path`. The `_` at the start of this function is commonly used to indicate it is a function only intended to be used within the class.
+    * `_read_trips_data`: <span style="background-color: #777777E3"> Implement this function</span> to read in the data from `trips.csv` from the location given as `file_path`. The `_` at the start of this function is commonly used to indicate it is a function only intended to be used within the class.
         * Arguments
             - `file_path`: File path to `trips.csv`
         * Returns
             - Return a `list` of `Trip` objects to store into `self.trips_list`.
 
-    * `query_trips`: <span style="background-color: #ADD8E6"> Implement this function</span> to return a `list` of `Trip` objects that have the same attribute values as the attributes names passed into the function.
+    * `query_trips`: <span style="background-color: #777777E3"> Implement this function</span> to return a `list` of `Trip` objects that have the same attribute values as the attributes names passed into the function.
         * Arguments
             - `attribute_list`: A `list` of `Trip` attribute names to use to query the database
             - `attribute_matching_values`: A `list` of values (one for each attribute name given in attribute_list) to match in the database
@@ -109,7 +109,7 @@ Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare 
         * Example Output
             - For example, `query_trips(["date", "tip_amount"], ["2013-02-09", 1.50])` should return a list of `Trip` objects that have `date ==  "2013-02-09"` and `tip_amount==1.50`.
 
-    * `query_mean_tip`: <span style="background-color: #ADD8E6">Implement this function</span> to calculates and returns the mean tip in `self.trips_list` between the given dates . Additonally, do not include `Trip`s in the mean calculation that have the same hashed medallion as the optional argument `filtered_medallion`. Finally, if the optional argument `epsilon` is not `None`, you will implement <span style="background-color: #ADD8E6"> implement `epsilon`-Differential Privacy</span> as specified in a later section, for now you can ignore this optional argument.
+    * `query_mean_tip`: <span style="background-color: #777777E3">Implement this function</span> to calculates and returns the mean tip in `self.trips_list` between the given dates . Additonally, do not include `Trip`s in the mean calculation that have the same hashed medallion as the optional argument `filtered_medallion`. Finally, if the optional argument `epsilon` is not `None`, you will implement <span style="background-color: #777777E3"> implement `epsilon`-Differential Privacy</span> as specified in a later section, for now you can ignore this optional argument.
         * Arguments
             - `start_date`: The start date for the average, in YYYY-MM-DD format.
             - `end_date`: The end date (inclusive) for the average, in YYYY-MM-DD format.
@@ -127,7 +127,7 @@ Hashed Medallion: BCF07D2F69DB29C27DA7CCF5DE6B4843, Trip Date: 2013-04-19, Fare 
 
 You are now going to attempt a *linkage attack* by implementing `perform_linkage_attack`. Your goal with this attack is to gather a `list` of `tuple`s of linked `Trip`s and `Celebrity`s so that you can figure out how much each `Celebrity` tipped on their trip. Hint: recall what our PII is in this setting to determine with attributes should be passed to `query_trips` to link a `Celebrity` to a `Trip`!
 
-* `perform_linkage_attack`: <span style="background-color: #ADD8E6"> Implement this function</span> to return a `list` of `(Trip, Celebrity)` `tuple`s (in that order) to link a `Celebrity` to a `Trip`.
+* `perform_linkage_attack`: <span style="background-color: #777777E3"> Implement this function</span> to return a `list` of `(Trip, Celebrity)` `tuple`s (in that order) to link a `Celebrity` to a `Trip`.
     * Arguments
         - `celebrity_list`: A list of `Celebrity` objects to link
         - `taxi_trip_databse`: An instance of a `TaxiTripsDatabase` to query data from
@@ -146,7 +146,7 @@ For this part, you are now **only allowed** access to `trips.csv` using `query_m
 
 Your goal with this attack is to try to reconstruct the tip values for each `Celebrity` you linked in the above section using queries to `query_mean_tip` for each `Celebrity`. Hint: You should only need two queries for each `Celebrity`.
 
-* `perform_difference_attack`:<span style="background-color: #ADD8E6"> Implement this function</span> to return the calculated tip value of the given celebrity using only two calls to `query_mean_tip`.
+* `perform_difference_attack`:<span style="background-color: #777777E3"> Implement this function</span> to return the calculated tip value of the given celebrity using only two calls to `query_mean_tip`.
     * Arguments
         - `celebrity`: A Celebrity to guess the tip_amount for
         - `taxi_trip_databse`: An instance of a TaxiTripsDatabase to query data from
