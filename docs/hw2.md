@@ -167,6 +167,7 @@ The tip amount column in this database is a continuous value rather than a discr
 * Use the numpy `random.laplace` [function](https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.laplace.html#numpy.random.Generator.laplace) to sample a value from this distribution to add noise to the output of the query.
 * If the added noise makes the average tip value *negative*, output 0 instead.
 
+{:start = "3"}
 3. [1 pt.] First, we will check the accuracy of our noised queries. Query the mean tip for the month of January in 2013 (i.e., `start_date="2013-01-01"` and `end_date="2013-01-31"`) without DP and with `epsilon=0.8`. Are the returned outputs close (within $0.50)?
 
 4. [2 pts.] Set `epsilon=0.8` and use `perform_difference_attack` in the previous section and use the same calculation to try to guess each celebrity's tip amount. Report the tip guess for Judd Apatow and whether it is close to his actual tip value (within $0.50).  
@@ -176,7 +177,7 @@ The tip amount column in this database is a continuous value rather than a discr
 ## Part 2: Written Reflection Questions
 
 Answer the following short-response questions. In your responses, we are looking for an effort to apply concepts from lectures and readings to answer each of these questions. Make sure to briefly justify each answer.
-
+{:start = "6"}
 6. [4 pts.] Give 3 differences between k-anonymity and differential privacy in terms of the properties described in lecture. Which one is better at preventing difference attacks?
 
 7. [2 pts.] Using the conception of privacy as restricted access to hidden information, describe whether this case study constitutes a violation of privacy. Why or why not?
