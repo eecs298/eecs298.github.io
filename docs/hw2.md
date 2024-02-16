@@ -167,12 +167,13 @@ The tip amount column in this database is a continuous value rather than a discr
 * Use the numpy `random.laplace` [function](https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.laplace.html#numpy.random.Generator.laplace) to sample a value from this distribution to add noise to the output of the query.
 * If the added noise makes the average tip value *negative*, output 0 instead.
 
-{:start = "3"}
-1. [1 pt.] First, we will check the accuracy of our noised queries. Query the mean tip for the month of January in 2013 (i.e., `start_date="2013-01-01"` and `end_date="2013-01-31"`) without DP and with `epsilon=0.8`. Are the returned outputs close (within $0.50)?
+<ol start="3">
+<li> [1 pt.] First, we will check the accuracy of our noised queries. Query the mean tip for the month of January in 2013 (i.e., `start_date="2013-01-01"` and `end_date="2013-01-31"`) without DP and with `epsilon=0.8`. Are the returned outputs close (within $0.50)?</li>
 
-1. [2 pts.] Set `epsilon=0.8` and use `perform_difference_attack` in the previous section and use the same calculation to try to guess each celebrity's tip amount. Report the tip guess for Judd Apatow and whether it is close to his actual tip value (within $0.50).  
+<li> [2 pts.] Set `epsilon=0.8` and use `perform_difference_attack` in the previous section and use the same calculation to try to guess each celebrity's tip amount. Report the tip guess for Judd Apatow and whether it is close to his actual tip value (within $0.50).</li> 
 
-1. [2 pts.] Repeat the above with `epsilon=0.1`, `epsilon=1`, and `epsilon=15`. Were you able to calculate a tip guess for Judd Apatow that is within $0.50 of his actual tip value for any of these values? If so, which one(s)? Use your results to order the `epsilon` values from **most** to **least** accurate in terms of how close the calculated tip value was to the true tip value.
+<li> [2 pts.] Repeat the above with `epsilon=0.1`, `epsilon=1`, and `epsilon=15`. Were you able to calculate a tip guess for Judd Apatow that is within $0.50 of his actual tip value for any of these values? If so, which one(s)? Use your results to order the `epsilon` values from **most** to **least** accurate in terms of how close the calculated tip value was to the true tip value.</li> 
+</ol>
 
 ## Part 2: Written Reflection Questions
 
