@@ -75,7 +75,7 @@ The `*args` and `**kwargs` operators can be used to unpack `list`s and `dict`s, 
 ```python3
 
 def variable_length_args_function(*args):
-    for arg in args: # args is a list of values
+    for arg in args: # args is a tuple of values
         # Do stuff with args
 
 def variable_length_kwargs_function(**kwargs):
