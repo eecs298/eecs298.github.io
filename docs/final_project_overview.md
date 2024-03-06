@@ -33,7 +33,7 @@ There are three intermediate graded assignments to help make sure you are on tra
 
 - [A project description]({% link final_project_description.md %}) (due March 8)
 
-- A project outline (due March 29)
+- [A project outline]({% link final_project_outline.md %}) (due March 29)
 
 Due at the end of the semester (April 22), there are three graded outputs to submit:
 
