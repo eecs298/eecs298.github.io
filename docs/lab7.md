@@ -15,7 +15,7 @@ Lab 7
 In this lab, you will explore (part of) the COMPAS dataset and get experience building a simple machine learning model using the package scikit-learn. This lab will walk you through the four stages of the machine learning pipeline discussed in lecture (Data, Representation, Loss, Optimization) and you will compute some probabilities with the model we create.
 
 To get started, first download the simplified COMPAS dataset using `wget` and then create a file called `lab7.py` in the same folder as the downloaded dataset.
-```
+```terminal
 $ wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/compas-data-lab-7.csv
 ```
 ### Data - COMPAS Dataset (Simplified)
@@ -97,12 +97,12 @@ The `positive` outcome of a machine learning model can be interpreted in many wa
 For this section, you will compute the true positive rate *for each race* so that we can compare the rates among the different groups. Let $A$ be a random variable to represent the race of each defendant. Then, will compute $P(\hat{Y} = 1 | Y=1, A=a)$ for $a \in \{0,1,2,3,4,5\}$ (since there are 6 possible race categories -- see Data section). Print out the results of your calculation. Thus, your output (combined with the accuracy calculation) should look as follows
 ```console
 Accuracy of model: 0.7524303305249513
-Race Category: 0, TPR: 0.7244444444444444
-Race Category: 1, TPR: 0.6
-Race Category: 2, TPR: 0.6521739130434783
-Race Category: 3, TPR: 0.0
-Race Category: 4, TPR: 0.42105263157894735
-Race Category: 5, TPR: 0.6144578313253012
+Race Category: 0, TPR: 0.6144578313253012
+Race Category: 1, TPR: 0.7244444444444444
+Race Category: 2, TPR: 0.6
+Race Category: 3, TPR: 0.6521739130434783
+Race Category: 4, TPR: 0.0
+Race Category: 5, TPR: 0.42105263157894735
 ```
 
 Turn in `lab7.py` to Gradescope when you're done.
