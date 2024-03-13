@@ -9,9 +9,9 @@ Homework 2: Celebrity Linkage Attack
 ==========================
 Due 11:59 PM EST on Friday, February 23rd, 2024.
 
-Written Points: 23
+Written Points: 27
 Coding Points: 38
-Total Points: 61
+Total Points: 65
 
 ## Submission
 This homework will consist of two sections, each with a programming task and written responses. You will submit your work via Gradescope (linked from Canvas). On Gradescope, there are two assignments you will need to use to submit. Upload your written responses as a `.pdf` file to the `Homework 2: Written Responses` Gradescope assignment. It is required that you typeset your written responses in a document editor or a program like LaTeX. In addition, upload your implementation in `HW2.py` to the `Homework 2: Code Submission` Gradescope assignment. The code that you upload to Gradescope will be graded using an autograder. This autograder will consist of public test cases, the results of which are visible upon each submission, and private test cases, the results of which will only be visible after the final deadline for the assignment. You can submit your code to the autograder as many times as you wish.  We encourage collaboration, but all work you submit must be your own.  All writing must be your own, and collaboration must not result in code or writing that is identifiably similar to other solutions.
