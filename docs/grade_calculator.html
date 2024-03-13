@@ -95,13 +95,13 @@
         <div id="grade-calculator" class="ui blue segment">
           
           <div style="vertical-align: middle;">
-            <span class="ui toggle checkbox" style="float: right;" data-tooltip="Prefill values on your next visit to eecs280.org">
+            <span class="ui toggle checkbox" style="float: right;" data-tooltip="Prefill values on your next visit to eecs298.github.io">
               <input type="checkbox" id="remember-scores">
               <label>Remember my scores</label>
             </span>
             
             <!-- <a href="https://youtu.be/ogZNEbDItQw" target="_blank"><b><i class="play circle icon"></i>Walkthrough Video</b></a> -->
-            <span class="ui left pointing basic label">Watch Me!</span>
+            <!-- <span class="ui left pointing basic label">Watch Me!</span> -->
           </div>
 
           <div class="ui form" style="margin-top: 0.5em;">
@@ -220,6 +220,37 @@
             </div>
 
             <div class="fields">
+              <div class="thirteen wide field">
+                <div>
+                  <div class="individual-lab-input">
+                    <label>Number of Reading Questions with 0 points</label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" type="number" name="readingQs max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                    </div>
+                    <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
+                  </div>
+                  <div class="individual-lab-input">
+                    <label>Number of Reading Questions with 1 point</label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" type="number" name="readingQs max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                    </div>
+                    <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
+                  </div>
+                  <div class="individual-lab-input">
+                    <label>Number of Reading Questions with 2 points</label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" type="number" name="readingQs" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                    </div>
+                    <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="fields">
               <div class="sixteen wide field" style="text-align: right;">
                 <!-- <b style="margin-right: 2em;">Labs</b> -->
                 <div class="ui toggle checkbox">
@@ -281,6 +312,7 @@
                   <div class="ui basic label">%</div>
                 </div>
               </div>
+              <br/>
               <div class="four wide field">
                 <label>
                   Final Project Code of Conduct (<span class="grade-calculator-weight"></span>%)
@@ -329,35 +361,6 @@
               <br />
             </div>
 
-            <div class="inline fields">
-              
-              <label>
-                Lecture Participation (optional <span class="grade-calculator-weight"></span>%)
-                <span data-tooltip="Enter the number of lectures for which you earned participation credit.">
-                  <i class="ui question circle icon"></i>
-                </span>
-              </label>
-
-              <!-- NOTE: min, max, step, and placeholder are set via javascript-->
-              
-              <div class="ui right labeled input">
-                <input id="lecture-participation-input" class="grade-calculator-input" style="width: 3em; padding-left: 0.75em; padding-right: 0.75em;" type="number" name="num_lectures" inputmode="numeric">
-                <div class="ui basic label">out of <span id="lecture-participation-max"></span></div>
-              </div>
-              <div style="width: 3ch; padding-left: 1ch;">
-                =
-              </div>
-              <div class="three wide field">
-                <div class="ui right labeled input readonly">
-                  <input id="overall-lecture-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="lecture" type="number" max="100" min="0" step="any" inputmode="decimal">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-
-            </div>
-
-            <hr />
-
             <div style="text-align: center;">
               <div class="ui label grade-calculator-output-note" style="display: inline-block; text-align: center; margin-bottom: 0.5em;"></div>
             </div>
@@ -381,26 +384,7 @@
             </div>
             
             <br />
-            
-            <b>Weighted Project Average</b>
-            <span data-tooltip="You must meet the weighted project average to earn a C or better.">
-              <i class="ui question circle icon"></i>
-            </span>
-            <div class="ui basic label grade-calculator-output grade-calculator-output-project-average" style="margin-bottom: 0.5em"></div>
-            <div class="ui small left pointing red basic label grade-calculator-output-project-warning">
-              below the threshold to earn C or better (<a href="syllabus.html#minimum-pass-thresholds" target="_blank"><b>details</b></a>)
-            </div>
-            <br />
-            
-            <b>Weighted Exam Average</b>
-            <span data-tooltip="You must meet the weighted exam average to earn a C or better.">
-              <i class="ui question circle icon"></i>
-            </span>
-            <div class="ui basic label grade-calculator-output grade-calculator-output-exam-average" style="margin-bottom: 0.5em"></div>
-            <div class="ui small left pointing red basic label grade-calculator-output-exam-warning">
-              below the threshold to earn C or better (<a href="syllabus.html#minimum-pass-thresholds" target="_blank"><b>details</b></a>)
-            </div>
-            <br />
+          
 
             <b>Final Grade</b>
             <div class="ui basic label grade-calculator-output grade-calculator-output-letter-grade" style="margin-bottom: 0.5em">
@@ -419,24 +403,10 @@
               <p>
                 Your overall percent is the weighted average of percent scores on each assignment, according to the weights given in the <a href="syllabus.html#assignment-weighting" target="_blank">syllabus</a> and shown in parentheses above, e.g. "Labs (5%)".
               </p>
-              
-              <b>Minimum Score Thresholds</b>
-              <p>
-                Your weighted project average and weighted exam average must meet the <a href="syllabus.html#minimum-pass-thresholds" target="_blank">minimum pass thresholds</a> given in the syllabus in order to earn a C or better. Otherwise, the highest final grade you may earn is C-.
-              </p>
 
               <b>Final Grade</b>
               <p>
-                Your final grade is determined according to the <a href="syllabus.html#letter-grades" target="_blank">letter grade table</a> from the syllabus, subject to the minimum pass thresholds.
-              </p>
-            </div>
-            <div class="title">
-              <i class="dropdown icon"></i>
-              Is grading curved?
-            </div>
-            <div class="content">
-              <p>
-                Each exam is curved to account for variation in difficulty. See details below. Nothing else is curved. Final letter grades are determined according to the "straight scale" given in the <a href="syllabus.html#letter-grades" target="_blank">syllabus</a>.
+                Your final grade is determined according to the letter grade table from the syllabus.
               </p>
             </div>
             <div class="title">
@@ -445,7 +415,7 @@
             </div>
             <div class="content">
               <p>
-                Scores for all assignments are posted on <a class="item" href="https://umich.instructure.com/" target="_blank">Canvas</a>. Enter those numbers here.
+                Scores for all assignments are posted on <a class="item" href="https://www.gradescope.com/courses/702900/" target="_blank">Gradescope</a>. Enter those numbers here.
               </p>
             </div>
             <div class="title">
@@ -460,159 +430,11 @@
           </div>
 
         </div>
-        <!-- / grade calculator -->
-
-        <h3 id="exam-curving">
-          Exam Curving
-          <span class="ui small text" style="float: right;">
-            <a href="https://youtu.be/q4U1pNvsul8" target="_blank"><i class="circle play icon"></i>Curve Explanation Video</a>
-            <span class="ui left pointing basic label">Watch Me!</span>
-          </span>
-        </h3>
-
-        
-        <div id="exam-calculator" class="ui blue segment">
-          <p>
-            We curve using z-scores to transform the raw distribution toward a target mean (e.g. 81%) and standard deviation (e.g. 9%). This
-            results in a tighter distribution around a higher mean, while preserving its general shape.
-          </p>
-          <p>
-            See previous exams below as examples. We'll post updated distributions after each exam this term.
-          </p>
-          <div class="ui form" style="margin-top: 0.5em;">
-            <h4 id="exam-calculator-tabs" class="ui dividing header">
-            </h4>
-            <div class="fields" style="margin-bottom: 0;">
-              <div class="eight wide field info">
-                <div class="fields" style="margin-bottom: 1em;">
-                  <div class="six wide field info">
-                    <label>Raw Mean</label>
-                    <div class="ui right labeled input">
-                      <input id="exam-calculator-raw-mean" type="number" readonly>
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
-                  <div class="six wide field">
-                    <label>Raw Std Dev</label>
-                    <div class="ui right labeled input">
-                      <input  id="exam-calculator-raw-stddev" type="number" readonly>
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
-                </div>
-                <div id="exam-calculator-raw-chart" class="ct-octave" style="margin-left: -1.5em;"></div>
-              </div>
-              <div class="eight wide field">
-                <div class="fields" style="margin-bottom: 1em;">
-                  <div class="six wide field info">
-                    <label>Target Mean</label>
-                    <div class="ui right labeled input">
-                      <input  id="exam-calculator-target-mean" type="number" readonly>
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
-                  <div class="six wide field info">
-                    <label>Target Std Dev</label>
-                    <div class="ui right labeled input">
-                      <input  id="exam-calculator-target-stddev" type="number" readonly>
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
-                </div>
-                <div id="exam-calculator-curved-chart" class="ct-octave" style="margin-left: -1.5em;"></div>
-              </div>
-            </div>
-            <div id="exam-calculator-distribution-description" class="ui message" style="padding: 0.5em 1em; margin-top: 0;"></div>
-            <h4 class="ui dividing header" style="margin-top: 0;">Your Scores</h4>
-            <div class="fields">
-              <div class="eight wide field">
-                <label>Raw Score</label>
-                <div class="fields">
-                  <div class="six wide field">
-                    <div class="ui right labeled input readonly">
-                      <input id="raw-exam-score-input" type="number" max="100" min="0" step="any" inputmode="decimal">
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
-                  <div class="nine wide field">
-                    <div class="ui slider" id="raw-exam-score-slider"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="eight wide field">
-                <label>Curved Score</label>
-                <div class="fields">
-                  <div class="six wide field">
-                    <div class="ui right labeled input readonly">
-                      <input id="curved-exam-score-input" type="number" max="100" min="0" step="any" inputmode="decimal">
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
-                  <div class="nine wide field">
-                    <div class="ui slider" id="curved-exam-score-slider"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
-              How is this calculated?
-            </div>
-            <div class="content">
-              <p>
-                Calculate your curved exam score using a Z-score. The max curved score is 100%. We never "curve down", meaning we keep your raw score if it is higher than the curved score.
-              </p>
-              <p>
-                &nbsp;&nbsp;<code>Z_SCORE = (RAW_SCORE - RAW_MEAN) / RAW_STDEV</code><br/>
-                &nbsp;&nbsp;<code>CURVED_SCORE = TARGET_STDEV * Z_SCORE + TARGET_MEAN</code><br />
-                &nbsp;&nbsp;<code>FINAL_SCORE = max(RAW_SCORE, CURVED_SCORE)</code>
-              </p>
-              <p>
-                For example, let's say you scored 60% on an exam where mean=69% and stddev=17%.  A typical curved mean and stddev are 81% and 9%, which makes the curved score 76%.
-              </p>
-              <p>
-                &nbsp;&nbsp;<code>Z_SCORE = (60% - 69%) / 17% = -0.529</code><br/>
-                &nbsp;&nbsp;<code>CURVE_SCORE = 9% * -0.529 + 81% = 76.239%</code>
-              </p>
-            </div>
-            <div class="title">
-              <i class="dropdown icon"></i>
-              Where are my scores posted?
-            </div>
-            <div class="content">
-              <p>
-                Your graded exam and <em>raw score</em> are on <a href="https://www.gradescope.com/" target="_blank">Gradescope</a>. Use the calculator to compute your curved score.
-              </p>
-              <p>
-                We'll post your <em>curved score</em> on <a class="item" href="https://umich.instructure.com/" target="_blank">Canvas</a>. It may take a few days for this to update or reflect regrades.
-              </p>
-            </div>
-          </div>
-
-        </div>
-        <!-- / grade calculator -->
-
-        
-
-      <div class="ui hidden divider"></div>
+    
     </div><!-- /ui text container -->
 
     <script>
      // Grade calculator listeners and calculation
-
-    //  const LECTURE_WEIGHT = 3;
-    //  const NUM_LECTURES = 23;
-    //  const LECTURE_MAX = 18;
-
-    //  $("#lecture-participation-input")
-    //   .attr("max", `${NUM_LECTURES}`)
-    //   .attr("min", "0")
-    //   .attr("step", "1");
-
-    // $("#lecture-participation-max").html(LECTURE_MAX);
-
 
      // Assignment weights in percent
      const WEIGHTS = {
@@ -803,36 +625,20 @@
         dropped.forEach(d => d.drop_elem.css("visibility", "visible"));
       }
 
-      function refreshLectureScores() {
-        let n_lectures = Number.parseFloat($("#lecture-participation-input").val());
-
-        // Abort if it's an invalid number
-        if ( n_lectures < 0 || NUM_LECTURES < n_lectures ) {
-          $("#overall-lecture-input").val("");
-          return;
-        }
-
-        $("#overall-lecture-input").val(Math.min(100, 100 * n_lectures / LECTURE_MAX));
-      }
-
      function refreshCalculator() {
 
        // First, update the lab overall based on individual labs
        // and update the lecture percentage based on # of lectures.
        // These must be done before calling extractScores().
        refreshLabScores();
-       refreshLectureScores();
 
        let scores = extractScores();
 
        updateScoreStorage(scores);
 
-       const score_with_lecture = weightedAverage(WEIGHTS, scores)
+       const total_score = weightedAverage(WEIGHTS, scores)
 
-       const {lecture: _, ...non_lecture_weights} = WEIGHTS;
-       const score_without_lecture = weightedAverage(non_lecture_weights, scores);
-
-       if (score_with_lecture === undefined) {
+       if (total_score === undefined) {
          $('.grade-calculator-output').html("?");
          $(".grade-calculator-output-project-warning").hide();
          $(".grade-calculator-output-exam-warning").hide();
@@ -855,50 +661,13 @@
          return n + "." + f.slice(0, NUM_DECIMALS_SHOWN) + (f.length > NUM_DECIMALS_SHOWN ? "..." : "");
        }
        
-       $(".grade-calculator-output-score-with-lecture").html(format_score(score_with_lecture) + "%");
-       $(".grade-calculator-output-score-without-lecture").html(format_score(score_without_lecture) + "%");
+       $(".grade-calculator-output-score").html(format_score(total_score) + "%");
 
-       if (score_with_lecture >= score_without_lecture) {
-         $(".grade-calculator-output-score-with-lecture").closest(".label").removeClass("disabled");
-         $(".grade-calculator-output-score-without-lecture").closest(".label").addClass("disabled");
-       }
-       else {
-         $(".grade-calculator-output-score-without-lecture").closest(".label").removeClass("disabled");
-         $(".grade-calculator-output-score-with-lecture").closest(".label").addClass("disabled");
-       }
 
-       const overall_percent = Math.max(score_with_lecture, score_without_lecture);
+       const overall_percent = total_score
        
        $(".grade-calculator-output-overall-percent").html(overall_percent + "%");
        let letterGrade = letterGradeForPercent(overall_percent);
-
-       let project_avg = weightedAverage(pick(WEIGHTS, [
-         "p1",
-         "p2",
-         "p3checkpoint",
-         "p3",
-         "p4",
-         "p5checkpoint",
-         "p5"
-       ]), scores);
-       $(".grade-calculator-output-project-average").html(format_score(project_avg) + "%");
-       if(project_avg < PROJECT_THRESHOLD) {
-         $(".grade-calculator-output-project-warning").show();
-         letterGrade = minLetterGrade(letterGrade, MAX_LETTER_GRADE_IF_BELOW_THRESHOLD);
-       }
-       else {
-         $(".grade-calculator-output-project-warning").hide();
-       }
-
-       let exam_avg = weightedAverage(pick(WEIGHTS, ["midterm", "final"]), scores);
-       $(".grade-calculator-output-exam-average").html(format_score(exam_avg) + "%");
-       if(exam_avg < EXAM_THRESHOLD) {
-         $(".grade-calculator-output-exam-warning").show();
-         letterGrade = minLetterGrade(letterGrade, MAX_LETTER_GRADE_IF_BELOW_THRESHOLD);
-       }
-       else {
-         $(".grade-calculator-output-exam-warning").hide();
-       }
 
        $(".grade-calculator-output-letter-grade").html(letterGrade);
      }
