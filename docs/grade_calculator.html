@@ -100,7 +100,7 @@
               <label>Remember my scores</label>
             </span>
             
-            <a href="https://youtu.be/ogZNEbDItQw" target="_blank"><b><i class="play circle icon"></i>Walkthrough Video</b></a>
+            <!-- <a href="https://youtu.be/ogZNEbDItQw" target="_blank"><b><i class="play circle icon"></i>Walkthrough Video</b></a> -->
             <span class="ui left pointing basic label">Watch Me!</span>
           </div>
 
@@ -204,7 +204,7 @@
                 </div>
                 <div id="lab-entry-message" style="text-align: center; padding-top: 0.1em;">
                   <!-- <div class="ui medium label"> -->
-                    <i class="ui right arrow circle icon"></i> Enter your raw score for each lab out of 10 points (or toggle full credit below).
+                    <i class="ui right arrow circle icon"></i> Enter your raw score for each lab.
                   <!-- </div> -->
                 </div>
               </div>
@@ -226,68 +226,31 @@
                   <input type="checkbox" id="lab-method-checkbox">
                   <label style="padding-left: 4rem;">Apply Full Credit on Labs</label>
                 </div>
-                <span data-tooltip="Most students earn full credit on labs overall. We drop your lowest two lab scores.">
+                <!-- <span data-tooltip="Most students earn full credit on labs overall. We drop your lowest two lab scores.">
                   <i class="ui question circle icon"></i>
-                </span>
+                </span> -->
               </div>
             </div>
             
             <div class="fields">
               <div class="three wide field">
-                <label>Project 1 (<span class="grade-calculator-weight"></span>%)</label>
+                <label>Homework 1 Grade Percentage (<span class="grade-calculator-weight"></span>%)</label>
                 <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p1" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
+                  <input class="grade-calculator-input" name="hw1" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
                   <div class="ui basic label">%</div>
                 </div>
               </div>
               <div class="three wide field">
-                <label>Project 2 (<span class="grade-calculator-weight"></span>%)</label>
+                <label>Homework 2 Grade Percentage (<span class="grade-calculator-weight"></span>%)</label>
                 <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p2" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
+                  <input class="grade-calculator-input" name="hw2" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
                   <div class="ui basic label">%</div>
                 </div>
               </div>
               <div class="three wide field">
-                <label>Project 3 (<span class="grade-calculator-weight"></span>%)</label>
+                <label>Homework 3 Grade Percentage (<span class="grade-calculator-weight"></span>%)</label>
                 <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p3" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="three wide field">
-                <label>Project 4 (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p4" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="three wide field">
-                <label>Project 5 (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p5" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="fields">
-              <div class="three wide field">
-              </div>
-              <div class="three wide field">
-              </div>
-              <div class="three wide field">
-                <label style="font-size: smaller;">P3 Checkpoint (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p3checkpoint" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="three wide field">
-              </div>
-              <div class="three wide field">
-                <label style="font-size: smaller;">P5 Checkpoint (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="p5checkpoint" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
+                  <input class="grade-calculator-input" name="hw3" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
                   <div class="ui basic label">%</div>
                 </div>
               </div>
@@ -757,7 +720,7 @@
      }
 
       function refreshLabScores() {
-        const LAB_POINTS = 10;
+        const TOTAL_LAB_POINTS = 20;
         const NUM_DROPS = 2;
 
         if ($("#lab-method-checkbox").is(":checked")) {
@@ -781,7 +744,7 @@
         }).get();
 
         // Abort if we don't have scores for everything or a score is out of the valid range
-        if (indiv_labs.some(lab => !isValidScore(lab.score, 0, 10))) {
+        if (indiv_labs.some(lab => !isValidScore(lab.score, 0, 5))) {
           $("#overall-lab-input").val("");
           $("#lab-entry-message").show();
           $(".lab-drop-label").hide();
@@ -797,7 +760,7 @@
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
         const lab_percent = indiv_labs.map(lab => lab.score)
-          .reduce((x,y) => x + y, 0) / (indiv_labs.length * LAB_POINTS) * 100;
+          .reduce((x,y) => x + y, 0) / (TOTAL_LAB_POINTS) * 100;
 
         $("#overall-lab-input").val(lab_percent);
         $("#lab-entry-message").hide();
