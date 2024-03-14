@@ -53,6 +53,13 @@
         padding-right: 0.15em;
         text-align: center;
       }
+      .individual-readingq-input {
+        display: inline-block;
+        width: 4.5em;
+        padding-left: 0.15em;
+        padding-right: 0.15em;
+        text-align: center;
+      }
 
       .individual-lab-input label {
         font-size: small;
@@ -218,33 +225,47 @@
               </div>
 
             </div>
+            <div class="fields">
+              <div class="sixteen wide field" style="text-align: right;">
+                <!-- <b style="margin-right: 2em;">Labs</b> -->
+                <div class="ui toggle checkbox">
+                  <input type="checkbox" id="lab-method-checkbox">
+                  <label style="padding-left: 4rem;">Apply Full Credit on Labs</label>
+                </div>
+              </div>
+            </div>
 
             <div class="fields">
-              <div class="thirteen wide field">
+              <div class="three wide field">
                 <div>
-                  <div class="individual-lab-input">
+                  <div class="individual-readingq-input">
                     <label>Number of Reading Questions with 0 points</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="readingQs max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                      <input class="grade-calculator-input" type="number" name="readingQ0pts" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
                     </div>
-                    <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
+                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We .">DROP</span> -->
                   </div>
-                  <div class="individual-lab-input">
+                  <div class="individual-readingq-input">
                     <label>Number of Reading Questions with 1 point</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="readingQs max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                      <input class="grade-calculator-input" type="number" name="readingQ1pt" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
                     </div>
-                    <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
+                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-                  <div class="individual-lab-input">
+                  <div class="individual-readingq-input">
                     <label>Number of Reading Questions with 2 points</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="readingQs" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                      <input class="grade-calculator-input" type="number" name="readingQ2pts" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
                     </div>
-                    <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
+                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-
-
+                  <div class="three wide field">
+                    <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
+                    <div class="ui right labeled input readonly">
+                      <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="lab" type="number" max="100" min="0" step="any" inputmode="decimal">
+                      <div class="ui basic label">%</div>
+                    </div>
+                  </div>
 
                 </div>
               </div>
@@ -254,14 +275,13 @@
               <div class="sixteen wide field" style="text-align: right;">
                 <!-- <b style="margin-right: 2em;">Labs</b> -->
                 <div class="ui toggle checkbox">
-                  <input type="checkbox" id="lab-method-checkbox">
-                  <label style="padding-left: 4rem;">Apply Full Credit on Labs</label>
+                  <input type="checkbox" id="readingQ-method-checkbox">
+                  <label style="padding-left: 4rem;">Apply Full Credit on Reading Questions</label>
                 </div>
-                <!-- <span data-tooltip="Most students earn full credit on labs overall. We drop your lowest two lab scores.">
-                  <i class="ui question circle icon"></i>
-                </span> -->
               </div>
             </div>
+
+            
             
             <div class="fields">
               <div class="three wide field">
@@ -312,7 +332,19 @@
                   <div class="ui basic label">%</div>
                 </div>
               </div>
-              <br/>
+              <div class="four wide field">
+                <label>
+                  Midterm Evaluation Extra Credit (<span class="grade-calculator-weight"></span>%)
+                </label>
+                <div class="ui right labeled input">
+                  <input class="grade-calculator-input" name="evalEC" type="number" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                  <span data-tooltip="Enter 1 if you submitted a midterm evaluation and 0 otherwise.">
+                    <i class="ui question circle icon"></i>
+                  </span>
+                </div>
+              </div>
+              </div>
+            <div class="fields">
               <div class="four wide field">
                 <label>
                   Final Project Code of Conduct (<span class="grade-calculator-weight"></span>%)
@@ -371,16 +403,7 @@
 
             <b>Overall Percent</b>
             <div class="ui basic label" style="margin-bottom: 0.5em">
-              <span data-tooltip="Your regular score, not including lecture participation.">
-                <i class="ui question circle icon"></i>
-              </span>
               <span class="grade-calculator-output grade-calculator-output-score-without-lecture"></span>
-            </div>
-            <div class="ui basic label" style="margin-bottom: 0.5em">
-              <span data-tooltip="Your alternate score, including lecture participation.">
-                <i class="ui question circle icon"></i>
-              </span>
-              <span class="grade-calculator-output grade-calculator-output-score-with-lecture"></span>
             </div>
             
             <br />
@@ -549,6 +572,7 @@
          }
        });
        $("#lab-method-checkbox").prop("checked", localStorage.getItem(LAB_METHOD_STORAGE_KEY) === "method");
+       $("#readingQ-method-checkbox").prop("checked", localStorage.getItem(READINGQ_METHOD_STORAGE_KEY) === "method");
      }
 
      function extractScores() {
@@ -568,6 +592,7 @@
        if ($("#remember-scores").is(":checked")) {
          window.localStorage.setItem(REMEMBER_SCORES_STORAGE_KEY, JSON.stringify(scores));
          window.localStorage.setItem(LAB_METHOD_STORAGE_KEY, $("#lab-method-checkbox").is(":checked") ? "method" : "individual");
+         window.localStorage.setItem(READINGQ_METHOD_STORAGE_KEY, $("#readingQ-method-checkbox").is(":checked") ? "method" : "individual");
        }
        else {
          window.localStorage.removeItem(REMEMBER_SCORES_STORAGE_KEY);
@@ -587,6 +612,12 @@
           $(".lab-drop-label").css("visibility", "hidden");
           return;
         }
+        if ($("#readingQ-method-checkbox").is(":checked")) {
+          $("#overall-readingQ-input").val(100);
+          $("#readingQ-entry-message").hide();
+          $(".individual-readingQ-input input").prop("disabled", true);
+          return;
+        }
         
         $(".individual-lab-input input").prop("disabled", false);
 
@@ -600,7 +631,7 @@
         }).get();
 
         // Abort if we don't have scores for everything or a score is out of the valid range
-        if (indiv_labs.some(lab => !isValidScore(lab.score, 0, 5))) {
+        if (indiv_labs.some(lab => !isValidScore(lab.score, 0, lab.max))) {
           $("#overall-lab-input").val("");
           $("#lab-entry-message").show();
           $(".lab-drop-label").hide();
@@ -608,15 +639,15 @@
         }
 
         // Sort ascending
-        indiv_labs.sort((lab1,lab2) => lab1.score - lab2.score);
+        indiv_labs.sort((lab1,lab2) => lab1.score/lab1.max - lab2.score/lab2.max);
 
         // Remove lowest NUM_DROPS
         const dropped = indiv_labs.splice(0, NUM_DROPS);
 
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
-        const lab_percent = indiv_labs.map(lab => lab.score)
-          .reduce((x,y) => x + y, 0) / (TOTAL_LAB_POINTS) * 100;
+        const lab_percent = indiv_labs.map(lab => lab.score/lab.max)
+          .reduce((x,y) => x + y, 0) * 100;
 
         $("#overall-lab-input").val(lab_percent);
         $("#lab-entry-message").hide();
@@ -685,6 +716,7 @@
 
      const REMEMBER_SCORES_STORAGE_KEY = "remember-scores";
      const LAB_METHOD_STORAGE_KEY = "lab-method";
+     const READINGQ_METHOD_STORAGE_KEY = "readingQ-method";
 
      // On click, update scores (or clear them)
      $("#remember-scores").click(function() {
@@ -699,8 +731,11 @@
        refreshCalculator();
      }
 
-     // If lab mode toggle is clicked, refresh calculator
+     // If lab mode toggle or readingQ mode toggle is clicked, refresh calculator
      $("#lab-method-checkbox").click(function() {
+       refreshCalculator();
+     });
+     $("#readingQ-method-checkbox").click(function() {
        refreshCalculator();
      });
 
