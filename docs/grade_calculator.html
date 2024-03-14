@@ -111,7 +111,7 @@
             <!-- <span class="ui left pointing basic label">Watch Me!</span> -->
           </div>
 
-          <div class="ui form" style="margin-top: 0.5em;">
+          <div class="ui form" style="margin-top: 1.5em;">
 
             <div class="fields">
 
@@ -236,7 +236,7 @@
             </div>
 
             <div class="fields">
-              <div class="three wide field">
+              <div class="thirteen wide field">
                 <div>
                   <div class="individual-readingq-input">
                     <label>Number of Reading Questions with 0 points</label>
@@ -259,14 +259,14 @@
                     </div>
                     <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-                  <div class="three wide field">
-                    <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
-                    <div class="ui right labeled input readonly">
-                      <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="lab" type="number" max="100" min="0" step="any" inputmode="decimal">
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
 
+                </div>
+                <div class="three wide field">
+                  <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
+                  <div class="ui right labeled input readonly">
+                    <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="lab" type="number" max="100" min="0" step="any" inputmode="decimal">
+                    <div class="ui basic label">%</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -627,6 +627,7 @@
           return {
             score: Number.parseFloat(input_elem.val()),
             drop_elem: drop_elem,
+            max: input_elem.getAttribute("max"),
           };
         }).get();
 
