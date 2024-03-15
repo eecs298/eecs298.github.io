@@ -488,7 +488,7 @@
        if (weight_html.length === 0) {
          weight_html = $(this).parent().parent().parent().find(".grade-calculator-weight");
        }
-       weight_html.html(WEIGHTS[assn].slice(0,5));
+       weight_html.html(WEIGHTS[assn].toString().slice(0,5));
      });
 
      // Grade thresholds in percent
