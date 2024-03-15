@@ -276,16 +276,6 @@
               </div>
             </div>
 
-            <div class="fields">
-              <div class="sixteen wide field" style="text-align: right;">
-                <!-- <b style="margin-right: 2em;">Labs</b> -->
-                <div class="ui toggle checkbox">
-                  <input type="checkbox" id="readingQ-method-checkbox">
-                  <label style="padding-left: 4rem;">Apply Full Credit on Reading Questions</label>
-                </div>
-              </div>
-            </div>
-
             
             
             <div class="fields">
@@ -429,7 +419,7 @@
             <div class="content">
               <b>Overall Percent</b>
               <p>
-                Your overall percent is the weighted average of percent scores on each assignment, according to the weights given in the <a href="syllabus.html#assignment-weighting" target="_blank">syllabus</a> and shown in parentheses above, e.g. "Labs (5%)".
+                Your overall percent is the weighted average of percent scores on each assignment, according to the weights given in the syllabus and shown in parentheses above, e.g. "Labs (5%)".
               </p>
 
               <b>Final Grade</b>
@@ -572,8 +562,7 @@
            $(this).val(score);
          }
        });
-       $("#lab-method-checkbox").prop("checked", localStorage.getItem(LAB_METHOD_STORAGE_KEY) === "method1");
-       $("#readingQ-method-checkbox").prop("checked", localStorage.getItem(READINGQ_METHOD_STORAGE_KEY) === "method2");
+       $("#lab-method-checkbox").prop("checked", localStorage.getItem(LAB_METHOD_STORAGE_KEY) === "method");
      }
 
      function extractScores() {
@@ -592,13 +581,12 @@
        // Store items if set to remember scores
        if ($("#remember-scores").is(":checked")) {
          window.localStorage.setItem(REMEMBER_SCORES_STORAGE_KEY, JSON.stringify(scores));
-         window.localStorage.setItem(LAB_METHOD_STORAGE_KEY, $("#lab-method-checkbox").is(":checked") ? "method1" : "individual1");
-         window.localStorage.setItem(READINGQ_METHOD_STORAGE_KEY, $("#readingQ-method-checkbox").is(":checked") ? "method2" : "individual2");
+         window.localStorage.setItem(LAB_METHOD_STORAGE_KEY, $("#lab-method-checkbox").is(":checked") ? "method" : "individual");
+         
        }
        else {
          window.localStorage.removeItem(REMEMBER_SCORES_STORAGE_KEY);
          window.localStorage.removeItem(LAB_METHOD_STORAGE_KEY);
-         window.localStorage.removeItem(READINGQ_METHOD_STORAGE_KEY);
        }
      }
 
@@ -624,7 +612,7 @@
           return {
             score: Number.parseFloat(input_elem.val()),
             drop_elem: drop_elem,
-            max: input_elem.getAttribute("max"),
+            max: input_elem.attr("max")
           };
         }).get();
 
@@ -656,20 +644,12 @@
 
       function refreshReadingScores() {
         const TOTAL_POINTS = 38;
-
-        if ($("#readingQ-method-checkbox").is(":checked")) {
-          $("#overall-readingQ-input").val(100);
-          $("#readingQ-entry-message").hide();
-          $(".individual-readingQ1-input input").prop("disabled", true);
-          $(".individual-readingQ2-input input").prop("disabled", true);
-          return;
-        }
         
         $(".individual-readingQ1-input input").prop("disabled", false);
         $(".individual-readingQ2-input input").prop("disabled", false);
 
-        let num_indiv_readingQ1 = $(".individual-readingQ1-input").val()
-        let num_indiv_readingQ2 = $(".individual-readingQ2-input").val()
+        let num_indiv_readingQ1 = $(".individual-readingQ1-input").val();
+        let num_indiv_readingQ2 = $(".individual-readingQ2-input").val();
 
         // Abort if we don't have scores for everything or a score is out of the valid range
         if (num_indiv_readingQ1 + num_indiv_readingQ2 > 24) {
@@ -681,9 +661,9 @@
 
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
-        const lab_percent = (num_indiv_readingQ1 +(2*num_indiv_readingQ2)) / TOTAL_POINTS
+        const reading_percent = ((num_indiv_readingQ1 +(2*num_indiv_readingQ2)) / TOTAL_POINTS) * 100;
 
-        $("#overall-readingQ-input").val(lab_percent);
+        $("#overall-readingQ-input").val(reading_percent);
         $("#readingQ-entry-message").hide();
       }
 
@@ -699,7 +679,7 @@
 
        updateScoreStorage(scores);
 
-       const total_score = weightedAverage(WEIGHTS, scores)
+       const total_score = weightedAverage(WEIGHTS, scores);
 
        if (total_score === undefined) {
          $('.grade-calculator-output').html("?");
@@ -711,12 +691,12 @@
          return;
        }
 
-       $('.grade-calculator-output-note').html("Overall Percentage and Final Grade")
+       $('.grade-calculator-output-note').html("Overall Percentage and Final Grade");
 
        // We DO NOT round anywhere in the calculator. However, we make the final percent more readable
        // by displaying only a certain number of characters after the . in the overall %, followed by ...
        // Note that this will always show a truncated, i.e. rounded down number.
-       const NUM_DECIMALS_SHOWN = 7;
+       const NUM_DECIMALS_SHOWN = 5;
        let format_score = (score) => {
          score = "" + score;
          if (score.indexOf(".") === -1) { return score };
@@ -727,7 +707,7 @@
        $(".grade-calculator-output-score").html(format_score(total_score) + "%");
 
 
-       const overall_percent = total_score
+       const overall_percent = total_score;
        
        $(".grade-calculator-output-overall-percent").html(overall_percent + "%");
        let letterGrade = letterGradeForPercent(overall_percent);
@@ -748,7 +728,6 @@
 
      const REMEMBER_SCORES_STORAGE_KEY = "remember-scores";
      const LAB_METHOD_STORAGE_KEY = "lab-method";
-     const READINGQ_METHOD_STORAGE_KEY = "readingQ-method";
 
      // On click, update scores (or clear them)
      $("#remember-scores").click(function() {
@@ -763,11 +742,8 @@
        refreshCalculator();
      }
 
-     // If lab mode toggle or readingQ mode toggle is clicked, refresh calculator
+     // If lab mode toggle is clicked, refresh calculator
      $("#lab-method-checkbox").click(function() {
-       refreshCalculator();
-     });
-     $("#readingQ-method-checkbox").click(function() {
        refreshCalculator();
      });
 
