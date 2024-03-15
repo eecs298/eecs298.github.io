@@ -176,11 +176,11 @@
                   <div class="individual-lab-input">
                     <label>Lab 8</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="lab8" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <input class="grade-calculator-input" type="number" name="lab8" max="3" min="0" step="any" inputmode="decimal" placeholder="0-1">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
                   </div>
-                  <div class="individual-lab-input">
+                  <!-- <div class="individual-lab-input">
                     <label>Lab 9</label>
                     <div class="ui input">
                       <input class="grade-calculator-input" type="number" name="lab9" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
@@ -214,7 +214,7 @@
                       <input class="grade-calculator-input" type="number" name="lab13" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
-                  </div>
+                  </div> -->
                 </div>
                 <div id="lab-entry-message" style="text-align: center; padding-top: 0.1em;">
                   <!-- <div class="ui medium label"> -->
@@ -259,14 +259,14 @@
                     </div>
                     <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-                  <div class="three wide field">
-                    <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
-                    <div class="ui right labeled input readonly">
-                      <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
-                      <div class="ui basic label">%</div>
-                    </div>
-                  </div>
 
+                </div>
+                <div class="three wide field">
+                  <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
+                  <div class="ui right labeled input readonly">
+                    <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
+                    <div class="ui basic label">%</div>
+                  </div>
                 </div>
               </div>
               <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
@@ -457,9 +457,9 @@
      // Assignment weights in percent
      const WEIGHTS = {
         "lab": 10,
-        "hw1": 11.66,
-        "hw2": 11.67,
-        "hw3": 11.67,
+        "hw1": 11 + 2/3,
+        "hw2": 11 + 2/3,
+        "hw3": 11 + 2/3,
         "readingQs": 5,
         "dm1": 5,
         "dm2": 5,
@@ -633,7 +633,7 @@
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
         const lab_percent = indiv_labs.map(lab => lab.score/lab.max)
-          .reduce((x,y) => x + y, 0) * 100;
+          .reduce((x,y) => x + y, 0) / indiv_labs.length * 100;
 
         $("#overall-lab-input").val(lab_percent);
         $("#lab-entry-message").hide();
@@ -648,8 +648,8 @@
         $(".individual-readingQ1-input input").prop("disabled", false);
         $(".individual-readingQ2-input input").prop("disabled", false);
 
-        let num_indiv_readingQ1 = $(".individual-readingQ1-input").val();
-        let num_indiv_readingQ2 = $(".individual-readingQ2-input").val();
+        let num_indiv_readingQ1 = Number.parseFloat((".individual-readingQ1-input").find("input").val());
+        let num_indiv_readingQ2 = Number.parseFloat((".individual-readingQ2-input").find("input").val());
 
         // Abort if we don't have scores for everything or a score is out of the valid range
         if (num_indiv_readingQ1 + num_indiv_readingQ2 > 24) {
@@ -661,7 +661,11 @@
 
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
-        const reading_percent = ((num_indiv_readingQ1 +(2*num_indiv_readingQ2)) / TOTAL_POINTS) * 100;
+        const reading_points_total = num_indiv_readingQ1 +(2 * num_indiv_readingQ2);
+        const reading_percent = 100;
+        if (reading_points_total < TOTAL_POINTS) {
+          reading_percent = (reading_points_total / TOTAL_POINTS) * 100;
+        }
 
         $("#overall-readingQ-input").val(reading_percent);
         $("#readingQ-entry-message").hide();
