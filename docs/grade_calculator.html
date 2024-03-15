@@ -663,7 +663,7 @@
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
         const reading_points_total = num_indiv_readingQ1 +(2 * num_indiv_readingQ2);
-        const reading_percent = 100;
+        let reading_percent = 100;
         if (reading_points_total < TOTAL_POINTS) {
           reading_percent = (reading_points_total / TOTAL_POINTS) * 100;
         }
