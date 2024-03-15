@@ -243,7 +243,7 @@
             </div>
 
             <div class="fields">
-              <div class="thirteen wide field">
+              <div class="fourteen wide field">
                 <div>
                   <div class="individual-readingQ1-input">
                     <label>Number of Reading Questions with 1 point</label>
@@ -259,14 +259,14 @@
                     </div>
                     <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-
-                </div>
-                <div class="three wide field">
-                  <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
-                  <div class="ui right labeled input readonly">
-                    <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
-                    <div class="ui basic label">%</div>
+                  <div class="three wide field">
+                    <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
+                    <div class="ui right labeled input readonly">
+                      <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
+                      <div class="ui basic label">%</div>
+                    </div>
                   </div>
+
                 </div>
               </div>
               <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
@@ -408,7 +408,7 @@
 
             <b>Overall Percent</b>
             <div class="ui basic label" style="margin-bottom: 0.5em">
-              <span class="grade-calculator-output grade-calculator-output-score-without-lecture"></span>
+              <span class="grade-calculator-output grade-calculator-output-score"></span>
             </div>
             
             <br />
@@ -572,8 +572,8 @@
            $(this).val(score);
          }
        });
-       $("#lab-method-checkbox").prop("checked", localStorage.getItem(LAB_METHOD_STORAGE_KEY) === "method");
-       $("#readingQ-method-checkbox").prop("checked", localStorage.getItem(READINGQ_METHOD_STORAGE_KEY) === "method");
+       $("#lab-method-checkbox").prop("checked", localStorage.getItem(LAB_METHOD_STORAGE_KEY) === "method1");
+       $("#readingQ-method-checkbox").prop("checked", localStorage.getItem(READINGQ_METHOD_STORAGE_KEY) === "method2");
      }
 
      function extractScores() {
@@ -592,8 +592,8 @@
        // Store items if set to remember scores
        if ($("#remember-scores").is(":checked")) {
          window.localStorage.setItem(REMEMBER_SCORES_STORAGE_KEY, JSON.stringify(scores));
-         window.localStorage.setItem(LAB_METHOD_STORAGE_KEY, $("#lab-method-checkbox").is(":checked") ? "method" : "individual");
-         window.localStorage.setItem(READINGQ_METHOD_STORAGE_KEY, $("#readingQ-method-checkbox").is(":checked") ? "method" : "individual");
+         window.localStorage.setItem(LAB_METHOD_STORAGE_KEY, $("#lab-method-checkbox").is(":checked") ? "method1" : "individual1");
+         window.localStorage.setItem(READINGQ_METHOD_STORAGE_KEY, $("#readingQ-method-checkbox").is(":checked") ? "method2" : "individual2");
        }
        else {
          window.localStorage.removeItem(REMEMBER_SCORES_STORAGE_KEY);
@@ -711,7 +711,7 @@
          return;
        }
 
-       $('.grade-calculator-output-note').html("Overall Percentage, Thresholds, and Final Grade")
+       $('.grade-calculator-output-note').html("Overall Percentage and Final Grade")
 
        // We DO NOT round anywhere in the calculator. However, we make the final percent more readable
        // by displaying only a certain number of characters after the . in the overall %, followed by ...
