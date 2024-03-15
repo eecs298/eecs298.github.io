@@ -259,20 +259,19 @@
                     </div>
                     <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-
-                </div>
-                <div class="three wide field">
-                  <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
-                  <div class="ui right labeled input readonly">
-                    <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
-                    <div class="ui basic label">%</div>
+                  <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
+                    <!-- <div class="ui medium label"> -->
+                      <i class="ui right arrow circle icon"></i> Enter the number of reading questions submitted that received each amount of points. Sum should not exceed 24.
+                    <!-- </div> -->
                   </div>
                 </div>
               </div>
-              <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
-                <!-- <div class="ui medium label"> -->
-                  <i class="ui right arrow circle icon"></i> Enter the number of reading questions submitted that received each amount of points. 
-                <!-- </div> -->
+              <div class="three wide field">
+                <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui right labeled input readonly">
+                  <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
+                  <div class="ui basic label">%</div>
+                </div>
               </div>
             </div>
 
@@ -539,6 +538,9 @@
        let total_weight = 0;
 
        for(assn in weights) {
+        if (assn == "evalEC"){
+          continue;
+        }
          let score = scores[assn];
          let weight = weights[assn];
          if (!isValidScore(score)) {
@@ -548,8 +550,9 @@
          total_weight += weight;
          weighted_percent += score * weight;
        }
+       let finalAverage = weighted_percent / total_weight;
 
-       return (weighted_percent / total_weight);
+       return finalAverage + scores["evalEC"]; // add a percentage if eval is done
      }
 
      function loadScoresFromStorage() {
@@ -663,9 +666,12 @@
         // Compute the overall lab percent.
         // ASSUMPTION: all labs have equal weight.
         const reading_points_total = num_indiv_readingQ1 +(2 * num_indiv_readingQ2);
-        let reading_percent = 100;
+        let reading_percent = "";
         if (reading_points_total < TOTAL_POINTS) {
           reading_percent = (reading_points_total / TOTAL_POINTS) * 100;
+        }
+        else {
+          reading_percent = 100;
         }
 
         $("#overall-readingQ-input").val(reading_percent);
