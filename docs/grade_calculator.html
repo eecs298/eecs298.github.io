@@ -53,7 +53,14 @@
         padding-right: 0.15em;
         text-align: center;
       }
-      .individual-readingq-input {
+      .individual-readingQ1-input {
+        display: inline-block;
+        width: 4.5em;
+        padding-left: 0.15em;
+        padding-right: 0.15em;
+        text-align: center;
+      }
+      .individual-readingQ2-input {
         display: inline-block;
         width: 4.5em;
         padding-left: 0.15em;
@@ -238,21 +245,14 @@
             <div class="fields">
               <div class="thirteen wide field">
                 <div>
-                  <div class="individual-readingq-input">
-                    <label>Number of Reading Questions with 0 points</label>
-                    <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="readingQ0pts" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
-                    </div>
-                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We .">DROP</span> -->
-                  </div>
-                  <div class="individual-readingq-input">
+                  <div class="individual-readingQ1-input">
                     <label>Number of Reading Questions with 1 point</label>
                     <div class="ui input">
                       <input class="grade-calculator-input" type="number" name="readingQ1pt" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
                     </div>
                     <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
                   </div>
-                  <div class="individual-readingq-input">
+                  <div class="individual-readingQ2-input">
                     <label>Number of Reading Questions with 2 points</label>
                     <div class="ui input">
                       <input class="grade-calculator-input" type="number" name="readingQ2pts" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
@@ -264,10 +264,15 @@
                 <div class="three wide field">
                   <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
                   <div class="ui right labeled input readonly">
-                    <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="lab" type="number" max="100" min="0" step="any" inputmode="decimal">
+                    <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
                     <div class="ui basic label">%</div>
                   </div>
                 </div>
+              </div>
+              <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
+                <!-- <div class="ui medium label"> -->
+                  <i class="ui right arrow circle icon"></i> Enter the number of reading questions submitted that received each amount of points. 
+                <!-- </div> -->
               </div>
             </div>
 
@@ -512,10 +517,6 @@
        [94, "A"]
      ];
 
-     const PROJECT_THRESHOLD = 60;
-     const EXAM_THRESHOLD = 65;
-     const MAX_LETTER_GRADE_IF_BELOW_THRESHOLD = "C-";
-
      function pick(obj, keys) {
        let newobj = {};
        keys.forEach(k => newobj[k] = obj[k]);
@@ -597,11 +598,12 @@
        else {
          window.localStorage.removeItem(REMEMBER_SCORES_STORAGE_KEY);
          window.localStorage.removeItem(LAB_METHOD_STORAGE_KEY);
+         window.localStorage.removeItem(READINGQ_METHOD_STORAGE_KEY);
        }
      }
 
       function refreshLabScores() {
-        const TOTAL_LAB_POINTS = 26;
+        // const TOTAL_LAB_POINTS = 26;
         const NUM_DROPS = 2;
 
         if ($("#lab-method-checkbox").is(":checked")) {
@@ -612,12 +614,7 @@
           $(".lab-drop-label").css("visibility", "hidden");
           return;
         }
-        if ($("#readingQ-method-checkbox").is(":checked")) {
-          $("#overall-readingQ-input").val(100);
-          $("#readingQ-entry-message").hide();
-          $(".individual-readingQ-input input").prop("disabled", true);
-          return;
-        }
+        
         
         $(".individual-lab-input input").prop("disabled", false);
 
@@ -657,12 +654,46 @@
         dropped.forEach(d => d.drop_elem.css("visibility", "visible"));
       }
 
+      function refreshReadingScores() {
+        const TOTAL_POINTS = 38;
+
+        if ($("#readingQ-method-checkbox").is(":checked")) {
+          $("#overall-readingQ-input").val(100);
+          $("#readingQ-entry-message").hide();
+          $(".individual-readingQ1-input input").prop("disabled", true);
+          $(".individual-readingQ2-input input").prop("disabled", true);
+          return;
+        }
+        
+        $(".individual-readingQ1-input input").prop("disabled", false);
+        $(".individual-readingQ2-input input").prop("disabled", false);
+
+        let num_indiv_readingQ1 = $(".individual-readingQ1-input").val()
+        let num_indiv_readingQ2 = $(".individual-readingQ2-input").val()
+
+        // Abort if we don't have scores for everything or a score is out of the valid range
+        if (num_indiv_readingQ1 + num_indiv_readingQ2 > 24) {
+          $("#overall-readingQ-input").val("");
+          $("#readingQ-entry-message").show();
+          return;
+        }
+
+
+        // Compute the overall lab percent.
+        // ASSUMPTION: all labs have equal weight.
+        const lab_percent = (num_indiv_readingQ1 +(2*num_indiv_readingQ2)) / TOTAL_POINTS
+
+        $("#overall-readingQ-input").val(lab_percent);
+        $("#readingQ-entry-message").hide();
+      }
+
      function refreshCalculator() {
 
        // First, update the lab overall based on individual labs
        // and update the lecture percentage based on # of lectures.
        // These must be done before calling extractScores().
        refreshLabScores();
+       refreshReadingScores();
 
        let scores = extractScores();
 
