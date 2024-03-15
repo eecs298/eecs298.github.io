@@ -488,7 +488,7 @@
        if (weight_html.length === 0) {
          weight_html = $(this).parent().parent().parent().find(".grade-calculator-weight");
        }
-       weight_html.html(WEIGHTS[assn]);
+       weight_html.html(WEIGHTS[assn].slice(0,5));
      });
 
      // Grade thresholds in percent
@@ -648,8 +648,9 @@
         $(".individual-readingQ1-input input").prop("disabled", false);
         $(".individual-readingQ2-input input").prop("disabled", false);
 
-        let num_indiv_readingQ1 = Number.parseFloat((".individual-readingQ1-input").find("input").val());
-        let num_indiv_readingQ2 = Number.parseFloat((".individual-readingQ2-input").find("input").val());
+        let num_indiv_readingQ1 = Number.parseFloat($(".individual-readingQ1-input input").val());
+        let num_indiv_readingQ2 = Number.parseFloat($(".individual-readingQ2-input input").val());
+
 
         // Abort if we don't have scores for everything or a score is out of the valid range
         if (num_indiv_readingQ1 + num_indiv_readingQ2 > 24) {
