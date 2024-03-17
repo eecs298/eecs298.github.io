@@ -53,14 +53,7 @@
         padding-right: 0.15em;
         text-align: center;
       }
-      .individual-readingQ1-input {
-        display: inline-block;
-        width: 10em;
-        padding-left: 0.15em;
-        padding-right: 0.15em;
-        text-align: center;
-      }
-      .individual-readingQ2-input {
+      .individual-assignment-input {
         display: inline-block;
         width: 10em;
         padding-left: 0.15em;
@@ -70,7 +63,6 @@
 
       .individual-lab-input label {
         font-size: small;
-        font-weight: bold;
         padding-left: 0;
         padding-right: 0;
       }
@@ -120,6 +112,113 @@
 
           <div class="ui form" style="margin-top: 1.5em;">
 
+            <!--Homework Inputs-->
+
+            <div class="fields">
+              <div class="fifteen wide field">
+                <div>
+                <div class = "individual-assignment-input homework1">
+                <label>Homework 1 Score </label>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="hw1" type="number" max="58" min="0" step="any" inputmode="decimal" placeholder="0-58">
+                </div>
+              </div>
+              <div class = "individual-assignment-input homework2">
+                <label>Homework 2 Score </label>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="hw2" type="number" max="65" min="0" step="any" inputmode="decimal" placeholder="0-65">
+                </div>
+              </div>
+              <div class = "individual-assignment-input homework3">
+                <label>Homework 3 Grade Percentage </label>
+                <div class="ui right labeled input">
+                  <input class="grade-calculator-input" name="hw3" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
+                  <div class="ui basic label">%</div>
+                </div>
+              </div>
+              </div>
+            </div>
+              <div class="five wide field">
+                <label>Homework Assignments Overall (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui right labeled input readonly">
+                  <input id="overall-homework-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="homeworks" type="number" max="100" min="0" step="any" inputmode="decimal">
+                  <div class="ui basic label">%</div>
+                </div>
+              </div>
+            </div>
+
+            <!--Reading Questions Inputs-->
+            <div class="fields">
+              <div class="fourteen wide field">
+                <div>
+                  <div class="individual-assignment-input readingQ1">
+                    <label>Number of Reading Questions with 1 point</label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" type="number" name="readingQ1pt" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                    </div>
+                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
+                  </div>
+                  <div class="individual-assignment-input readingQ2">
+                    <label>Number of Reading Questions with 2 points</label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" type="number" name="readingQ2pts" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
+                    </div>
+                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
+                  </div>
+                  <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
+                    <!-- <div class="ui medium label"> -->
+                      <i class="ui right arrow circle icon"></i> Enter the number of reading questions submitted that received each amount of points. Sum should not exceed 24 (total number of lectures) and we use your top 19 scores in the calculation.
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="four wide field">
+                <label>Reading Questions Total (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui right labeled input readonly">
+                  <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
+                  <div class="ui basic label">%</div>
+                </div>
+              </div>
+            </div>
+
+
+            <!--Discussion Memo & Reading Presentation Inputs-->
+            <div class="fields">
+              <div class = "fourteen wide field">
+              <div>
+              <div class="individual-assignment-input dm1">
+                <label>Discussion Memo 1 Score (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="dm1" type="number" max="10" min="0" step="any" inputmode="decimal" placeholder="0-10">
+                </div>
+              </div>
+              <div class="individual-assignment-input dm2">
+                <label>
+                  Discussion Memo 2 Score (<span class="grade-calculator-weight"></span>%)
+                </label>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="dm2" type="number" max="10" min="0" step="any" inputmode="decimal" placeholder="0-10">
+                </div>
+              </div>
+              <div class="individual-assignment-input readingPres">
+                <label>Reading Presentation Score (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="readingPres" type="number" max="10" min="0" step="any" inputmode="decimal" placeholder="0-10">
+                </div>
+              </div>
+              </div>
+              </div>
+              <div class="four wide field">
+                <label>Participation Overall (Includes Reading Questions) (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui right labeled input readonly">
+                  <input id="overall-participation-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="participation" type="number" max="100" min="0" step="any" inputmode="decimal">
+                  <div class="ui basic label">%</div>
+                </div>
+              </div>
+            </div>
+            
+
+            <!--Lab Inputs-->
             <div class="fields">
 
               <div class="thirteen wide field">
@@ -180,41 +279,41 @@
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
                   </div>
-                  <!-- <div class="individual-lab-input">
+                  <div class="individual-lab-input">
                     <label>Lab 9</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="lab9" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <input class="grade-calculator-input" type="number" name="lab9" max="3" min="0" step="any" inputmode="decimal" placeholder="0-3">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
                   </div>
                   <div class="individual-lab-input">
                     <label>Lab 10</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="lab10" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <input class="grade-calculator-input" type="number" name="lab10" max="3" min="0" step="any" inputmode="decimal" placeholder="0-3">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
                   </div>
                   <div class="individual-lab-input">
                     <label>Lab 11</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="lab11" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <input class="grade-calculator-input" type="number" name="lab11" max="3" min="0" step="any" inputmode="decimal" placeholder="0-3">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
                   </div>
                   <div class="individual-lab-input">
                     <label>Lab 12</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="lab12" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <input class="grade-calculator-input" type="number" name="lab12" max="3" min="0" step="any" inputmode="decimal" placeholder="0-3">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
                   </div>
                   <div class="individual-lab-input">
                     <label>Lab 13</label>
                     <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="lab13" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <input class="grade-calculator-input" type="number" name="lab13" max="3" min="0" step="any" inputmode="decimal" placeholder="0-3">
                     </div>
                     <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span>
-                  </div> -->
+                  </div>
                 </div>
                 <div id="lab-entry-message" style="text-align: center; padding-top: 0.1em;">
                   <!-- <div class="ui medium label"> -->
@@ -232,6 +331,7 @@
               </div>
 
             </div>
+
             <div class="fields">
               <div class="sixteen wide field" style="text-align: right;">
                 <!-- <b style="margin-right: 2em;">Labs</b> -->
@@ -242,150 +342,110 @@
               </div>
             </div>
 
-            <div class="fields">
-              <div class="fourteen wide field">
-                <div>
-                  <div class="individual-readingQ1-input">
-                    <label>Number of Reading Questions with 1 point</label>
-                    <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="readingQ1pt" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
-                    </div>
-                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
-                  </div>
-                  <div class="individual-readingQ2-input">
-                    <label>Number of Reading Questions with 2 points</label>
-                    <div class="ui input">
-                      <input class="grade-calculator-input" type="number" name="readingQ2pts" max="24" min="0" step="any" inputmode="decimal" placeholder="0-24">
-                    </div>
-                    <!-- <span class="ui tiny green label lab-drop-label" data-tooltip="We drop your lowest two lab scores.">DROP</span> -->
-                  </div>
-                  <div id="readingQ-entry-message" style="text-align: center; padding-top: 0.1em;">
-                    <!-- <div class="ui medium label"> -->
-                      <i class="ui right arrow circle icon"></i> Enter the number of reading questions submitted that received each amount of points. Sum should not exceed 24.
-                    <!-- </div> -->
-                  </div>
-                </div>
-              </div>
-              <div class="three wide field">
-                <label>Reading Questions Overall (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input readonly">
-                  <input id="overall-readingQ-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="readingQs" type="number" max="100" min="0" step="any" inputmode="decimal">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-            </div>
-
             
-            
-            <div class="fields">
-              <div class="three wide field">
-                <label>Homework 1 Grade Percentage (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="hw1" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="three wide field">
-                <label>Homework 2 Grade Percentage (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="hw2" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="three wide field">
-                <label>Homework 3 Grade Percentage (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="hw3" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-            </div>
+            <!--Final Inputs-->
 
             <div class="fields">
-              <br />
-              <div class="four wide field">
-                <label>Reading Presentation (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="readingPres" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="four wide field">
-                <label>Discussion Memo 1 (<span class="grade-calculator-weight"></span>%)</label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="dm1" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="four wide field">
-                <label>
-                  Discussion Memo 2 (<span class="grade-calculator-weight"></span>%)
-                </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="dm2" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <div class="four wide field">
-                <label>
-                  Midterm Evaluation Extra Credit (<span class="grade-calculator-weight"></span>%)
-                </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="evalEC" type="number" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
-                  <span data-tooltip="Enter 1 if you submitted a midterm evaluation and 0 otherwise.">
-                    <i class="ui question circle icon"></i>
-                  </span>
-                </div>
-              </div>
-              </div>
-            <div class="fields">
-              <div class="four wide field">
+              <div class = "twelve wide field">
+              <div>
+              <div class="individual-assignment-input code">
                 <label>
                   Final Project Code of Conduct (<span class="grade-calculator-weight"></span>%)
                 </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="FPCoC" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="FPCoC" type="number" max="6" min="0" step="any" inputmode="decimal" placeholder="0-6">
                 </div>
               </div>
-              <div class="four wide field">
+              <div class="individual-assignment-input description">
                 <label>
                   Final Project Description (<span class="grade-calculator-weight"></span>%)
                 </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="FPDesc" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="FPDesc" type="number" max="8" min="0" step="any" inputmode="decimal" placeholder="0-8">
                 </div>
               </div>
-              <div class="four wide field">
+              <div class="individual-assignment-input outline">
                 <label>
                   Final Project Outline (<span class="grade-calculator-weight"></span>%)
                 </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="FPOutline" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
+                <div class="ui input">
+                  <input class="grade-calculator-input" name="FPOutline" type="number" max="15" min="0" step="any" inputmode="decimal" placeholder="0-15">
                 </div>
               </div>
-              <div class="four wide field">
-                <label>
-                  Final Project Presentation (<span class="grade-calculator-weight"></span>%)
-                </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="FPPres" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
               </div>
-              <div class="four wide field">
-                <label>
-                  Final Project Product and Report (<span class="grade-calculator-weight"></span>%)
-                </label>
-                <div class="ui right labeled input">
-                  <input class="grade-calculator-input" name="FPReport" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
-                  <div class="ui basic label">%</div>
-                </div>
-              </div>
-              <br />
+             </div>
+             
             </div>
+
+            <div class = "fields">
+              <div class = "thirteen wide field">
+                <div>
+                  <div class="individual-assignment-input finalPres">
+                    <label>
+                      Final Project Presentation Percentage (<span class="grade-calculator-weight"></span>%)
+                    </label>
+                    <div class="ui right labeled input">
+                      <input class="grade-calculator-input" name="FPPres" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
+                      <div class="ui basic label">%</div>
+                    </div>
+                  </div>
+                  <div class="individual-assignment-input finalReport">
+                    <label>
+                      Final Project Product and Report Percentage (<span class="grade-calculator-weight"></span>%)
+                    </label>
+                    <div class="ui right labeled input">
+                      <input class="grade-calculator-input" name="FPReport" type="number" max="100" min="0" step="any" inputmode="decimal" placeholder="0-100">
+                      <div class="ui basic label">%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="three wide field">
+                <label>Final Project Overall (<span class="grade-calculator-weight"></span>%)</label>
+                <div class="ui right labeled input readonly">
+                  <input id="overall-final-input" style="cursor: not-allowed;" class="grade-calculator-input" readonly name="final" type="number" max="100" min="0" step="any" inputmode="decimal">
+                  <div class="ui basic label">%</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!--Course Eval Inputs-->
+            <div class = "fields">
+              <div class="thirteen wide field">
+                <div>
+                  <div class="individual-assignment-input">
+                    <label>
+                      Midterm Evaluation Extra Credit (<span class="grade-calculator-weight"></span>%)
+                    </label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" name="midEvalEC" type="number" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <span data-tooltip="Enter 1 if you submitted a midterm evaluation and 0 otherwise.">
+                        <i class="ui question circle icon"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="individual-assignment-input">
+                    <label>
+                      Final Evaluation Extra Credit (<span class="grade-calculator-weight"></span>%)
+                    </label>
+                    <div class="ui input">
+                      <input class="grade-calculator-input" name="finEvalEC" type="number" max="1" min="0" step="any" inputmode="decimal" placeholder="0-1">
+                      <span data-tooltip="Enter 1 if you submitted a final evaluation and 0 otherwise.">
+                        <i class="ui question circle icon"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
 
             <div style="text-align: center;">
               <div class="ui label grade-calculator-output-note" style="display: inline-block; text-align: center; margin-bottom: 0.5em;"></div>
@@ -456,23 +516,24 @@
      // Assignment weights in percent
      const WEIGHTS = {
         "lab": 10,
-        "hw1": 11 + 2/3,
-        "hw2": 11 + 2/3,
-        "hw3": 11 + 2/3,
+        "homeworks": 35,
         "readingQs": 5,
         "dm1": 5,
         "dm2": 5,
         "readingPres": 5,
+        "participation": 20,
         "FPCoC" : 3,
         "FPDesc": 4,
         "FPOutline": 5,
         "FPPres": 8,
         "FPReport": 15,
-        "evalEC" : 1
+        "final": 35,
+        "midEvalEC" : 0.5,
+        "finEvalEC":0.5,
      };
 
      // Sanity check weights add to 100 (except lecture points)
-     if (Math.abs(Object.values(WEIGHTS).reduce((p,c)=>p+c,0) - 100 - 1) > 0.00001) {
+     if (Math.abs(Object.values(WEIGHTS).reduce((p,c)=>p+c,0) - 100 - 56) > 0.00001) {
        $("#grade-calculator").prepend('<span class="ui massive red label">ERROR: Weights do not add to 100%</span>')
      }
 
@@ -533,26 +594,19 @@
      // weights - object mapping assignment names to weights
      // scores - object expected to contain keys for each name with the corresponding score
      function weightedAverage(weights, scores) {
-
-       let weighted_percent = 0;
-       let total_weight = 0;
-
-       for(assn in weights) {
-        if (assn == "evalEC"){
-          continue;
+        let categories = ["homeworks", "lab", "participation", "final"];
+        let weighted_percent = 0;
+        let total_weight = 0;
+        for (category_idx in categories) {
+          if (!isValidScore(scores[categories[category_idx]])){
+            return undefined;
+          }
+          weighted_percent += scores[categories[category_idx]] * weights[categories[category_idx]]
+          total_weight += weights[categories[category_idx]]
         }
-         let score = scores[assn];
-         let weight = weights[assn];
-         if (!isValidScore(score)) {
-           return undefined;
-         }
+        let finalAverage = weighted_percent / total_weight;
 
-         total_weight += weight;
-         weighted_percent += score * weight;
-       }
-       let finalAverage = weighted_percent / total_weight;
-
-       return finalAverage + scores["evalEC"]; // add a percentage if eval is done
+       return finalAverage + scores["midEvalEC"]*weights["midEvalEC"] +scores["finEvalEC"]*weights["finEvalEC"] ; // add a percentage if evals are done
      }
 
      function loadScoresFromStorage() {
@@ -648,11 +702,11 @@
       function refreshReadingScores() {
         const TOTAL_POINTS = 38;
         
-        $(".individual-readingQ1-input input").prop("disabled", false);
-        $(".individual-readingQ2-input input").prop("disabled", false);
+        $(".readingQ1 input").prop("disabled", false);
+        $(".readingQ2 input").prop("disabled", false);
 
-        let num_indiv_readingQ1 = Number.parseFloat($(".individual-readingQ1-input input").val());
-        let num_indiv_readingQ2 = Number.parseFloat($(".individual-readingQ2-input input").val());
+        let num_indiv_readingQ1 = Number.parseFloat($(".readingQ1 input").val());
+        let num_indiv_readingQ2 = Number.parseFloat($(".readingQ2 input").val());
 
 
         // Abort if we don't have scores for everything or a score is out of the valid range
@@ -663,19 +717,113 @@
         }
 
 
-        // Compute the overall lab percent.
-        // ASSUMPTION: all labs have equal weight.
-        const reading_points_total = num_indiv_readingQ1 +(2 * num_indiv_readingQ2);
+        // Compute the overall readingQ percent.
         let reading_percent = "";
-        if (reading_points_total < TOTAL_POINTS) {
-          reading_percent = (reading_points_total / TOTAL_POINTS) * 100;
+        if (num_indiv_readingQ2 >= 19){
+          reading_percent = 100; // full credit if you get at least 19 lectures with 2 points
+        }
+        else if (num_indiv_readingQ1 >= 19-num_indiv_readingQ2){
+          let reading_points_total = (2*num_indiv_readingQ2) + (19-num_indiv_readingQ2);
+          reading_percent = (reading_points_total / TOTAL_POINTS) * 100; // count the 1 point questions until you hit 19 total in the score
         }
         else {
-          reading_percent = 100;
+          let reading_points_total = (2*num_indiv_readingQ2) + num_indiv_readingQ1;
+          reading_percent = (reading_points_total / TOTAL_POINTS) * 100; // num_indiv_readingQ1 < 19-num_indiv_readingQ2
         }
 
         $("#overall-readingQ-input").val(reading_percent);
         $("#readingQ-entry-message").hide();
+      }
+      function refreshHomeworkScores() {
+        
+        $(".homework1 input").prop("disabled", false);
+        $(".homework2 input").prop("disabled", false);
+        $(".homework3 input").prop("disabled", false);
+
+        let homework1 = Number.parseFloat($(".homework1 input").val());
+        let hw1_max = Number.parseFloat($(".homework1 input").attr("max"));
+        let homework2 = Number.parseFloat($(".homework2 input").val());
+        let hw2_max = Number.parseFloat($(".homework2 input").attr("max"));
+        let homework3 = Number.parseFloat($(".homework3 input").val());
+
+
+        // Abort if we don't have scores for everything or a score is out of the valid range
+        if (!isValidScore(homework1, 0, hw1_max) ||  !isValidScore(homework2, 0, hw2_max) || !isValidScore(homework3)) {
+          $("#overall-homework-input").val("");
+          // $("#readingQ-entry-message").show();
+          return;
+        }
+
+
+        // Compute the overall homework percent. Assuming equal weight
+        let homework_percent = "";
+
+        homework_percent = 1/3 * ((homework1 / hw1_max)*100 + (homework2 / hw2_max)*100 + homework3)
+
+        $("#overall-homework-input").val(homework_percent);
+        // $("#readingQ-entry-message").hide();
+      }
+      function refreshParticipationScores() {
+        const DM_PRES_MAX = 10;
+        $(".dm1 input").prop("disabled", false);
+        $(".dm2 input").prop("disabled", false);
+        $(".readingPres input").prop("disabled", false);
+
+        let dm1 = Number.parseFloat($(".dm1 input").val());
+        let dm2 = Number.parseFloat($(".dm2 input").val());
+        let readingPres = Number.parseFloat($(".readingPres input").val());
+        let readingQs = Number.parseFloat($("#overall-readingQ-input").val());
+
+
+        // Abort if we don't have scores for everything or a score is out of the valid range
+        if (!isValidScore(readingQs)|| !isValidScore(dm1, 0, DM_PRES_MAX) ||  !isValidScore(dm2, 0, DM_PRES_MAX) || !isValidScore(readingPres, 0, DM_PRES_MAX)) {
+          $("#overall-participation-input").val("");
+          return;
+        }
+
+
+        // Compute the overall participation percent (including reading Qs).
+        let participation_percent = "";
+
+        participation_percent = 1/4 * ((dm1 / DM_PRES_MAX) + (dm2 / DM_PRES_MAX) + (readingPres/DM_PRES_MAX))*100 + 1/4 * readingQs
+
+        $("#overall-participation-input").val(participation_percent);
+        // $("#readingQ-entry-message").hide();
+      }
+
+      function refreshFinalScores() {
+        
+        $(".code input").prop("disabled", false);
+        $(".description input").prop("disabled", false);
+        $(".outline input").prop("disabled", false);
+        $(".finalPres input").prop("disabled", false);
+        $(".finalReport input").prop("disabled", false);
+
+        let code = Number.parseFloat($(".code input").val());
+        let code_max = Number.parseFloat($(".code input").attr("max"));
+        let description = Number.parseFloat($(".description input").val());
+        let description_max = Number.parseFloat($(".description input").attr("max"));
+        let outline = Number.parseFloat($(".outline input").val());
+        let outline_max = Number.parseFloat($(".outline input").attr("max"));
+
+        let finalPres= Number.parseFloat($(".finalPres input").val());
+        let finalReport= Number.parseFloat($(".finalReport input").val());
+
+
+        // Abort if we don't have scores for everything or a score is out of the valid range
+        if (!isValidScore(code,0,code_max)|| !isValidScore(description, 0, description_max) ||  !isValidScore(outline, 0, outline_max) || !isValidScore(finalPres)|| !isValidScore(finalReport)) {
+          $("#overall-final-input").val("");
+          return;
+        }
+
+
+        // Compute the overall final percent. 
+        let final_percent = "";
+
+        final_percent = (((code/code_max)*WEIGHTS["FPCoC"] +  (description/description_max)*WEIGHTS["FPDesc"] + (outline/outline_max)*WEIGHTS["FPOutline"] ) + finalPres*(WEIGHTS["FPPres"]/100) + finalReport*(WEIGHTS["FPReport"]/100))/ WEIGHTS["final"] *100
+
+        $("#overall-final-input").val(final_percent);
+        // $("#readingQ-entry-message").hide();
       }
 
      function refreshCalculator() {
@@ -685,6 +833,9 @@
        // These must be done before calling extractScores().
        refreshLabScores();
        refreshReadingScores();
+       refreshHomeworkScores();
+       refreshParticipationScores();
+       refreshFinalScores();
 
        let scores = extractScores();
 
@@ -759,6 +910,7 @@
      });
 
      refreshCalculator();
+     $(".ui.accordion").accordion();
 
     </script>
   <!-- Footer -->
