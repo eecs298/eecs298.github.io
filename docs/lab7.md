@@ -4,7 +4,7 @@ title: Lab 7
 sitemapOrder: 20
 header-includes: |
     \usepackage{amsmath}
-latex:true
+latex: true
 ---
 
 Lab 7
