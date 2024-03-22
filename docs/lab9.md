@@ -47,7 +47,7 @@ Let $$A$$ be a random variable for the sensitive attribute. In this case $$A$$ i
 
 Recall the definition of demographic parity from lecture:
 $$
-P(\hat{Y} | A = \text{Age < 35}) = P(\hat{Y} | A = \text{Age >= 35})
+P(\hat{Y} = 1 | A = \text{Age < 35}) = P(\hat{Y} = 1 | A = \text{Age >= 35})
 $$
 
 Calculate each probability above and store the results in a dictionary such that you print out the results as follows
