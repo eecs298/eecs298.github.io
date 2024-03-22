@@ -15,7 +15,7 @@ In this lab, you will build another simple machine learning model with the South
 
 To get started, first download the South German Credit dataset using `wget` and then create a file called `lab9.py` in the same folder as the downloaded dataset.
 ```terminal
-$ wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/south-german-credit-lab-9.csv
+$ wget https://raw.githubusercontent.com/eecs298/eecs298.github.io/main/files/south-german-credit-lab9.csv
 ```
 
 ### Data - South German Credit Dataset
