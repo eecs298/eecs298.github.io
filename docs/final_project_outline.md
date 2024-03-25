@@ -34,7 +34,7 @@ There's nothing worse than realizing something you had counted on to work won't,
 
 # Submission
 
-You will submit the written report and the minimum working product as a .zip via Gradescope as a group. Gradescope has a rubric with points for this assignment. Make sure to enter all of your teammates in the prompt when submitting. You will be graded as a group. It should be one page (in a reasonable format like 12pt, single-spaced).  All work should be cited; any citation format is acceptable.
+You will submit the written report and the minimum working product as a .zip via Gradescope as a group. Gradescope has a rubric with points for this assignment. Make sure to enter all of your teammates in the prompt when submitting. You will be graded as a group. It should be no shorter than 4-5 pages (in a reasonable format like 12pt, single-spaced).  All work should be cited; any citation format is acceptable.
 
 # Rubric
 
